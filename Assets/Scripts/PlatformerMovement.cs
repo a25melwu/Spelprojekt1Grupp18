@@ -4,11 +4,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-
-
 // This script automatically adds a Rigidbody2D, CapsuleCollider2D and CircleCollider2D component in the inspector.
 // The Rigidbody2D component should (probably) have some constraints: Freeze Rotation Z
 // The Circle Collider 2D should be set to "is trigger", resized and moved to a proper position for ground check.
+// The following componenets are needed for headbutt check: BoxCollider2D
 // The following components are also needed: Player Input
 // Gravity for the project is set in Unity at Edit -> Project Settings -> Physics2D-> Gravity Y
 
@@ -32,17 +31,20 @@ class PlatformerMovement : MonoBehaviour
     private Vector2 velocity;
     private bool jumpInput;
     private bool jumpReleased;
-    private bool duckInput; //added for duck
-    private bool duckReleased; //added for duck
+    //private bool duckInput; //added for duck
+    //private bool duckReleased; //added for duck
     private bool wasGrounded;
     private bool isGrounded;
-    private Animator animator;
+    //private Animator animator;
     
     public InputActionAsset actionAsset;
-    private AudioPlayRandom jumpAudioPlay; //jumping sound
+    //private AudioPlayRandom jumpAudioPlay; //jumping sound
     
     private BoxCollider2D headCheckCollider; //for checking if head is colliding
     private bool isHeadbutt;
+
+    private bool faceRight;
+    private bool faceLeft;
 
     void Awake()
     {
@@ -56,9 +58,9 @@ class PlatformerMovement : MonoBehaviour
         //Set gravity scale to 0 so player wont "fall"
         rb.gravityScale = 0;
         
-        animator = GetComponent<Animator>();
+        //animator = GetComponent<Animator>();
         
-        jumpAudioPlay = GetComponentInChildren<AudioPlayRandom>(); //jumping sound
+        //jumpAudioPlay = GetComponentInChildren<AudioPlayRandom>(); //jumping sound
     }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -69,7 +71,7 @@ class PlatformerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        JumpSound(); //call jumping sound function
+        //JumpSound(); //call jumping sound function
         
         velocity = TranslateInputToVelocity(moveInput);
         if (jumpInput && wasGrounded)
@@ -77,7 +79,7 @@ class PlatformerMovement : MonoBehaviour
             maxSpeed = 2.5f;
             velocity.y = jumpForce;
             jumpInput = false;
-            duckInput = false;
+            //duckInput = false;
             
         }
         if (isHeadbutt == true) //added bounce if head is colliding
@@ -90,7 +92,7 @@ class PlatformerMovement : MonoBehaviour
         {
             jumpReleased = false;
             maxSpeed = 5f;
-            duckReleased = true;
+            //duckReleased = true;
             
             //has landed, play landing sound and trigger landing animation
 
@@ -123,23 +125,23 @@ class PlatformerMovement : MonoBehaviour
         
         
         //write movement animation code here. Suggestion: send your current velocity into the Animator for both the x- and y-axis
-        if (MathF.Abs(rb.linearVelocity.x) > 0.01f && isGrounded)
+        /*if (MathF.Abs(rb.linearVelocity.x) > 0.01f && isGrounded)
         {
             animator.SetBool("Walk", true);
         }
-        else animator.SetBool("Walk", false);
+        else animator.SetBool("Walk", false);*/
 
-        if (rb.linearVelocity.y > 0.01f && isGrounded == false)
+        /*if (rb.linearVelocity.y > 0.01f && isGrounded == false)
         {
             animator.SetBool("Jump", true);
         }
-        else animator.SetBool("Jump", false);
+        else animator.SetBool("Jump", false);*/
         
-        if (rb.linearVelocity.y < 0f && isGrounded && duckInput)
+        /*if (rb.linearVelocity.y < 0f && isGrounded && duckInput)
         {
             animator.SetBool("Duck", true);
         }
-        else animator.SetBool("Duck", false);
+        else animator.SetBool("Duck", false);*/
         
     }
 
@@ -232,7 +234,7 @@ class PlatformerMovement : MonoBehaviour
         }
     }
 
-    private void JumpSound()
+    /*private void JumpSound()
     {
         if (jumpInput && wasGrounded)
         {
@@ -241,9 +243,9 @@ class PlatformerMovement : MonoBehaviour
             
             
         }
-    }
+    }*/
     
-    public void OnDuck(InputAction.CallbackContext context) //added for duck
+    /*public void OnDuck(InputAction.CallbackContext context) //added for duck
     {
         if (context.started && controlEnabled)
         {
@@ -259,6 +261,36 @@ class PlatformerMovement : MonoBehaviour
             duckReleased = true;
         }
         
+    }*/
+    
+    public void OnLeft(InputAction.CallbackContext context)
+    {
+        
+        if (context.started && controlEnabled)
+        {
+            faceLeft = true;
+            
+        }
+
+        if (context.canceled && controlEnabled)
+        {
+            faceLeft = false;
+        }
+    }
+    
+    public void OnRight(InputAction.CallbackContext context)
+    {
+        
+        if (context.started && controlEnabled)
+        {
+            faceRight = true;
+            
+        }
+
+        if (context.canceled && controlEnabled)
+        {
+            faceRight = false;
+        }
     }
     
     
