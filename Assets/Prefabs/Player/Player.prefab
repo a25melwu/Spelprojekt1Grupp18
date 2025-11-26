@@ -208,7 +208,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   groundCheckCollider: {fileID: 5039686127752595502}
   headCheckCollider: {fileID: 1847543999875291480}
-  maxSpeed: 2.5
+  maxSpeed: 1.5
   jumpForce: 10
   spriteRenderer: {fileID: 5977985830864635036}
   jumpInputDeceleration: 2

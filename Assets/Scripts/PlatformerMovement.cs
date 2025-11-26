@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UIElements;
 
 // The Rigidbody2D component should (probably) have some constraints: Freeze Rotation Z, and added mass e.g. '5' /REMOVED
 // The Circle Collider 2D should be set to "is trigger", resized and moved to a proper position for ground check.
@@ -16,12 +17,7 @@ class PlatformerMovement : MonoBehaviour
     [SerializeField] private BoxCollider2D groundCheckCollider;
     [SerializeField] private BoxCollider2D headCheckCollider;
     [SerializeField] private float maxSpeed;
-    [SerializeField] private float jumpForce;
     [SerializeField] private SpriteRenderer spriteRenderer;
-    [Tooltip("Started as 1")]
-    [SerializeField] private float jumpInputDeceleration;
-    [Tooltip("Started as 5")]
-    [SerializeField] private float jumpReleasedDeceleration;
     
     public bool controlEnabled { get; set; } = true;
 
@@ -34,7 +30,6 @@ class PlatformerMovement : MonoBehaviour
 
     private Vector2 velocity;
     private bool jumpInput = false;
-    private bool jumpReleased;
     private bool wasGrounded;
     private bool isGrounded;
     //private Animator animator;
@@ -47,6 +42,15 @@ class PlatformerMovement : MonoBehaviour
     private bool faceRight = true;
     private bool faceLeft;
 
+    private float jumpChargeTime = 0f;
+    private float maxChargeTime = 1.0f;
+    private float minJumpForce = 1f;
+    private float maxJumpForce = 7f;
+    
+    private float landingSlowdown = 0.7f; // 1 - harder landing, 0.1 softer landing
+    private float jumpGravityScale = 0.6f; // 1 - heavier jump, 0.1 floatier jump
+    private float fallGravityScale = 0.8f; // 2 - fast falling, 0.5 slower falling
+    
     //[SerializeField] private bool canDoubleJump;
     //private int maxJumps = 2;
     //private int currentJumps = 0;
@@ -54,9 +58,7 @@ class PlatformerMovement : MonoBehaviour
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-        
         groundCheckCollider.isTrigger = true;
-
         headCheckCollider.isTrigger = true;
         
         //Set gravity scale to 0 so player wont "fall"
@@ -82,34 +84,36 @@ class PlatformerMovement : MonoBehaviour
         {
             faceLeft = true;
             faceRight = false;
+            
         }
         else if (actionAsset.FindAction("Right").IsPressed() && isGrounded)
         {
             faceRight = true;
             faceLeft = false;
+            
         }
         
-        if (faceLeft && jumpInput)
-        {
-            moveInput = Vector2.left.normalized;
-        }
-        if (faceRight && jumpInput)
-        {
-            moveInput = Vector2.right.normalized;
-        }
-        
-        
-        velocity = TranslateInputToVelocity(moveInput);
-        Debug.Log(wasGrounded);
         if (jumpInput && wasGrounded)
         {
-            //maxSpeed = 2.5f;
-            velocity.y = jumpForce;
-            jumpInput = false;
+            //add visual feedback here 
             
-
+            jumpChargeTime += Time.deltaTime;
+            
+            if (jumpChargeTime >= maxChargeTime)
+            {
+                velocity.y = maxJumpForce;
+                if (faceLeft) moveInput = Vector2.left.normalized;
+                else if (faceRight) moveInput = Vector2.right.normalized;
+                
+                jumpInput = false;
+            }
+            
         }
+        
+        velocity = TranslateInputToVelocity(moveInput);
+        
         //Debug.Log($"{jumpInput} , {canDoubleJump}, {currentJumps}");
+        
         /*if (jumpInput && canDoubleJump && currentJumps < maxJumps)
         {
             velocity.y = jumpForce;
@@ -127,9 +131,7 @@ class PlatformerMovement : MonoBehaviour
         //check if character gained contact with ground this frame
         if (wasGrounded == false && isGrounded == true)
         {
-            
             moveInput = Vector2.zero;
-            //maxSpeed = 5f;
             
             //canDoubleJump = false;
             //currentJumps = 0;
@@ -208,31 +210,26 @@ class PlatformerMovement : MonoBehaviour
     {
         if (isGrounded && velocity.y < 0.0f)
         {
-            velocity.y = -1f;
+            velocity.y = -1f * landingSlowdown; //soft landing
         }
         
         //updates fall speed with gravity if object isnt grounded
         else
         {
-            //is jumping
-            if (velocity.y > 0)
+            float gravityScale;
+            
+            
+            if (velocity.y > 0)  //is jumping
             {
-                float deceleration = jumpInputDeceleration; //started as 1, local variable
-                if (jumpReleased) //shorter jump height when releasing the jump
-                {
-                    deceleration = jumpReleasedDeceleration; //started as 5, local variable
-                    
-                }
-                //add gravity multiplier here
-                velocity.y += Physics2D.gravity.y * deceleration * Time.deltaTime;
+                gravityScale = jumpGravityScale; //floaty ascent
+               
             }
            
-            //is falling
-            else
+            else //is falling
             {
-                //add gravity multiplier here
-                velocity.y += Physics2D.gravity.y * Time.deltaTime;
+                gravityScale = fallGravityScale; //slow descent
             }
+            velocity.y += Physics2D.gravity.y * gravityScale * Time.deltaTime;
         }
     }
 
@@ -257,14 +254,22 @@ class PlatformerMovement : MonoBehaviour
     {
         if (context.started && controlEnabled && wasGrounded)
         {
+            jumpChargeTime = 0f;
             jumpInput = true;
-            jumpReleased = false;
             
         }
 
-        if (context.canceled && controlEnabled)
+        if (context.canceled && jumpInput)
         {
-            jumpReleased = true;
+            //Debug.Log($"OnJump - moveInput {moveInput}, velocity before: {velocity}");
+            float charge = Mathf.Clamp01(jumpChargeTime / maxChargeTime); 
+            velocity.y = Mathf.Lerp(minJumpForce, maxJumpForce, charge);
+            
+            if (faceLeft) moveInput = Vector2.left.normalized;
+            else if (faceRight) moveInput = Vector2.right.normalized;
+            
+            //Debug.Log($"OnJump - velocity after : {velocity}");
+            
             jumpInput = false;
             
         }
