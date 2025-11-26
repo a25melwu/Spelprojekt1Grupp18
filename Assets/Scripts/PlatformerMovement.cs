@@ -33,7 +33,7 @@ class PlatformerMovement : MonoBehaviour
     private LayerMask groundLayer = ~0; //~0 is referring to EVERY layer. Serialize the variable and assign the layer of your choice if you want a specific layer.
 
     private Vector2 velocity;
-    private bool jumpInput;
+    private bool jumpInput = false;
     private bool jumpReleased;
     //private bool duckInput; //added for duck
     //private bool duckReleased; //added for duck
@@ -76,6 +76,8 @@ class PlatformerMovement : MonoBehaviour
     void Update()
     {
         //JumpSound(); //call jumping sound function
+        
+        
         if (actionAsset.FindAction("Left").IsPressed() && isGrounded)
         {
             faceLeft = true;
@@ -98,14 +100,16 @@ class PlatformerMovement : MonoBehaviour
         
         
         velocity = TranslateInputToVelocity(moveInput);
+        
         if (jumpInput && wasGrounded)
         {
             //maxSpeed = 2.5f;
             velocity.y = jumpForce;
             jumpInput = false;
             //duckInput = false;
-            
+
         }
+        
         if (isHeadbutt == true) //added bounce if head is colliding
         {
             velocity.y = -maxSpeed;
@@ -114,12 +118,12 @@ class PlatformerMovement : MonoBehaviour
         //check if character gained contact with ground this frame
         if (wasGrounded == false && isGrounded == true)
         {
-            jumpReleased = false;
+            moveInput = Vector2.zero;
             //maxSpeed = 5f;
             //duckReleased = true;
             
             //has landed, play landing sound and trigger landing animation
-            moveInput = Vector2.zero;
+            
         }
         
         wasGrounded = isGrounded;
@@ -222,6 +226,7 @@ class PlatformerMovement : MonoBehaviour
                 if (jumpReleased) //shorter jump height when releasing the jump
                 {
                     deceleration = jumpReleasedDeceleration; //started as 5, local variable
+                    
                 }
                 //add gravity multiplier here
                 velocity.y += Physics2D.gravity.y * deceleration * Time.deltaTime;
@@ -255,7 +260,7 @@ class PlatformerMovement : MonoBehaviour
 
     public void OnJump(InputAction.CallbackContext context)
     {
-        if (context.started && controlEnabled)
+        if (context.started && controlEnabled && wasGrounded)
         {
             jumpInput = true;
             jumpReleased = false;
