@@ -50,6 +50,10 @@ class PlatformerMovement : MonoBehaviour
     private bool faceRight = true;
     private bool faceLeft;
 
+    [SerializeField] private bool canDoubleJump;
+    private int maxJumps = 2;
+    private int currentJumps = 0;
+
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -106,9 +110,19 @@ class PlatformerMovement : MonoBehaviour
             //maxSpeed = 2.5f;
             velocity.y = jumpForce;
             jumpInput = false;
+            
             //duckInput = false;
 
         }
+        Debug.Log($"{jumpInput} , {canDoubleJump}, {currentJumps}");
+        if (jumpInput && canDoubleJump && currentJumps < maxJumps)
+        {
+            velocity.y = jumpForce;
+            jumpInput = false;
+            currentJumps++;
+            Debug.Log("should doublejump");
+        }
+        
         
         if (isHeadbutt == true) //added bounce if head is colliding
         {
@@ -118,14 +132,17 @@ class PlatformerMovement : MonoBehaviour
         //check if character gained contact with ground this frame
         if (wasGrounded == false && isGrounded == true)
         {
+            
             moveInput = Vector2.zero;
             //maxSpeed = 5f;
             //duckReleased = true;
+            canDoubleJump = false;
+            currentJumps = 0;
             
             //has landed, play landing sound and trigger landing animation
             
         }
-        
+        Debug.Log(currentJumps);
         wasGrounded = isGrounded;
         
         //flip sprite according to direction (if a sprite renderer has been assigned)
