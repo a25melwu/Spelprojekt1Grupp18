@@ -4,17 +4,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-// This script automatically adds a Rigidbody2D, CapsuleCollider2D and CircleCollider2D component in the inspector.
-// The Rigidbody2D component should (probably) have some constraints: Freeze Rotation Z, and added mass e.g. '5'
+// The Rigidbody2D component should (probably) have some constraints: Freeze Rotation Z, and added mass e.g. '5' /REMOVED
 // The Circle Collider 2D should be set to "is trigger", resized and moved to a proper position for ground check.
 // The following componenets are needed for headbutt check: BoxCollider2D
 // The following components are also needed: Player Input
 // Gravity for the project is set in Unity at Edit -> Project Settings -> Physics2D-> Gravity Y
 
-[RequireComponent(typeof(Rigidbody2D), typeof(CircleCollider2D),
-    typeof(CapsuleCollider2D))]
+//[RequireComponent(typeof(Rigidbody2D), typeof(CircleCollider2D), typeof(CapsuleCollider2D))]
 class PlatformerMovement : MonoBehaviour
 {
+    [SerializeField] private BoxCollider2D groundCheckCollider;
+    [SerializeField] private BoxCollider2D headCheckCollider;
     [SerializeField] private float maxSpeed;
     [SerializeField] private float jumpForce;
     [SerializeField] private SpriteRenderer spriteRenderer;
@@ -29,38 +29,34 @@ class PlatformerMovement : MonoBehaviour
     private Rigidbody2D rb;
     
     //platformer specific variables
-    private CircleCollider2D groundCheckCollider;
+    
     private LayerMask groundLayer = ~0; //~0 is referring to EVERY layer. Serialize the variable and assign the layer of your choice if you want a specific layer.
 
     private Vector2 velocity;
     private bool jumpInput = false;
     private bool jumpReleased;
-    //private bool duckInput; //added for duck
-    //private bool duckReleased; //added for duck
     private bool wasGrounded;
     private bool isGrounded;
     //private Animator animator;
     
     public InputActionAsset actionAsset;
     //private AudioPlayRandom jumpAudioPlay; //jumping sound
-    
-    private BoxCollider2D headCheckCollider; //for checking if head is colliding
-    private bool isHeadbutt;
+
+    private bool isHeadbutt; //for checking if head is colliding
 
     private bool faceRight = true;
     private bool faceLeft;
 
-    [SerializeField] private bool canDoubleJump;
-    private int maxJumps = 2;
-    private int currentJumps = 0;
+    //[SerializeField] private bool canDoubleJump;
+    //private int maxJumps = 2;
+    //private int currentJumps = 0;
 
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-        groundCheckCollider = GetComponent<CircleCollider2D>();
+        
         groundCheckCollider.isTrigger = true;
 
-        headCheckCollider = GetComponent<BoxCollider2D>(); //for checking if head is colliding
         headCheckCollider.isTrigger = true;
         
         //Set gravity scale to 0 so player wont "fall"
@@ -104,24 +100,23 @@ class PlatformerMovement : MonoBehaviour
         
         
         velocity = TranslateInputToVelocity(moveInput);
-        
+        Debug.Log(wasGrounded);
         if (jumpInput && wasGrounded)
         {
             //maxSpeed = 2.5f;
             velocity.y = jumpForce;
             jumpInput = false;
             
-            //duckInput = false;
 
         }
-        Debug.Log($"{jumpInput} , {canDoubleJump}, {currentJumps}");
-        if (jumpInput && canDoubleJump && currentJumps < maxJumps)
+        //Debug.Log($"{jumpInput} , {canDoubleJump}, {currentJumps}");
+        /*if (jumpInput && canDoubleJump && currentJumps < maxJumps)
         {
             velocity.y = jumpForce;
             jumpInput = false;
             currentJumps++;
             Debug.Log("should doublejump");
-        }
+        }*/
         
         
         if (isHeadbutt == true) //added bounce if head is colliding
@@ -135,30 +130,17 @@ class PlatformerMovement : MonoBehaviour
             
             moveInput = Vector2.zero;
             //maxSpeed = 5f;
-            //duckReleased = true;
-            canDoubleJump = false;
-            currentJumps = 0;
+            
+            //canDoubleJump = false;
+            //currentJumps = 0;
             
             //has landed, play landing sound and trigger landing animation
             
         }
-        Debug.Log(currentJumps);
+        //Debug.Log(currentJumps);
         wasGrounded = isGrounded;
         
         //flip sprite according to direction (if a sprite renderer has been assigned)
-
-        /*if (spriteRenderer)
-        {
-            if (moveInput.x > 0.01f)
-            {
-                spriteRenderer.flipX = true;
-            }
-            else if (moveInput.x < -0.01f)
-            {
-                spriteRenderer.flipX = false;
-            }
-        }*/
-        
         if (spriteRenderer)
         {
             if (faceRight)
@@ -194,11 +176,7 @@ class PlatformerMovement : MonoBehaviour
         }
         else animator.SetBool("Jump", false);*/
         
-        /*if (rb.linearVelocity.y < 0f && isGrounded && duckInput)
-        {
-            animator.SetBool("Duck", true);
-        }
-        else animator.SetBool("Duck", false);*/
+        
         
     }
 
@@ -281,6 +259,7 @@ class PlatformerMovement : MonoBehaviour
         {
             jumpInput = true;
             jumpReleased = false;
+            
         }
 
         if (context.canceled && controlEnabled)
@@ -300,24 +279,6 @@ class PlatformerMovement : MonoBehaviour
             
             
         }
-    }*/
-    
-    /*public void OnDuck(InputAction.CallbackContext context) //added for duck
-    {
-        if (context.started && controlEnabled)
-        {
-            duckInput = true;
-            duckReleased = false;
-            
-        }
-
-        if (context.canceled && controlEnabled)
-        {
-            
-            duckInput = false;
-            duckReleased = true;
-        }
-        
     }*/
     
     
