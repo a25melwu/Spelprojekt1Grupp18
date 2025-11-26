@@ -146,11 +146,11 @@ class PlatformerMovement : MonoBehaviour
         {
             if (faceRight)
             {
-                spriteRenderer.flipX = true;
+                spriteRenderer.flipX = false;
             }
             else if (faceLeft)
             {
-                spriteRenderer.flipX = false;
+                spriteRenderer.flipX = true;
             }
         }
         
