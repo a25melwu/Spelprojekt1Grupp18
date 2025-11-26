@@ -1063,9 +1063,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38709bf18ae0ffa4dbe5b677d5bd8e62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSpeed: 5
+  maxSpeed: 2.5
   jumpForce: 10
   spriteRenderer: {fileID: 1388033531}
+  jumpInputDeceleration: 2
+  jumpReleasedDeceleration: 15
   actionAsset: {fileID: -944628639613478452, guid: a1d095cf99865c6478dd371115951b8a, type: 3}
 --- !u!61 &1388033527
 BoxCollider2D:
@@ -1198,7 +1200,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 5
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_GravityScale: 1

@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 // This script automatically adds a Rigidbody2D, CapsuleCollider2D and CircleCollider2D component in the inspector.
-// The Rigidbody2D component should (probably) have some constraints: Freeze Rotation Z
+// The Rigidbody2D component should (probably) have some constraints: Freeze Rotation Z, and added mass e.g. '5'
 // The Circle Collider 2D should be set to "is trigger", resized and moved to a proper position for ground check.
 // The following componenets are needed for headbutt check: BoxCollider2D
 // The following components are also needed: Player Input
@@ -15,9 +15,13 @@ using UnityEngine.InputSystem;
     typeof(CapsuleCollider2D))]
 class PlatformerMovement : MonoBehaviour
 {
-    [SerializeField] private float maxSpeed = 5f;
-    [SerializeField] private float jumpForce = 10f;
+    [SerializeField] private float maxSpeed;
+    [SerializeField] private float jumpForce;
     [SerializeField] private SpriteRenderer spriteRenderer;
+    [Tooltip("Started as 1")]
+    [SerializeField] private float jumpInputDeceleration;
+    [Tooltip("Started as 5")]
+    [SerializeField] private float jumpReleasedDeceleration;
     
     public bool controlEnabled { get; set; } = true;
 
@@ -96,7 +100,7 @@ class PlatformerMovement : MonoBehaviour
         velocity = TranslateInputToVelocity(moveInput);
         if (jumpInput && wasGrounded)
         {
-            maxSpeed = 2.5f;
+            //maxSpeed = 2.5f;
             velocity.y = jumpForce;
             jumpInput = false;
             //duckInput = false;
@@ -214,10 +218,10 @@ class PlatformerMovement : MonoBehaviour
             //is jumping
             if (velocity.y > 0)
             {
-                float deceleration = 2; //started as 1
+                float deceleration = jumpInputDeceleration; //started as 1, local variable
                 if (jumpReleased) //shorter jump height when releasing the jump
                 {
-                    deceleration = 6; //started as 5
+                    deceleration = jumpReleasedDeceleration; //started as 5, local variable
                 }
                 //add gravity multiplier here
                 velocity.y += Physics2D.gravity.y * deceleration * Time.deltaTime;
@@ -251,8 +255,6 @@ class PlatformerMovement : MonoBehaviour
 
     public void OnJump(InputAction.CallbackContext context)
     {
-        
-        
         if (context.started && controlEnabled)
         {
             jumpInput = true;
