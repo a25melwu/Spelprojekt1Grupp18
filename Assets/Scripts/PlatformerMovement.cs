@@ -43,7 +43,7 @@ class PlatformerMovement : MonoBehaviour
     private BoxCollider2D headCheckCollider; //for checking if head is colliding
     private bool isHeadbutt;
 
-    private bool faceRight;
+    private bool faceRight = true;
     private bool faceLeft;
 
     void Awake()
@@ -72,6 +72,26 @@ class PlatformerMovement : MonoBehaviour
     void Update()
     {
         //JumpSound(); //call jumping sound function
+        if (actionAsset.FindAction("Left").IsPressed() && isGrounded)
+        {
+            faceLeft = true;
+            faceRight = false;
+        }
+        else if (actionAsset.FindAction("Right").IsPressed() && isGrounded)
+        {
+            faceRight = true;
+            faceLeft = false;
+        }
+        
+        if (faceLeft && jumpInput)
+        {
+            moveInput = Vector2.left.normalized;
+        }
+        if (faceRight && jumpInput)
+        {
+            moveInput = Vector2.right.normalized;
+        }
+        
         
         velocity = TranslateInputToVelocity(moveInput);
         if (jumpInput && wasGrounded)
@@ -91,24 +111,36 @@ class PlatformerMovement : MonoBehaviour
         if (wasGrounded == false && isGrounded == true)
         {
             jumpReleased = false;
-            maxSpeed = 5f;
+            //maxSpeed = 5f;
             //duckReleased = true;
             
             //has landed, play landing sound and trigger landing animation
-
+            moveInput = Vector2.zero;
         }
         
         wasGrounded = isGrounded;
         
         //flip sprite according to direction (if a sprite renderer has been assigned)
 
-        if (spriteRenderer)
+        /*if (spriteRenderer)
         {
             if (moveInput.x > 0.01f)
             {
                 spriteRenderer.flipX = true;
             }
             else if (moveInput.x < -0.01f)
+            {
+                spriteRenderer.flipX = false;
+            }
+        }*/
+        
+        if (spriteRenderer)
+        {
+            if (faceRight)
+            {
+                spriteRenderer.flipX = true;
+            }
+            else if (faceLeft)
             {
                 spriteRenderer.flipX = false;
             }
@@ -182,10 +214,10 @@ class PlatformerMovement : MonoBehaviour
             //is jumping
             if (velocity.y > 0)
             {
-                float deceleration = 1;
+                float deceleration = 2; //started as 1
                 if (jumpReleased) //shorter jump height when releasing the jump
                 {
-                    deceleration = 5;
+                    deceleration = 6; //started as 5
                 }
                 //add gravity multiplier here
                 velocity.y += Physics2D.gravity.y * deceleration * Time.deltaTime;
@@ -205,7 +237,7 @@ class PlatformerMovement : MonoBehaviour
         return new Vector2(input.x * maxSpeed, velocity.y);
     }
 
-    public void OnMove(InputAction.CallbackContext context)
+    /*public void OnMove(InputAction.CallbackContext context)
     {
         if (controlEnabled)
         {
@@ -215,7 +247,7 @@ class PlatformerMovement : MonoBehaviour
         {
             moveInput = Vector2.zero;
         }
-    }
+    }*/
 
     public void OnJump(InputAction.CallbackContext context)
     {
@@ -231,6 +263,7 @@ class PlatformerMovement : MonoBehaviour
         {
             jumpReleased = true;
             jumpInput = false;
+            
         }
     }
 
@@ -262,36 +295,6 @@ class PlatformerMovement : MonoBehaviour
         }
         
     }*/
-    
-    public void OnLeft(InputAction.CallbackContext context)
-    {
-        
-        if (context.started && controlEnabled)
-        {
-            faceLeft = true;
-            
-        }
-
-        if (context.canceled && controlEnabled)
-        {
-            faceLeft = false;
-        }
-    }
-    
-    public void OnRight(InputAction.CallbackContext context)
-    {
-        
-        if (context.started && controlEnabled)
-        {
-            faceRight = true;
-            
-        }
-
-        if (context.canceled && controlEnabled)
-        {
-            faceRight = false;
-        }
-    }
     
     
 }
