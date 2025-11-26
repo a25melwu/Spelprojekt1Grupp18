@@ -106,11 +106,11 @@ class PlatformerMovement : MonoBehaviour
         {
             if (moveInput.x > 0.01f)
             {
-                spriteRenderer.flipX = false;
+                spriteRenderer.flipX = true;
             }
             else if (moveInput.x < -0.01f)
             {
-                spriteRenderer.flipX = true;
+                spriteRenderer.flipX = false;
             }
         }
         
