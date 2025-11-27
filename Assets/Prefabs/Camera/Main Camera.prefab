@@ -213,7 +213,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ff9ee55f1a1faf4881d287d737d0a5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  notes: 
+  notes: The collider size and position gets set in the script.
 --- !u!114 &8592139532728536730
 MonoBehaviour:
   m_ObjectHideFlags: 0
