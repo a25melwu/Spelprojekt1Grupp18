@@ -34,10 +34,7 @@ public class SquahAndStretch : MonoBehaviour
         float stretchY = 1 + finalStretch;
         float stretchX = 1 - finalStretch * 0.5f;
 
-        Vector3 target = new Vector3(
-            originalScale.x * stretchX,
-            originalScale.y * stretchY,
-            1);
+        Vector3 target = new Vector3(originalScale.x * stretchX, originalScale.y * stretchY, 1);
 
         spriteToAffect.localScale = Vector3.Lerp(spriteToAffect.localScale, target, Time.deltaTime * returnToNormalSpeed);
     }
