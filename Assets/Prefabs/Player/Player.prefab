@@ -278,6 +278,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 73888121708592140}
+  - component: {fileID: 5826644251732493601}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -301,6 +302,23 @@ Transform:
   - {fileID: 8288663279442236134}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5826644251732493601
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 670151725835698634}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6a23baf76511e04faa00b86f492fe42, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerRigidbody2D: {fileID: 6528067284052208885}
+  spriteToAffect: {fileID: 7411548364015038513}
+  stretchMultiplier: 0.05
+  maxStretch: 0.35
+  returnToNormalSpeed: 30
 --- !u!1 &2187494036739221642
 GameObject:
   m_ObjectHideFlags: 0
