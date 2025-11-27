@@ -3,10 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 using UnityEngine.UIElements;
 
-// The Rigidbody2D component should (probably) have some constraints: Freeze Rotation Z, and added mass e.g. '5' /REMOVED
-// The Circle Collider 2D should be set to "is trigger", resized and moved to a proper position for ground check.
+// The Rigidbody2D component should (probably) have some constraints: Freeze Rotation Z, and added mass e.g. '5' 
+// The BoxCollider 2D should be set to "is trigger", resized and moved to a proper position for ground check.
 // The following componenets are needed for headbutt check: BoxCollider2D
 // The following components are also needed: Player Input
 // Gravity for the project is set in Unity at Edit -> Project Settings -> Physics2D-> Gravity Y
@@ -40,8 +41,7 @@ class PlatformerMovement : MonoBehaviour
     private bool isHeadbutt; //for checking if head is colliding
 
     private bool faceRight = true;
-    private bool faceLeft;
-
+    
     private float jumpChargeTime = 0f;
     private float maxChargeTime = 1.0f;
     private float minJumpForce = 1f;
@@ -51,9 +51,9 @@ class PlatformerMovement : MonoBehaviour
     private float jumpGravityScale = 0.6f; // 1 - heavier jump, 0.1 floatier jump
     private float fallGravityScale = 0.8f; // 2 - fast falling, 0.5 slower falling
     
-    //[SerializeField] private bool canDoubleJump;
-    //private int maxJumps = 2;
-    //private int currentJumps = 0;
+    [SerializeField] private bool DoubleJump;
+    private int maxJumps = 2;
+    private int currentJumps = 0;
 
     void Awake()
     {
@@ -78,49 +78,46 @@ class PlatformerMovement : MonoBehaviour
     void Update()
     {
         //JumpSound(); //call jumping sound function
-        
-        
-        if (actionAsset.FindAction("Left").IsPressed() && isGrounded)
+
+        if (isGrounded)
         {
-            faceLeft = true;
-            faceRight = false;
-            
-        }
-        else if (actionAsset.FindAction("Right").IsPressed() && isGrounded)
-        {
-            faceRight = true;
-            faceLeft = false;
-            
+            if (actionAsset.FindAction("Right").IsPressed())
+            {
+                faceRight = true;
+            }
+
+            if (actionAsset.FindAction("Left").IsPressed())
+            {
+                faceRight = false;
+            }
         }
         
-        if (jumpInput && wasGrounded)
+        if (jumpInput && currentJumps < maxJumps) 
         {
             //add visual feedback here 
             
             jumpChargeTime += Time.deltaTime;
             
-            if (jumpChargeTime >= maxChargeTime)
+            if (jumpChargeTime >= maxChargeTime) //auto-releases at max
             {
                 velocity.y = maxJumpForce;
-                if (faceLeft) moveInput = Vector2.left.normalized;
-                else if (faceRight) moveInput = Vector2.right.normalized;
+                switch (faceRight)
+                {
+                    case true: 
+                        moveInput = Vector2.right.normalized;
+                        break;
+                    case false:
+                        moveInput = Vector2.left.normalized;
+                        break;
+                }
                 
                 jumpInput = false;
+                currentJumps++;
             }
             
         }
-        
+
         velocity = TranslateInputToVelocity(moveInput);
-        
-        //Debug.Log($"{jumpInput} , {canDoubleJump}, {currentJumps}");
-        
-        /*if (jumpInput && canDoubleJump && currentJumps < maxJumps)
-        {
-            velocity.y = jumpForce;
-            jumpInput = false;
-            currentJumps++;
-            Debug.Log("should doublejump");
-        }*/
         
         
         if (isHeadbutt == true) //added bounce if head is colliding
@@ -128,30 +125,30 @@ class PlatformerMovement : MonoBehaviour
             velocity.y = -maxSpeed;
         }
 
-        //check if character gained contact with ground this frame
-        if (wasGrounded == false && isGrounded == true)
+        
+        if (wasGrounded == false && isGrounded == true) //check if character gained contact with ground this frame
         {
             moveInput = Vector2.zero;
             
-            //canDoubleJump = false;
-            //currentJumps = 0;
+            currentJumps = 0; //reset jump counter when landing
             
             //has landed, play landing sound and trigger landing animation
             
         }
-        //Debug.Log(currentJumps);
+       
         wasGrounded = isGrounded;
         
-        //flip sprite according to direction (if a sprite renderer has been assigned)
-        if (spriteRenderer)
+        
+        if (spriteRenderer) //flip sprite according to direction (if a sprite renderer has been assigned)
         {
-            if (faceRight)
+            switch (faceRight)
             {
-                spriteRenderer.flipX = false;
-            }
-            else if (faceLeft)
-            {
-                spriteRenderer.flipX = true;
+                case true:
+                    spriteRenderer.flipX = false;
+                    break;
+                case false:
+                    spriteRenderer.flipX = true;
+                    break;
             }
         }
         
@@ -218,7 +215,6 @@ class PlatformerMovement : MonoBehaviour
         {
             float gravityScale;
             
-            
             if (velocity.y > 0)  //is jumping
             {
                 gravityScale = jumpGravityScale; //floaty ascent
@@ -252,26 +248,34 @@ class PlatformerMovement : MonoBehaviour
 
     public void OnJump(InputAction.CallbackContext context)
     {
-        if (context.started && controlEnabled && wasGrounded)
+        if (context.started && controlEnabled) 
         {
-            jumpChargeTime = 0f;
-            jumpInput = true;
-            
+            if (wasGrounded || (DoubleJump && !wasGrounded && currentJumps < maxJumps)) //jump either from ground OR (can doublejump AND in air AND have jumps left)
+            {
+                jumpChargeTime = 0f;
+                jumpInput = true;
+            }
         }
 
-        if (context.canceled && jumpInput)
+        if (context.canceled && jumpInput && currentJumps < maxJumps)
         {
             //Debug.Log($"OnJump - moveInput {moveInput}, velocity before: {velocity}");
             float charge = Mathf.Clamp01(jumpChargeTime / maxChargeTime); 
             velocity.y = Mathf.Lerp(minJumpForce, maxJumpForce, charge);
             
-            if (faceLeft) moveInput = Vector2.left.normalized;
-            else if (faceRight) moveInput = Vector2.right.normalized;
-            
-            //Debug.Log($"OnJump - velocity after : {velocity}");
+            switch (faceRight)
+            {
+                case true: 
+                    moveInput = Vector2.right.normalized;
+                    break;
+                case false:
+                    moveInput = Vector2.left.normalized;
+                    break;
+            }
             
             jumpInput = false;
-            
+            currentJumps++;
+
         }
     }
 
