@@ -284,6 +284,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c235cf024f2a81e4fa184a03d6a31417, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tagToActivate: Player
   onTriggerEnter:
     m_PersistentCalls:
       m_Calls:
@@ -585,6 +586,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c235cf024f2a81e4fa184a03d6a31417, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tagToActivate: Player
   onTriggerEnter:
     m_PersistentCalls:
       m_Calls:
@@ -1535,6 +1537,10 @@ PrefabInstance:
     - target: {fileID: 670151725835698634, guid: e5e25022b794efd41bbe6e0375e39b47, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 5826644251732493601, guid: e5e25022b794efd41bbe6e0375e39b47, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

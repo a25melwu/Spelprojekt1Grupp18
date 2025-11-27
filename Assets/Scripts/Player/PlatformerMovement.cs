@@ -17,9 +17,7 @@ class PlatformerMovement : MonoBehaviour
 {
     [SerializeField] private BoxCollider2D groundCheckCollider;
     [SerializeField] private BoxCollider2D headCheckCollider;
-    [SerializeField] private float maxSpeed;
     [SerializeField] private SpriteRenderer spriteRenderer;
-    
     public bool controlEnabled { get; set; } = true;
 
     private Vector2 moveInput;
@@ -36,15 +34,19 @@ class PlatformerMovement : MonoBehaviour
     //private Animator animator;
     
     public InputActionAsset actionAsset;
-    //private AudioPlayRandom jumpAudioPlay; //jumping sound
+    private AudioPlayRandom jumpAudioPlay; //jumping sound
 
     private bool isHeadbutt; //for checking if head is colliding
 
     private bool faceRight = true;
     
+    [Header("Movement/jump variables")]
+    [Tooltip("maxSpeed is a constant for x-axis")]
+    [SerializeField] private float maxSpeed;
     private float jumpChargeTime = 0f;
     private float maxChargeTime = 1.0f;
     private float minJumpForce = 1f;
+    [Tooltip("Jump force adjusts in y-axis")]
     [SerializeField] private float maxJumpForce = 7f;
     
     [Tooltip("1 - harder landing, 0.1 - softer landing")]
@@ -68,7 +70,7 @@ class PlatformerMovement : MonoBehaviour
         
         //animator = GetComponent<Animator>();
         
-        //jumpAudioPlay = GetComponentInChildren<AudioPlayRandom>(); //jumping sound
+        jumpAudioPlay = GetComponentInChildren<AudioPlayRandom>(); //jumping sound
     }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -79,7 +81,6 @@ class PlatformerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //JumpSound(); //call jumping sound function
 
         if (isGrounded)
         {
@@ -112,9 +113,13 @@ class PlatformerMovement : MonoBehaviour
                         moveInput = Vector2.left.normalized;
                         break;
                 }
-                
+                if (isGrounded && currentJumps == 0) //play jump sound when auto-released
+                {
+                    jumpAudioPlay.PlayAudio();
+                }
                 jumpInput = false;
                 currentJumps++;
+                
             }
             
         }
@@ -274,23 +279,17 @@ class PlatformerMovement : MonoBehaviour
                     moveInput = Vector2.left.normalized;
                     break;
             }
+            if (isGrounded && currentJumps == 0) //play this jumpsound as first jump
+            {
+                jumpAudioPlay.PlayAudio();
+            }
             
             jumpInput = false;
             currentJumps++;
+            
 
         }
     }
-
-    /*private void JumpSound()
-    {
-        if (jumpInput && wasGrounded)
-        {
-            
-            jumpAudioPlay.PlayAudio();
-            
-            
-        }
-    }*/
 
     public void AddDoubleJump(int add)
     {

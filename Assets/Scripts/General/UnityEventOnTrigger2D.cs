@@ -6,10 +6,12 @@ using UnityEngine.Events;
 
 public class UnityEventOnTrigger2D : MonoBehaviour
 {
-    //public string tagToActivate = "Player";
+    public string tagToActivate = "Player";
 
     public UnityEvent onTriggerEnter;
     public UnityEvent onTriggerExit;
+
+    private bool triggeredThisFrame = false; //flag to limit collisions to 1 per frame
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -31,33 +33,28 @@ public class UnityEventOnTrigger2D : MonoBehaviour
         }
     }
 
-    /*private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.CompareTag(tagToActivate))
-        {
-            onTriggerEnter.Invoke();
-            Debug.Log("Unity Event Trigger (enter) activated on " + gameObject.name);
-        }
-    }*/
-    
     private void OnTriggerEnter2D(Collider2D other)
     {
-        onTriggerEnter.Invoke();
-        
+        if (other.CompareTag(tagToActivate) && !triggeredThisFrame)
+        {
+            onTriggerEnter.Invoke();
+            triggeredThisFrame = true;
+            //Debug.Log("Unity Event Trigger (enter) activated on " + gameObject.name);
+        }
     }
-
-    /*private void OnTriggerExit2D(Collider2D other)
+    
+    
+    private void OnTriggerExit2D(Collider2D other)
     {
         if (other.CompareTag(tagToActivate))
         {
             onTriggerExit.Invoke();
-            Debug.Log("Unity Event Trigger (exit) activated on " + gameObject.name);
+            //Debug.Log("Unity Event Trigger (exit) activated on " + gameObject.name);
         }
-    }*/
-    
-    private void OnTriggerExit2D(Collider2D other)
+    }
+
+    private void LateUpdate() 
     {
-        onTriggerExit.Invoke();
-        
+        triggeredThisFrame = false; //resets flag every frame
     }
 }
