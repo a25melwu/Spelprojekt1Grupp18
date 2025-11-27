@@ -1,0 +1,403 @@
+fileFormatVersion: 2
+guid: cb40dbc5a920159429b455fc0c3f9f16
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -3608684063759346288
+    second: RocksSpikesStalagtitesUpdated_0
+  - first:
+      213: 7275821935861112409
+    second: RocksSpikesStalagtitesUpdated_1
+  - first:
+      213: -4027283448749328506
+    second: RocksSpikesStalagtitesUpdated_2
+  - first:
+      213: 3913695144655153439
+    second: RocksSpikesStalagtitesUpdated_3
+  - first:
+      213: -3568202033945755921
+    second: RocksSpikesStalagtitesUpdated_4
+  - first:
+      213: 6774813180719542082
+    second: RocksSpikesStalagtitesUpdated_5
+  - first:
+      213: 7207361257955755453
+    second: RocksSpikesStalagtitesUpdated_6
+  - first:
+      213: -8775670791489905030
+    second: RocksSpikesStalagtitesUpdated_7
+  - first:
+      213: -2972259829022628454
+    second: RocksSpikesStalagtitesUpdated_8
+  - first:
+      213: 4789305994682225119
+    second: RocksSpikesStalagtitesUpdated_9
+  - first:
+      213: 2512791866645841241
+    second: RocksSpikesStalagtitesUpdated_10
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: RocksSpikesStalagtitesUpdated_0
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 63
+        width: 12
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 095d201b6f06bedc0800000000000000
+      internalID: -3608684063759346288
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RocksSpikesStalagtitesUpdated_1
+      rect:
+        serializedVersion: 2
+        x: 18
+        y: 63
+        width: 12
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 95e1fff6089e8f460800000000000000
+      internalID: 7275821935861112409
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RocksSpikesStalagtitesUpdated_2
+      rect:
+        serializedVersion: 2
+        x: 26
+        y: 31
+        width: 28
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6877c737a073c18c0800000000000000
+      internalID: -4027283448749328506
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RocksSpikesStalagtitesUpdated_3
+      rect:
+        serializedVersion: 2
+        x: 50
+        y: 63
+        width: 12
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f1967589ffc305630800000000000000
+      internalID: 3913695144655153439
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RocksSpikesStalagtitesUpdated_4
+      rect:
+        serializedVersion: 2
+        x: 63
+        y: 31
+        width: 17
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fee36dfb7233b7ec0800000000000000
+      internalID: -3568202033945755921
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RocksSpikesStalagtitesUpdated_5
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 28
+        width: 17
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 24f2c6081b8f40e50800000000000000
+      internalID: 6774813180719542082
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RocksSpikesStalagtitesUpdated_6
+      rect:
+        serializedVersion: 2
+        x: 10
+        y: 26
+        width: 10
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: db58d5cb0e0b50460800000000000000
+      internalID: 7207361257955755453
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RocksSpikesStalagtitesUpdated_7
+      rect:
+        serializedVersion: 2
+        x: 31
+        y: 15
+        width: 37
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a7e197f19ed863680800000000000000
+      internalID: -8775670791489905030
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RocksSpikesStalagtitesUpdated_8
+      rect:
+        serializedVersion: 2
+        x: 12
+        y: 0
+        width: 8
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a9561f6ee6960c6d0800000000000000
+      internalID: -2972259829022628454
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RocksSpikesStalagtitesUpdated_9
+      rect:
+        serializedVersion: 2
+        x: 17
+        y: 1
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fd1dea56d68077240800000000000000
+      internalID: 4789305994682225119
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RocksSpikesStalagtitesUpdated_10
+      rect:
+        serializedVersion: 2
+        x: 33
+        y: 1
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9558aeda3ea3fd220800000000000000
+      internalID: 2512791866645841241
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      RocksSpikesStalagtitesUpdated_0: -3608684063759346288
+      RocksSpikesStalagtitesUpdated_1: 7275821935861112409
+      RocksSpikesStalagtitesUpdated_10: 2512791866645841241
+      RocksSpikesStalagtitesUpdated_2: -4027283448749328506
+      RocksSpikesStalagtitesUpdated_3: 3913695144655153439
+      RocksSpikesStalagtitesUpdated_4: -3568202033945755921
+      RocksSpikesStalagtitesUpdated_5: 6774813180719542082
+      RocksSpikesStalagtitesUpdated_6: 7207361257955755453
+      RocksSpikesStalagtitesUpdated_7: -8775670791489905030
+      RocksSpikesStalagtitesUpdated_8: -2972259829022628454
+      RocksSpikesStalagtitesUpdated_9: 4789305994682225119
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
