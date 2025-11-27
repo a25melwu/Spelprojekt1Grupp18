@@ -6,10 +6,9 @@ public class CameraLoseCollider : MonoBehaviour
 
     private void Start()
     {
+        //Set the colliders position to be at the edge of the screen - this way it will be correct even if the player plays on a weird screen
         Camera cam = Camera.main;
-
         transform.position = new Vector2(cam.transform.position.x, cam.transform.position.y - cam.orthographicSize);
-
         float width = cam.orthographicSize * 2f * cam.aspect;
         loseCollider.size = new Vector2(width, loseCollider.size.y);
     }
