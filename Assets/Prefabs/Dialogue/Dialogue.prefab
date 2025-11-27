@@ -182,7 +182,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogueCanvas: {fileID: 1720556412209627136}
   textBox: {fileID: 4791670743823186656}
-  dialogue:
+  dialogueText:
   - "L\xC4GG TILL TEXT H\xC4R"
   onStartDialogue:
     m_PersistentCalls:

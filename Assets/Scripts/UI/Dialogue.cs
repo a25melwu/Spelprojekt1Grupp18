@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.Events;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class Dialogue : MonoBehaviour
@@ -9,7 +10,8 @@ public class Dialogue : MonoBehaviour
     [SerializeField] private Canvas dialogueCanvas;
     [SerializeField] private TMPro.TextMeshProUGUI textBox;
     //[SerializeField] private Button nextButton;
-    [SerializeField] List<string> dialogue;
+    [TextArea(2,15)]
+    [SerializeField] List<string> dialogueText;
 
     [SerializeField] private UnityEvent onStartDialogue;
     [SerializeField] private UnityEvent onEndDialogue;
@@ -48,9 +50,9 @@ public class Dialogue : MonoBehaviour
         currentIndex++; // Move to the next item in the list of dialogue-lines
         
         
-        if (currentIndex < dialogue.Count) // If we're not at the end of the list yet: update text in text-box
+        if (currentIndex < dialogueText.Count) // If we're not at the end of the list yet: update text in text-box
         {
-            textBox.text = dialogue[currentIndex];
+            textBox.text = dialogueText[currentIndex];
 
             ResetTextAlpha(); //reset text alpha to fully visible
             fadeCoroutine = StartCoroutine(FadeOutTextAfterDelay()); //start fade out after delay
