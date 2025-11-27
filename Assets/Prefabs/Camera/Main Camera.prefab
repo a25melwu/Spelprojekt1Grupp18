@@ -226,6 +226,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b737a1a80083764dafce85f12d583a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  yOffset: 1.6
   loseCollider: {fileID: 4570357641579420352}
 --- !u!61 &4570357641579420352
 BoxCollider2D:
