@@ -45,14 +45,16 @@ class PlatformerMovement : MonoBehaviour
     private float jumpChargeTime = 0f;
     private float maxChargeTime = 1.0f;
     private float minJumpForce = 1f;
-    private float maxJumpForce = 7f;
+    [SerializeField] private float maxJumpForce = 7f;
     
-    private float landingSlowdown = 0.7f; // 1 - harder landing, 0.1 softer landing
-    private float jumpGravityScale = 0.6f; // 1 - heavier jump, 0.1 floatier jump
-    private float fallGravityScale = 0.8f; // 2 - fast falling, 0.5 slower falling
+    [Tooltip("1 - harder landing, 0.1 - softer landing")]
+    [SerializeField] private float landingSlowdown = 0.7f; // 1 - harder landing, 0.1 softer landing
+    [Tooltip("1 - heavier jump, 0.1 - floatier jump")]
+    [SerializeField] private float jumpGravityScale = 0.6f; // 1 - heavier jump, 0.1 floatier jump
+    [Tooltip("2 - fast falling, 0.5 - slower falling")]
+    [SerializeField] private float fallGravityScale = 0.8f; // 2 - fast falling, 0.5 slower falling
     
-    [SerializeField] private bool doubleJump;
-    private int maxJumps = 2;
+    private int maxJumps = 1;
     private int currentJumps = 0;
 
     void Awake()
@@ -250,7 +252,7 @@ class PlatformerMovement : MonoBehaviour
     {
         if (context.started && controlEnabled) 
         {
-            if (wasGrounded || (doubleJump && !wasGrounded && currentJumps < maxJumps)) //jump either from ground OR (can doublejump AND in air AND have jumps left)
+            if (wasGrounded || (!wasGrounded && currentJumps < maxJumps)) //jump either from ground OR (in air AND have jumps left)
             {
                 jumpChargeTime = 0f;
                 jumpInput = true;
@@ -290,15 +292,16 @@ class PlatformerMovement : MonoBehaviour
         }
     }*/
 
-    public void EnableDoubleJump()
+    public void AddDoubleJump(int add)
     {
-        doubleJump = true;
-        Debug.Log("Double Jump enabled");
+        maxJumps += add;
+        Debug.Log($"Current Doublejumps: {maxJumps-1}");
     }
-
+    
     public void DisableDoubleJump()
     {
-        doubleJump = false;
+        maxJumps = 1;
         Debug.Log("Double Jump disabled");
     }
+    
 }
