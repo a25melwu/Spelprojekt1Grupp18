@@ -51,7 +51,7 @@ class PlatformerMovement : MonoBehaviour
     private float jumpGravityScale = 0.6f; // 1 - heavier jump, 0.1 floatier jump
     private float fallGravityScale = 0.8f; // 2 - fast falling, 0.5 slower falling
     
-    [SerializeField] private bool DoubleJump;
+    [SerializeField] private bool doubleJump;
     private int maxJumps = 2;
     private int currentJumps = 0;
 
@@ -250,7 +250,7 @@ class PlatformerMovement : MonoBehaviour
     {
         if (context.started && controlEnabled) 
         {
-            if (wasGrounded || (DoubleJump && !wasGrounded && currentJumps < maxJumps)) //jump either from ground OR (can doublejump AND in air AND have jumps left)
+            if (wasGrounded || (doubleJump && !wasGrounded && currentJumps < maxJumps)) //jump either from ground OR (can doublejump AND in air AND have jumps left)
             {
                 jumpChargeTime = 0f;
                 jumpInput = true;
@@ -289,6 +289,16 @@ class PlatformerMovement : MonoBehaviour
             
         }
     }*/
-    
-    
+
+    public void EnableDoubleJump()
+    {
+        doubleJump = true;
+        Debug.Log("Double Jump enabled");
+    }
+
+    public void DisableDoubleJump()
+    {
+        doubleJump = false;
+        Debug.Log("Double Jump disabled");
+    }
 }
