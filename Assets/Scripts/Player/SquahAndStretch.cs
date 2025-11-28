@@ -8,6 +8,7 @@ public class SquahAndStretch : MonoBehaviour
     [Header("References")]
     [SerializeField] private Rigidbody2D playerRigidbody2D;
     [SerializeField] private Transform spriteToAffect;
+    [SerializeField] private PlatformerMovement jumpScript;
 
     [Header("Stretch Settings")]
     [SerializeField] private float stretchMultiplier = 0.05f;
@@ -35,8 +36,14 @@ public class SquahAndStretch : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            squashTimer = 0;
-            SetSquashState(true);
+            if(jumpScript != null)
+            {
+                if (jumpScript.HasJumpsLeft())
+                {
+                    squashTimer = 0;
+                    SetSquashState(true);
+                }
+            }
         }
         if (Input.GetKeyUp(KeyCode.Space))
         {

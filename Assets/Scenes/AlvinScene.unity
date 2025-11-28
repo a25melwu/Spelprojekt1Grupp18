@@ -166,6 +166,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerRigidbody2D: {fileID: 1923639230}
   spriteToAffect: {fileID: 1923639224}
+  jumpScript: {fileID: 0}
   stretchMultiplier: 0.05
   maxStretch: 0.8
   returnToNormalSpeed: 30
@@ -8453,46 +8454,6 @@ PrefabInstance:
     - target: {fileID: 670151725835698634, guid: e5e25022b794efd41bbe6e0375e39b47, type: 3}
       propertyPath: m_Name
       value: Player (1)
-      objectReference: {fileID: 0}
-    - target: {fileID: 5826644251732493601, guid: e5e25022b794efd41bbe6e0375e39b47, type: 3}
-      propertyPath: squashCurve.m_Curve.Array.data[1].time
-      value: 0.55836046
-      objectReference: {fileID: 0}
-    - target: {fileID: 5826644251732493601, guid: e5e25022b794efd41bbe6e0375e39b47, type: 3}
-      propertyPath: squashCurve.m_Curve.Array.data[2].time
-      value: 0.98657227
-      objectReference: {fileID: 0}
-    - target: {fileID: 5826644251732493601, guid: e5e25022b794efd41bbe6e0375e39b47, type: 3}
-      propertyPath: squashCurve.m_Curve.Array.data[1].value
-      value: 1.2170454
-      objectReference: {fileID: 0}
-    - target: {fileID: 5826644251732493601, guid: e5e25022b794efd41bbe6e0375e39b47, type: 3}
-      propertyPath: squashCurve.m_Curve.Array.data[1].inSlope
-      value: 0.49067697
-      objectReference: {fileID: 0}
-    - target: {fileID: 5826644251732493601, guid: e5e25022b794efd41bbe6e0375e39b47, type: 3}
-      propertyPath: squashCurve.m_Curve.Array.data[2].inSlope
-      value: -0.18989569
-      objectReference: {fileID: 0}
-    - target: {fileID: 5826644251732493601, guid: e5e25022b794efd41bbe6e0375e39b47, type: 3}
-      propertyPath: squashCurve.m_Curve.Array.data[1].inWeight
-      value: 0.24366906
-      objectReference: {fileID: 0}
-    - target: {fileID: 5826644251732493601, guid: e5e25022b794efd41bbe6e0375e39b47, type: 3}
-      propertyPath: squashCurve.m_Curve.Array.data[1].outSlope
-      value: 0.49067697
-      objectReference: {fileID: 0}
-    - target: {fileID: 5826644251732493601, guid: e5e25022b794efd41bbe6e0375e39b47, type: 3}
-      propertyPath: squashCurve.m_Curve.Array.data[2].inWeight
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5826644251732493601, guid: e5e25022b794efd41bbe6e0375e39b47, type: 3}
-      propertyPath: squashCurve.m_Curve.Array.data[2].outSlope
-      value: -0.18989569
-      objectReference: {fileID: 0}
-    - target: {fileID: 5826644251732493601, guid: e5e25022b794efd41bbe6e0375e39b47, type: 3}
-      propertyPath: squashCurve.m_Curve.Array.data[1].outWeight
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
