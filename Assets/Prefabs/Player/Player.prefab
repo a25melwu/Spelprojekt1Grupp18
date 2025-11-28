@@ -328,11 +328,38 @@ MonoBehaviour:
   maxSquash: 0.35
   squashCurve:
     serializedVersion: 2
-    m_Curve: []
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: -0.010430984
+      outSlope: -0.010430984
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.18542829
+    - serializedVersion: 3
+      time: 0.71460485
+      value: 1.4367559
+      inSlope: 0.011866351
+      outSlope: 0.011866351
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.062707
+      outWeight: 0.3650074
+    - serializedVersion: 3
+      time: 0.9833374
+      value: 1.3482056
+      inSlope: 0.05441586
+      outSlope: 0.05441586
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 1
+      outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  squashDuration: 2
+  squashDuration: 1
   squashTimer: 0
   isAnticipating: 0
 --- !u!1 &2187494036739221642

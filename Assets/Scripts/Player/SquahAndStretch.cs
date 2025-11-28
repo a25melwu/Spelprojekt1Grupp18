@@ -36,11 +36,11 @@ public class SquahAndStretch : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             squashTimer = 0;
-            isAnticipating = true;
+            SetSquashState(true);
         }
         if (Input.GetKeyUp(KeyCode.Space))
         {
-            isAnticipating = false;
+            SetSquashState(false);
         }
 
         if (isAnticipating)
@@ -58,12 +58,12 @@ public class SquahAndStretch : MonoBehaviour
             spriteToAffect.localScale = new Vector3(originalScale.x * squashValue, originalScale.y * (2f - squashValue), originalScale.z);
 
             //Change position so it doesnt look like the sprite is floating
-
             float offset = (originalScale.y - spriteToAffect.localScale.y);
             spriteToAffect.localPosition = new Vector3(0, -offset * 0.5f, 0);
         }
         else
         {
+            //Return to the normal scale 
             spriteToAffect.localScale = Vector3.Lerp(spriteToAffect.localScale, originalScale, Time.deltaTime * returnToNormalSpeed);
             spriteToAffect.localPosition = Vector3.Lerp(spriteToAffect.localPosition, new Vector3(0, 0, 0), Time.deltaTime * returnToNormalSpeed);
 
@@ -83,9 +83,12 @@ public class SquahAndStretch : MonoBehaviour
 
             spriteToAffect.localScale = Vector3.Lerp(spriteToAffect.localScale, targetShape, Time.deltaTime * returnToNormalSpeed);
         }
-
-
-
-
     }
+
+    //Called on in this script, but also whenever the player jumps for example
+    public void SetSquashState(bool shouldSquash)
+    {
+        isAnticipating = shouldSquash;
+    }
+
 }

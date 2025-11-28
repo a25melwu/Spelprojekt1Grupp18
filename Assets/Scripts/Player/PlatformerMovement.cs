@@ -35,6 +35,7 @@ class PlatformerMovement : MonoBehaviour
     
     public InputActionAsset actionAsset;
     private AudioPlayRandom jumpAudioPlay; //jumping sound
+    private SquahAndStretch squashAndStretchManager;
 
     private bool isHeadbutt; //for checking if head is colliding
 
@@ -71,6 +72,7 @@ class PlatformerMovement : MonoBehaviour
         //animator = GetComponent<Animator>();
         
         jumpAudioPlay = GetComponentInChildren<AudioPlayRandom>(); //jumping sound
+        squashAndStretchManager = GetComponentInParent<SquahAndStretch>();
     }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -104,6 +106,8 @@ class PlatformerMovement : MonoBehaviour
             if (jumpChargeTime >= maxChargeTime) //auto-releases at max
             {
                 velocity.y = maxJumpForce;
+                squashAndStretchManager.SetSquashState(false);
+
                 switch (faceRight)
                 {
                     case true: 
