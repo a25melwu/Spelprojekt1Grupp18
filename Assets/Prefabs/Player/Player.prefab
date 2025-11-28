@@ -211,10 +211,10 @@ MonoBehaviour:
   headCheckCollider: {fileID: 1847543999875291480}
   spriteRenderer: {fileID: 5977985830864635036}
   actionAsset: {fileID: -944628639613478452, guid: a1d095cf99865c6478dd371115951b8a, type: 3}
-  maxSpeed: 5
-  maxJumpForce: 25
+  maxSpeed: 4
+  maxJumpForce: 17
   landingSlowdown: 0.6
-  jumpGravityScale: 5
+  jumpGravityScale: 4
   fallGravityScale: 2
 --- !u!114 &2012471432456455270
 MonoBehaviour:
