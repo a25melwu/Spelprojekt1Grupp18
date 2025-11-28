@@ -97,7 +97,7 @@ class PlatformerMovement : MonoBehaviour
             }
         }
         
-        if (jumpInput && currentJumps < maxJumps) 
+        if (jumpInput && HasJumpsLeft()) 
         {
             //add visual feedback here 
             
@@ -106,7 +106,9 @@ class PlatformerMovement : MonoBehaviour
             if (jumpChargeTime >= maxChargeTime) //auto-releases at max
             {
                 velocity.y = maxJumpForce;
-                squashAndStretchManager.SetSquashState(false);
+                
+                if(squashAndStretchManager != null)
+                    squashAndStretchManager.SetSquashState(false);
 
                 switch (faceRight)
                 {
@@ -188,6 +190,18 @@ class PlatformerMovement : MonoBehaviour
         
         
         
+    }
+
+
+
+    public bool HasJumpsLeft()
+    {
+        if (currentJumps < maxJumps)
+            return true;
+        else
+        {
+            return false;
+        }
     }
 
     private bool IsGrounded()

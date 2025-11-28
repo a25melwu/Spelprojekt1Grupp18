@@ -180,6 +180,17 @@ MonoBehaviour:
   squashDuration: 2
   squashTimer: 0
   isAnticipating: 0
+--- !u!114 &707290871 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2867026105902189817, guid: e5e25022b794efd41bbe6e0375e39b47, type: 3}
+  m_PrefabInstance: {fileID: 907724710}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38709bf18ae0ffa4dbe5b677d5bd8e62, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &806021861
 GameObject:
   m_ObjectHideFlags: 0
@@ -8443,6 +8454,46 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 5826644251732493601, guid: e5e25022b794efd41bbe6e0375e39b47, type: 3}
+      propertyPath: squashCurve.m_Curve.Array.data[1].time
+      value: 0.55836046
+      objectReference: {fileID: 0}
+    - target: {fileID: 5826644251732493601, guid: e5e25022b794efd41bbe6e0375e39b47, type: 3}
+      propertyPath: squashCurve.m_Curve.Array.data[2].time
+      value: 0.98657227
+      objectReference: {fileID: 0}
+    - target: {fileID: 5826644251732493601, guid: e5e25022b794efd41bbe6e0375e39b47, type: 3}
+      propertyPath: squashCurve.m_Curve.Array.data[1].value
+      value: 1.2170454
+      objectReference: {fileID: 0}
+    - target: {fileID: 5826644251732493601, guid: e5e25022b794efd41bbe6e0375e39b47, type: 3}
+      propertyPath: squashCurve.m_Curve.Array.data[1].inSlope
+      value: 0.49067697
+      objectReference: {fileID: 0}
+    - target: {fileID: 5826644251732493601, guid: e5e25022b794efd41bbe6e0375e39b47, type: 3}
+      propertyPath: squashCurve.m_Curve.Array.data[2].inSlope
+      value: -0.18989569
+      objectReference: {fileID: 0}
+    - target: {fileID: 5826644251732493601, guid: e5e25022b794efd41bbe6e0375e39b47, type: 3}
+      propertyPath: squashCurve.m_Curve.Array.data[1].inWeight
+      value: 0.24366906
+      objectReference: {fileID: 0}
+    - target: {fileID: 5826644251732493601, guid: e5e25022b794efd41bbe6e0375e39b47, type: 3}
+      propertyPath: squashCurve.m_Curve.Array.data[1].outSlope
+      value: 0.49067697
+      objectReference: {fileID: 0}
+    - target: {fileID: 5826644251732493601, guid: e5e25022b794efd41bbe6e0375e39b47, type: 3}
+      propertyPath: squashCurve.m_Curve.Array.data[2].inWeight
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5826644251732493601, guid: e5e25022b794efd41bbe6e0375e39b47, type: 3}
+      propertyPath: squashCurve.m_Curve.Array.data[2].outSlope
+      value: -0.18989569
+      objectReference: {fileID: 0}
+    - target: {fileID: 5826644251732493601, guid: e5e25022b794efd41bbe6e0375e39b47, type: 3}
+      propertyPath: squashCurve.m_Curve.Array.data[1].outWeight
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -8774,6 +8825,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4362820957908012642, guid: 1a0ba3229347da340a7654983a1d5603, type: 3}
+      propertyPath: onTriggerEnter.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 707290871}
+    - target: {fileID: 4362820957908012642, guid: 1a0ba3229347da340a7654983a1d5603, type: 3}
+      propertyPath: onTriggerEnter.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: AddDoubleJump
+      objectReference: {fileID: 0}
     - target: {fileID: 6702734547218740653, guid: 1a0ba3229347da340a7654983a1d5603, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.6850525
