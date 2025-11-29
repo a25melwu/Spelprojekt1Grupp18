@@ -35,6 +35,7 @@ class PlatformerMovement : MonoBehaviour
     
     public InputActionAsset actionAsset;
     private AudioPlayRandom jumpAudioPlay; //jumping sound
+    private PlayerSFX playerSFX;
     private SquahAndStretch squashAndStretchManager;
 
     private bool isHeadbutt; //for checking if head is colliding
@@ -71,7 +72,8 @@ class PlatformerMovement : MonoBehaviour
         
         //animator = GetComponent<Animator>();
         
-        jumpAudioPlay = GetComponentInChildren<AudioPlayRandom>(); //jumping sound
+        //jumpAudioPlay = GetComponentInChildren<AudioPlayRandom>(); //jumping sound
+        playerSFX = GetComponentInChildren<PlayerSFX>(); //soundgroup playerSFX
         squashAndStretchManager = GetComponentInParent<SquahAndStretch>();
     }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -121,7 +123,10 @@ class PlatformerMovement : MonoBehaviour
                 }
                 if (isGrounded && currentJumps == 0) //play jump sound when auto-released
                 {
-                    jumpAudioPlay.PlayAudio();
+                    //jumpAudioPlay.PlayAudio();
+                    
+                    playerSFX?.PlayJumpSound();
+                    
                 }
                 jumpInput = false;
                 currentJumps++;
@@ -146,7 +151,7 @@ class PlatformerMovement : MonoBehaviour
             currentJumps = 0; //reset jump counter when landing
             
             //has landed, play landing sound and trigger landing animation
-            
+            playerSFX?.PlayLandingSound();
         }
        
         wasGrounded = isGrounded;
@@ -299,7 +304,12 @@ class PlatformerMovement : MonoBehaviour
             }
             if (isGrounded && currentJumps == 0) //play this jumpsound as first jump
             {
-                jumpAudioPlay.PlayAudio();
+                //jumpAudioPlay.PlayAudio();
+                playerSFX?.PlayJumpSound();
+            }
+            else if (currentJumps > 0)
+            {
+                playerSFX?.PlayLandingSound();
             }
             
             jumpInput = false;

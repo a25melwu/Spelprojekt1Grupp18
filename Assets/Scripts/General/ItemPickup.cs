@@ -17,6 +17,7 @@ public class ItemPickup : MonoBehaviour
 
     private bool triggeredThisFrame = false; //flag to limit collisions to 1 per frame
     
+    private PlayerSFX playerSFX;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -36,12 +37,17 @@ public class ItemPickup : MonoBehaviour
         {
             Debug.Log($"{gameObject} is missing a collider2D");
         }
+        
+        
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag(tagToActivate) && !triggeredThisFrame)
         {
+            playerSFX = other.GetComponentInChildren<PlayerSFX>();
+            playerSFX?.PlayPickupSound();
+            
             if (giveDoubleJump)
             {
                 //get PlatformerMovement from the object that enters the trigger
