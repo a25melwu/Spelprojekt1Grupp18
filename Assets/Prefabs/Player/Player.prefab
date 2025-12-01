@@ -511,7 +511,10 @@ MonoBehaviour:
   - variationName: Bouncy jump
     audioClip:
     - {fileID: 8300000, guid: a455c7d428fc0a04483737bf9440155a, type: 3}
-  doubleJumpSounds: []
+  doubleJumpSounds:
+  - variationName: Flap
+    audioClip:
+    - {fileID: 8300000, guid: b146d73c5d818214a9f626fe9c448f80, type: 3}
   landingSounds: []
   pickupSounds: []
 --- !u!1 &2187494036739221642
