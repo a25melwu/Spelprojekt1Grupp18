@@ -16,5 +16,11 @@ public class AdminTools : MonoBehaviour
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            PlatformerMovement player = FindFirstObjectByType<PlatformerMovement>();
+            if (player != null)
+                player.AddDoubleJump(1);
+        }
     }
 }
