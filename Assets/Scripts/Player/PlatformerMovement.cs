@@ -116,10 +116,11 @@ class PlatformerMovement : MonoBehaviour
             fallGravityScale = startFallGravityScale * airFallGravityScaleSlowMultiplier;
             xMaxSpeed = startXMaxSpeed * xSpeedAirJumpSlowMultiplier;
 
-            if (jumpChargeTime >= maxChargeTime) //auto-releases at max
+            /*if (jumpChargeTime >= maxChargeTime) //auto-releases at max - DO NOT REMOVE
             {
                 Jump(maxJumpForce);
-            }
+                if (currentJumps > 1) playerSFX?.PlayDoubleJumpSound(); //play doublejump for auto-release here
+            }*/
             
         }
 
