@@ -42,22 +42,36 @@ class PlatformerMovement : MonoBehaviour
 
     private bool faceRight = true;
     
-    [Header("Movement/jump variables")]
+    [Header("X Movement")]
     [Tooltip("maxSpeed is a constant for x-axis")]
-    [SerializeField] private float maxSpeed;
-    private float jumpChargeTime = 0f;
-    private float maxChargeTime = 1.0f;
-    private float minJumpForce = 1f;
+    [SerializeField] private float xMaxSpeed;
+
+    [Tooltip("How the speed changes when charging Jump in air")]
+    [SerializeField] private float xSpeedAirJumpSlowMultiplier = 1f;
+
+    [Header("Y Movement")]
     [Tooltip("Jump force adjusts in y-axis")]
     [SerializeField] private float maxJumpForce = 7f;
-    
+
+    [Header("Fall Movement")]
     [Tooltip("1 - harder landing, 0.1 - softer landing")]
     [SerializeField] private float landingSlowdown = 0.7f; // 1 - harder landing, 0.1 softer landing
     [Tooltip("1 - heavier jump, 0.1 - floatier jump")]
     [SerializeField] private float jumpGravityScale = 0.6f; // 1 - heavier jump, 0.1 floatier jump
+
     [Tooltip("2 - fast falling, 0.5 - slower falling")]
     [SerializeField] private float fallGravityScale = 0.8f; // 2 - fast falling, 0.5 slower falling
-    
+
+    [Tooltip("How the fall gravity changes when charging Jump in air")]
+    [SerializeField] private float airFallGravityScaleSlowMultiplier = 1;
+
+    private float jumpChargeTime = 0f;
+    private float maxChargeTime = 1.0f;
+    private float minJumpForce = 1f;
+
+    private float startFallGravityScale;
+    private float startXMaxSpeed;
+
     private int maxJumps = 1;
     private int currentJumps = 0;
 
@@ -73,6 +87,9 @@ class PlatformerMovement : MonoBehaviour
         //jumpAudioPlay = GetComponentInChildren<AudioPlayRandom>(); //jumping sound
         playerSFX = GetComponentInChildren<PlayerSFX>(); //soundgroup playerSFX
         squashAndStretchManager = GetComponentInParent<SquahAndStretch>();
+
+        startFallGravityScale = fallGravityScale;
+        startXMaxSpeed = xMaxSpeed;
     }
 
     // Update is called once per frame
@@ -96,35 +113,15 @@ class PlatformerMovement : MonoBehaviour
             //add visual feedback here 
             
             jumpChargeTime += Time.deltaTime;
-            
+
+            //The player slows when we double jump
+            fallGravityScale = startFallGravityScale * airFallGravityScaleSlowMultiplier;
+            xMaxSpeed = startXMaxSpeed * xSpeedAirJumpSlowMultiplier;
+
             if (jumpChargeTime >= maxChargeTime) //auto-releases at max
             {
-                velocity.y = maxJumpForce;
-                
-                if(squashAndStretchManager != null)
-                    squashAndStretchManager.SetSquashState(false);
-
-                switch (faceRight)
-                {
-                    case true: 
-                        moveInput = Vector2.right.normalized;
-                        break;
-                    case false:
-                        moveInput = Vector2.left.normalized;
-                        break;
-                }
-                if (isGrounded && currentJumps == 0) //play jump sound when auto-released
-                {
-                    //jumpAudioPlay.PlayAudio();
-                    
-                    playerSFX?.PlayJumpSound();
-                    
-                }
-                jumpInput = false;
-                currentJumps++;
-                
+                Jump(maxJumpForce);
             }
-            
         }
 
         velocity = TranslateInputToVelocity(moveInput);
@@ -132,7 +129,7 @@ class PlatformerMovement : MonoBehaviour
         
         if (isHeadbutt == true) //added bounce if head is colliding
         {
-            velocity.y = -maxSpeed;
+            velocity.y = -xMaxSpeed;
         }
 
         
@@ -163,6 +160,37 @@ class PlatformerMovement : MonoBehaviour
         }
         
     }
+
+    private void Jump(float jumpForce)
+    {
+        //Set movement to player
+        velocity.y = jumpForce;
+
+        //Remove squash animation
+        if (squashAndStretchManager != null)
+            squashAndStretchManager.SetSquashState(false);
+
+        //Change moveInput direction
+        switch (faceRight)
+        {
+            case true:
+                moveInput = Vector2.right.normalized;
+                break;
+            case false:
+                moveInput = Vector2.left.normalized;
+                break;
+        }
+
+        playerSFX?.PlayJumpSound();
+
+        jumpInput = false;
+        currentJumps++;
+
+        fallGravityScale = startFallGravityScale;
+        xMaxSpeed = startXMaxSpeed;
+
+    }
+
 
     private void FixedUpdate()
     {
@@ -236,7 +264,7 @@ class PlatformerMovement : MonoBehaviour
 
     Vector2 TranslateInputToVelocity(Vector2 input)
     {
-        return new Vector2(input.x * maxSpeed, velocity.y);
+        return new Vector2(input.x * xMaxSpeed, velocity.y);
     }
 
     /*public void OnMove(InputAction.CallbackContext context)
@@ -251,6 +279,7 @@ class PlatformerMovement : MonoBehaviour
         }
     }*/
 
+    //When space is pressed
     public void OnJump(InputAction.CallbackContext context)
     {
         if (context.started && controlEnabled) 
@@ -262,35 +291,32 @@ class PlatformerMovement : MonoBehaviour
             }
         }
 
+        //When space is released when you have started to jumped
         if (context.canceled && jumpInput && currentJumps < maxJumps)
         {
             //Debug.Log($"OnJump - moveInput {moveInput}, velocity before: {velocity}");
             float charge = Mathf.Clamp01(jumpChargeTime / maxChargeTime); 
-            velocity.y = Mathf.Lerp(minJumpForce, maxJumpForce, charge);
             
-            switch (faceRight)
-            {
-                case true: 
-                    moveInput = Vector2.right.normalized;
-                    break;
-                case false:
-                    moveInput = Vector2.left.normalized;
-                    break;
-            }
-            if (isGrounded && currentJumps == 0) //play this jumpsound as first jump
-            {
-                //jumpAudioPlay.PlayAudio();
-                playerSFX?.PlayJumpSound();
-            }
-            else if (currentJumps > 0)
+            float jumpForce = Mathf.Lerp(minJumpForce, maxJumpForce, charge);
+
+            Jump(jumpForce);
+
+       
+         
+            if (currentJumps > 0)
             {
                 playerSFX?.PlayLandingSound();
             }
-            
-            jumpInput = false;
-            currentJumps++;
+    
         }
     }
+
+
+
+
+
+
+
 
     public void AddDoubleJump(int add)
     {
