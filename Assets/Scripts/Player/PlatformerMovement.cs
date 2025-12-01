@@ -70,22 +70,14 @@ class PlatformerMovement : MonoBehaviour
         //Set gravity scale to 0 so player wont "fall"
         rb.gravityScale = 0;
         
-        //animator = GetComponent<Animator>();
-        
         //jumpAudioPlay = GetComponentInChildren<AudioPlayRandom>(); //jumping sound
         playerSFX = GetComponentInChildren<PlayerSFX>(); //soundgroup playerSFX
         squashAndStretchManager = GetComponentInParent<SquahAndStretch>();
-    }
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
     }
 
     // Update is called once per frame
     void Update()
     {
-
         if (isGrounded)
         {
             if (actionAsset.FindAction("Right").IsPressed())
@@ -178,23 +170,6 @@ class PlatformerMovement : MonoBehaviour
         isHeadbutt = IsHeadbutt();
         ApplyGravity();
         rb.linearVelocity = velocity;
-        
-        
-        //write movement animation code here. Suggestion: send your current velocity into the Animator for both the x- and y-axis
-        /*if (MathF.Abs(rb.linearVelocity.x) > 0.01f && isGrounded)
-        {
-            animator.SetBool("Walk", true);
-        }
-        else animator.SetBool("Walk", false);*/
-
-        /*if (rb.linearVelocity.y > 0.01f && isGrounded == false)
-        {
-            animator.SetBool("Jump", true);
-        }
-        else animator.SetBool("Jump", false);*/
-        
-        
-        
     }
 
 
@@ -314,8 +289,6 @@ class PlatformerMovement : MonoBehaviour
             
             jumpInput = false;
             currentJumps++;
-            
-
         }
     }
 
@@ -330,5 +303,4 @@ class PlatformerMovement : MonoBehaviour
         maxJumps = 1;
         Debug.Log("Double Jump disabled");
     }
-    
 }
