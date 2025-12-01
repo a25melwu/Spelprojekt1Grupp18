@@ -34,8 +34,7 @@ class PlatformerMovement : MonoBehaviour
     //private Animator animator;
     
     public InputActionAsset actionAsset;
-    private AudioPlayRandom jumpAudioPlay; //jumping sound
-    private PlayerSFX playerSFX;
+    private PlayerSFX playerSFX; //jumping sounds
     private SquahAndStretch squashAndStretchManager;
 
     private bool isHeadbutt; //for checking if head is colliding
@@ -84,7 +83,6 @@ class PlatformerMovement : MonoBehaviour
         //Set gravity scale to 0 so player wont "fall"
         rb.gravityScale = 0;
         
-        //jumpAudioPlay = GetComponentInChildren<AudioPlayRandom>(); //jumping sound
         playerSFX = GetComponentInChildren<PlayerSFX>(); //soundgroup playerSFX
         squashAndStretchManager = GetComponentInParent<SquahAndStretch>();
 
@@ -122,6 +120,7 @@ class PlatformerMovement : MonoBehaviour
             {
                 Jump(maxJumpForce);
             }
+            
         }
 
         velocity = TranslateInputToVelocity(moveInput);
@@ -163,6 +162,8 @@ class PlatformerMovement : MonoBehaviour
 
     private void Jump(float jumpForce)
     {
+        if (isGrounded && currentJumps == 0) playerSFX?.PlayJumpSound(); //play jump sound here
+        
         //Set movement to player
         velocity.y = jumpForce;
 
@@ -180,9 +181,7 @@ class PlatformerMovement : MonoBehaviour
                 moveInput = Vector2.left.normalized;
                 break;
         }
-
-        playerSFX?.PlayJumpSound();
-
+        
         jumpInput = false;
         currentJumps++;
 
@@ -199,8 +198,6 @@ class PlatformerMovement : MonoBehaviour
         ApplyGravity();
         rb.linearVelocity = velocity;
     }
-
-
 
     public bool HasJumpsLeft()
     {
@@ -291,7 +288,7 @@ class PlatformerMovement : MonoBehaviour
             }
         }
 
-        //When space is released when you have started to jumped
+        //When space is released when you have started to jump
         if (context.canceled && jumpInput && currentJumps < maxJumps)
         {
             //Debug.Log($"OnJump - moveInput {moveInput}, velocity before: {velocity}");
@@ -300,24 +297,12 @@ class PlatformerMovement : MonoBehaviour
             float jumpForce = Mathf.Lerp(minJumpForce, maxJumpForce, charge);
 
             Jump(jumpForce);
-
-       
-         
-            if (currentJumps > 0)
-            {
-                playerSFX?.PlayLandingSound();
-            }
-    
+            
+            if (currentJumps > 1) playerSFX?.PlayDoubleJumpSound(); //play doublejump sound here
+            
         }
     }
-
-
-
-
-
-
-
-
+    
     public void AddDoubleJump(int add)
     {
         maxJumps += add;
