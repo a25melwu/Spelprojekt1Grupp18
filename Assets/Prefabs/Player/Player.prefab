@@ -516,7 +516,10 @@ MonoBehaviour:
     audioClip:
     - {fileID: 8300000, guid: b146d73c5d818214a9f626fe9c448f80, type: 3}
   landingSounds: []
-  pickupSounds: []
+  pickupSounds:
+  - variationName: Pick up
+    audioClip:
+    - {fileID: 8300000, guid: ccdf52f4e6965cd499ed0a32b36f1711, type: 3}
 --- !u!1 &2187494036739221642
 GameObject:
   m_ObjectHideFlags: 0
