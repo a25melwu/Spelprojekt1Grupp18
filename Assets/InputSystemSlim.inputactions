@@ -123,8 +123,30 @@
                 },
                 {
                     "name": "",
+                    "id": "500e091e-fab6-4a55-a4dc-dd020c7dfb6b",
+                    "path": "<Keyboard>/a",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Left",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "eeb3c4ce-2f9c-4860-b8c5-1c73fc0b8a57",
                     "path": "<Keyboard>/rightArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Right",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5350190f-1a5f-440a-bc19-4129457f3d60",
+                    "path": "<Keyboard>/d",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
