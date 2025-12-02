@@ -9,7 +9,9 @@ using UnityEngine.UI;
 public class ApplicationHandler : MonoBehaviour
 {
     //used together with e.g. UnityEventOnTrigger, UI-button-events to decide when a scene should be changed or the game should be closed
+    [Tooltip("Enter next scene or leave empty")]
     public string scene;
+    
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -24,7 +26,9 @@ public class ApplicationHandler : MonoBehaviour
 
     public void ChangeScene()
     {
-        //string scene = this.scene.ToString();
+        string scene = this.scene.ToString();
+        if (string.IsNullOrEmpty(scene)) return;
+        
         SceneManager.LoadSceneAsync(scene, LoadSceneMode.Single);
         
     }
