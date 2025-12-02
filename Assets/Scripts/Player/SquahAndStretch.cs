@@ -25,6 +25,7 @@ public class SquahAndStretch : MonoBehaviour
     private Vector3 originalScale;
     public float squashTimer;
     public bool isAnticipating;
+    private float ySpriteModifier = 0.05f; //Used to lower the sprite a little to connect it to the ground
 
     void Start()
     {
@@ -66,13 +67,13 @@ public class SquahAndStretch : MonoBehaviour
 
             //Change position so it doesnt look like the sprite is floating
             float offset = (originalScale.y - spriteToAffect.localScale.y);
-            spriteToAffect.localPosition = new Vector3(0, -offset * 0.5f, 0);
+            spriteToAffect.localPosition = new Vector3(0, -offset * 0.5f - ySpriteModifier, 0);
         }
         else
         {
             //Return to the normal scale 
             spriteToAffect.localScale = Vector3.Lerp(spriteToAffect.localScale, originalScale, Time.deltaTime * returnToNormalSpeed);
-            spriteToAffect.localPosition = Vector3.Lerp(spriteToAffect.localPosition, new Vector3(0, 0, 0), Time.deltaTime * returnToNormalSpeed);
+            spriteToAffect.localPosition = Vector3.Lerp(spriteToAffect.localPosition, new Vector3(0, -ySpriteModifier, 0), Time.deltaTime * returnToNormalSpeed);
 
 
 

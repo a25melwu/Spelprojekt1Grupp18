@@ -36,6 +36,7 @@ class PlatformerMovement : MonoBehaviour
     public InputActionAsset actionAsset;
     private PlayerSFX playerSFX; //jumping sounds
     private SquahAndStretch squashAndStretchManager;
+    private SaveManager saveManager;
 
     private bool isHeadbutt; //for checking if head is colliding
 
@@ -88,6 +89,11 @@ class PlatformerMovement : MonoBehaviour
 
         startFallGravityScale = fallGravityScale;
         startXMaxSpeed = xMaxSpeed;
+
+        //If we have gotten a double jump and then respawned, we get the double jumps back
+        saveManager = FindFirstObjectByType<SaveManager>();
+        if (saveManager != null)
+            SetMaxJumpAmount(saveManager.GetDoubleJumpsPlayerShouldStartWith() + 1); //We should start with 0 double jumps, but we want to be able to jump once
     }
 
     // Update is called once per frame
@@ -308,6 +314,14 @@ class PlatformerMovement : MonoBehaviour
     {
         maxJumps += add;
         Debug.Log($"Current Doublejumps: {maxJumps-1}");
+
+        //Save it, so that even if the layer dies it will have the double jumps
+        if (saveManager != null)
+            saveManager.SavePlayerDoubleJump(maxJumps - 1);
+    }
+    private void SetMaxJumpAmount(int amountToSetTo)
+    {
+        maxJumps = amountToSetTo;
     }
     
     public void DisableDoubleJump()

@@ -18,18 +18,9 @@ public class ItemPickup : MonoBehaviour
     private bool triggeredThisFrame = false; //flag to limit collisions to 1 per frame
     
     private PlayerSFX playerSFX;
-    
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    private float pickupID; 
+
 
     private void Awake()
     {
@@ -37,8 +28,20 @@ public class ItemPickup : MonoBehaviour
         {
             Debug.Log($"{gameObject} is missing a collider2D");
         }
-        
-        
+
+        pickupID = transform.position.y * transform.position.x + transform.position.y;
+    }
+
+    private void Start()
+    {
+        //If we have collected this feather already, destroy it when we reload the scene
+        if (SaveManager.instance != null)
+        {
+            if (SaveManager.instance.collectedFeathersID.Contains(pickupID))
+            {
+                Destroy(gameObject);
+            }
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -60,12 +63,21 @@ public class ItemPickup : MonoBehaviour
                     
                 }
             }
+
+            if (SaveManager.instance != null)
+            {
+                SaveManager.instance.collectedFeathersID.Add(pickupID);
+            }
+
+
             gameObject.SetActive(false); //sets object to inactive
             //Destroy(gameObject);
            
             onTriggerEnter.Invoke();
             triggeredThisFrame = true;
             //Debug.Log("Unity Event Trigger (enter) activated on " + gameObject.name);
+
+
         }
     }
     
