@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine.InputSystem;
 
 public class BlockInputAndFade : MonoBehaviour
@@ -8,6 +9,7 @@ public class BlockInputAndFade : MonoBehaviour
     public float fadeDuration = 1f;
     public float visibleTime = 2f;
 
+    private Coroutine currentFade;
     private void Awake()
     {
         if (group == null) 
@@ -27,12 +29,27 @@ public class BlockInputAndFade : MonoBehaviour
     {
         StartCoroutine(Fade(1f, 0f));
     }
-
+    
     public void FadeInThenFadeOut()
     {
-        StartCoroutine(FadeInOutSequence());
+        if (currentFade != null)
+            StopCoroutine(currentFade);
+        
+        currentFade = StartCoroutine(FadeInOutSequence());
     }
 
+    private IEnumerator FadeInOutSequence()
+    {
+        
+        
+        yield return StartCoroutine(Fade(0f, 1f));
+        
+        yield return new WaitForSeconds(visibleTime);
+        
+        yield return StartCoroutine(Fade(1f, 0f));
+
+        currentFade = null;
+    }
     private IEnumerator Fade(float start, float end)
     {
         float t = 0;
@@ -46,8 +63,7 @@ public class BlockInputAndFade : MonoBehaviour
         while (t < fadeDuration)
         {
             t += Time.deltaTime;
-            float alpha = t / fadeDuration;
-            group.alpha = alpha;
+            group.alpha = Mathf.Lerp(start, end, t / fadeDuration);
             yield return null;
         }
         group.alpha = end;
@@ -62,19 +78,7 @@ public class BlockInputAndFade : MonoBehaviour
             group.interactable = false;
             group.blocksRaycasts = false;
         }
-    }
-
-    
-    private IEnumerator FadeInOutSequence()
-    {
         
         
-        yield return StartCoroutine(Fade(0f, 1f));
-        
-        yield return new WaitForSeconds(visibleTime);
-        
-        yield return StartCoroutine(Fade(1f, 0f));
-        
-       
     }
 }
