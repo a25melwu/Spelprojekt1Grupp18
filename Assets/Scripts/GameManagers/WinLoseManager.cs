@@ -5,8 +5,13 @@ using UnityEngine.SceneManagement;
 public class WinLoseManager : MonoBehaviour
 {
     public GameObject playerDeathParticle;
+    
 
-
+    private void Awake()
+    {
+        
+    }
+    
     //Called when the player gets to the top
     //Reloads the scene
     public void WinGame()
@@ -39,5 +44,7 @@ public class WinLoseManager : MonoBehaviour
     //        WinGame();
     //    }
     //}
+    
+    
 
 }

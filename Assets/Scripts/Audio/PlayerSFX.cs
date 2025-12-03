@@ -35,7 +35,7 @@ public class PlayerSFX : MonoBehaviour
     //public void PlayFallingSound() => PlayRandomSound(fallingSounds);
     public void PlayLandingSound() => PlayRandomSound(landingSounds); //call this function from other classes
     //public void PlayFlyingSound() => PlayRandomSound(flyingSounds);
-    public void PlayHurtSound() => PlayRandomSound(hurtSounds); //call this function from other classes
+    public void PlayHurtSound() => PlayRandomHurtSound(hurtSounds); //call this function from other classes
     public void PlayPickupSound() => PlayRandomSound(pickupSounds); //call this function from other classes
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -59,8 +59,22 @@ public class PlayerSFX : MonoBehaviour
         if (soundArray.audioClip != null && soundArray.audioClip.Length > 0)
         {
             AudioClip clip = soundArray.audioClip[Random.Range(0, soundArray.audioClip.Length)];
+            
             audioSource.PlayOneShot(clip);
         }
         
+    }
+
+    private void PlayRandomHurtSound(AudioType[] soundGroup)  //using global sound PlayClipAtPoint when dying otherwise the sound wont have the time to play until player is destroyed
+    {
+        if (audioSource == null || soundGroup == null || soundGroup.Length == 0) return;
+        
+        AudioType soundArray =  soundGroup[Random.Range(0, soundGroup.Length)];
+        
+        if (soundArray.audioClip != null && soundArray.audioClip.Length > 0)
+        {
+            AudioClip clip = soundArray.audioClip[Random.Range(0, soundArray.audioClip.Length)];
+            AudioSource.PlayClipAtPoint(clip, transform.position);
+        }
     }
 }
