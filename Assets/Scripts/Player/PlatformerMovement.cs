@@ -110,6 +110,7 @@ class PlatformerMovement : MonoBehaviour
             {
                 faceRight = false;
             }
+            
         }
         
         if (jumpInput && HasJumpsLeft()) 
@@ -139,7 +140,7 @@ class PlatformerMovement : MonoBehaviour
         }
 
         
-        if (wasGrounded == false && isGrounded == true) //check if character gained contact with ground this frame
+        if (!wasGrounded && isGrounded) //check if character gained contact with ground this frame
         {
             moveInput = Vector2.zero;
             
@@ -147,10 +148,10 @@ class PlatformerMovement : MonoBehaviour
             
             //has landed, play landing sound and trigger landing animation
             playerSFX?.PlayLandingSound();
+            
         }
        
         wasGrounded = isGrounded;
-        
         
         if (spriteRenderer) //flip sprite according to direction (if a sprite renderer has been assigned)
         {
@@ -292,6 +293,7 @@ class PlatformerMovement : MonoBehaviour
             {
                 jumpChargeTime = 0f;
                 jumpInput = true;
+                wasGrounded = false; //set wasgrounded to false here due to wall-bug
             }
         }
 
