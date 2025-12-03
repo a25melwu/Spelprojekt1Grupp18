@@ -5,9 +5,12 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/AlvinScene.unity
     guid: c868a28a9f77f254b80a6afc6cf38b4f
+  - enabled: 1
+    path: Assets/Scenes/SpeltTest1Level.unity
+    guid: 0286f0d5566cf1745bdfd761d480948c
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0
