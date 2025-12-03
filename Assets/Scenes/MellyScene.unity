@@ -1950,22 +1950,6 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8366577357550607282, guid: e5e25022b794efd41bbe6e0375e39b47, type: 3}
-      propertyPath: hurtSounds.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8366577357550607282, guid: e5e25022b794efd41bbe6e0375e39b47, type: 3}
-      propertyPath: hurtSounds.Array.data[0].variationName
-      value: s
-      objectReference: {fileID: 0}
-    - target: {fileID: 8366577357550607282, guid: e5e25022b794efd41bbe6e0375e39b47, type: 3}
-      propertyPath: hurtSounds.Array.data[0].audioClip.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8366577357550607282, guid: e5e25022b794efd41bbe6e0375e39b47, type: 3}
-      propertyPath: 'hurtSounds.Array.data[0].audioClip.Array.data[0]'
-      value: 
-      objectReference: {fileID: 8300000, guid: 07276b7fd14875d459df3b8b53d787f3, type: 3}
     m_RemovedComponents:
     - {fileID: 5360387510003718637, guid: e5e25022b794efd41bbe6e0375e39b47, type: 3}
     m_RemovedGameObjects:
