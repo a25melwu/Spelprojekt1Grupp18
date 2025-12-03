@@ -25,6 +25,7 @@ public class PlayerSFX : MonoBehaviour
     //[SerializeField] private SoundGroup fallingSounds;
     [NonReorderable] public AudioType[] landingSounds;
     //[SerializeField] private SoundGroup flyingSounds;
+    [NonReorderable] public AudioType[] hurtSounds;
     
     [Header("Item Sounds (One shot)")]
     [NonReorderable] public AudioType[] pickupSounds;
@@ -34,6 +35,7 @@ public class PlayerSFX : MonoBehaviour
     //public void PlayFallingSound() => PlayRandomSound(fallingSounds);
     public void PlayLandingSound() => PlayRandomSound(landingSounds); //call this function from other classes
     //public void PlayFlyingSound() => PlayRandomSound(flyingSounds);
+    public void PlayHurtSound() => PlayRandomSound(hurtSounds); //call this function from other classes
     public void PlayPickupSound() => PlayRandomSound(pickupSounds); //call this function from other classes
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
