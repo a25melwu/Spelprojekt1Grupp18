@@ -574,6 +574,10 @@ MonoBehaviour:
     audioClip:
     - {fileID: 8300000, guid: b146d73c5d818214a9f626fe9c448f80, type: 3}
   landingSounds: []
+  hurtSounds:
+  - variationName: Hurt
+    audioClip:
+    - {fileID: 8300000, guid: 07276b7fd14875d459df3b8b53d787f3, type: 3}
   pickupSounds:
   - variationName: Pick up
     audioClip:
