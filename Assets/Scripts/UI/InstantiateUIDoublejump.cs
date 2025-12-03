@@ -41,6 +41,10 @@ public class InstantiateUIDoublejump : MonoBehaviour
 
     public void ClearUIDoubleJump()
     {
+        foreach (Transform child in parentImageHolder)
+        {
+            Destroy(child.gameObject);
+        }
         instanceCount = 0;
     }
 
