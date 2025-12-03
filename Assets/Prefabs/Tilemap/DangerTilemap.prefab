@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: 2490989328898590389}
   - component: {fileID: 8867899668840932580}
   - component: {fileID: 8869918335796276986}
-  - component: {fileID: 7854493649380776160}
   m_Layer: 0
   m_Name: DangerTilemap
   m_TagString: Untagged
@@ -216,37 +215,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7fedaf84cf3a54b42b101010f62764cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  tagToActivate: Player
-  onTriggerEnter:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 8867899668840932580}
-        m_TargetAssemblyTypeName: WinLoseManager, Assembly-CSharp
-        m_MethodName: LoseGame
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  onTriggerExit:
-    m_PersistentCalls:
-      m_Calls: []
---- !u!114 &7854493649380776160
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 192514549133102906}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c235cf024f2a81e4fa184a03d6a31417, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   tagToActivate: Player
