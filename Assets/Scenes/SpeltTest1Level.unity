@@ -14485,6 +14485,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 3463798862539155147, guid: e5e25022b794efd41bbe6e0375e39b47, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: 8339272908886053510, guid: 6ea21f9cbc7d2a34aa8ec9f241637008, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
