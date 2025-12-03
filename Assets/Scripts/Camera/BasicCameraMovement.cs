@@ -27,8 +27,14 @@ public class BasicCameraMovement : MonoBehaviour
 
         if (playerTransform.position.y > transform.position.y + cameraYSensitivityOffset)
         {
-            transform.position = new Vector3(transform.position.x, playerTransform.position.y - cameraYSensitivityOffset, transform.position.z);
+            SetCameraToCorrectPosition();
         }
+    }
 
+
+    public void SetCameraToCorrectPosition()
+    {
+
+        transform.position = new Vector3(transform.position.x, playerTransform.position.y - cameraYSensitivityOffset, transform.position.z);
     }
 }
