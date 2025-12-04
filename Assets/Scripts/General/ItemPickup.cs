@@ -20,7 +20,7 @@ public class ItemPickup : MonoBehaviour
     private PlayerSFX playerSFX;
     private InstantiateUIDoublejump playerUIDoublejump;
 
-    private float pickupID; 
+    [SerializeField] private float pickupID; 
 
 
     private void Awake()

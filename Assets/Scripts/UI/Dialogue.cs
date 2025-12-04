@@ -17,7 +17,7 @@ public class Dialogue : MonoBehaviour
     [SerializeField] private UnityEvent onEndDialogue;
     
     [Header("Fade Settings")]
-    [SerializeField] private float fadeOutDelay = 5f;
+    [SerializeField] private float fadeOutDelay = 8f;
     [SerializeField] private float fadeTime = 1f;
     
     private int currentIndex = -1;

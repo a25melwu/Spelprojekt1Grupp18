@@ -139,7 +139,7 @@ TextureImporter:
       outline: []
       physicsShape:
       - - {x: 8, y: 8}
-        - {x: -8, y: 8}
+        - {x: -5, y: 6}
         - {x: -8, y: -4}
         - {x: -8, y: -8}
         - {x: 8, y: -8}
@@ -188,7 +188,7 @@ TextureImporter:
       outline: []
       physicsShape:
       - - {x: 8, y: -5}
-        - {x: 8, y: 8}
+        - {x: 5, y: 6}
         - {x: -8, y: 8}
         - {x: -8, y: -8}
         - {x: 8, y: -8}
@@ -215,7 +215,7 @@ TextureImporter:
       outline: []
       physicsShape:
       - - {x: 8, y: 8}
-        - {x: -8, y: 8}
+        - {x: -4, y: 6}
         - {x: -8, y: 2}
         - {x: -8, y: -8}
         - {x: 8, y: -8}
@@ -264,7 +264,7 @@ TextureImporter:
       outline: []
       physicsShape:
       - - {x: 8, y: 2}
-        - {x: 8, y: 8}
+        - {x: 4, y: 6}
         - {x: -8, y: 8}
         - {x: -8, y: -8}
         - {x: 8, y: -8}
@@ -621,7 +621,7 @@ TextureImporter:
       outline: []
       physicsShape:
       - - {x: 8, y: 8}
-        - {x: -8, y: 8}
+        - {x: -4, y: 6}
         - {x: -8, y: 2}
         - {x: -6, y: -6}
         - {x: -1, y: -8}
@@ -672,7 +672,7 @@ TextureImporter:
       physicsShape:
       - - {x: 5, y: -5}
         - {x: 8, y: 2}
-        - {x: 8, y: 8}
+        - {x: 4, y: 6}
         - {x: -8, y: 8}
         - {x: -8, y: -8}
         - {x: 1, y: -8}
