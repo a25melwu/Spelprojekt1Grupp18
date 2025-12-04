@@ -68,6 +68,7 @@ class PlatformerMovement : MonoBehaviour
     private float jumpChargeTime = 0f;
     private float maxChargeTime = 1.0f;
     private float minJumpForce = 1f;
+    private float minChargeTime = 0.1f;
 
     private float startFallGravityScale;
     private float startXMaxSpeed;
@@ -287,19 +288,25 @@ class PlatformerMovement : MonoBehaviour
     //When space is pressed
     public void OnJump(InputAction.CallbackContext context)
     {
-        if (context.started && controlEnabled) 
+        if (context.started && controlEnabled)
         {
             if (wasGrounded || (!wasGrounded && currentJumps < maxJumps)) //jump either from ground OR (in air AND have jumps left)
             {
                 jumpChargeTime = 0f;
                 jumpInput = true;
-                wasGrounded = false; //set wasgrounded to false here due to wall-bug
+                wasGrounded = false; //FIXED wall bug: set wasgrounded to false here due to state mismatch
             }
         }
 
         //When space is released when you have started to jump
         if (context.canceled && jumpInput && currentJumps < maxJumps)
         {
+            if (jumpChargeTime < minChargeTime) //FIXED gliding bug : short taps causes state mismatch (isgrounded/wasgrounded)
+            {
+                jumpInput = false;
+                return;
+            }
+            
             //Debug.Log($"OnJump - moveInput {moveInput}, velocity before: {velocity}");
             float charge = Mathf.Clamp01(jumpChargeTime / maxChargeTime); 
             
