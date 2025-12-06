@@ -303,8 +303,7 @@ class PlatformerMovement : MonoBehaviour
         {
             if (jumpChargeTime < minChargeTime) //FIXED gliding bug : short taps causes state mismatch (isgrounded/wasgrounded)
             {
-                jumpInput = false;
-                return;
+                jumpChargeTime = minChargeTime;
             }
             
             //Debug.Log($"OnJump - moveInput {moveInput}, velocity before: {velocity}");
