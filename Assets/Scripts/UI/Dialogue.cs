@@ -180,7 +180,6 @@ public class Dialogue : MonoBehaviour
     {
         textBox.text = dialogueText[index];
         
-        Color textColor = textBox.color;
         float elapsedTime = 0f;
         
         while (elapsedTime < fadeInTime)
