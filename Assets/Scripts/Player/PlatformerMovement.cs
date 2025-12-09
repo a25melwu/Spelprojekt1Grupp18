@@ -6,16 +6,11 @@ using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
 using UnityEngine.UIElements;
 
-// The Rigidbody2D component should (probably) have some constraints: Freeze Rotation Z, and added mass e.g. '5' 
-// The BoxCollider 2D should be set to "is trigger", resized and moved to a proper position for ground check.
-// The following componenets are needed for headbutt check: BoxCollider2D
-// The following components are also needed: Player Input
 // Gravity for the project is set in Unity at Edit -> Project Settings -> Physics2D-> Gravity Y
 
-//[RequireComponent(typeof(Rigidbody2D), typeof(CircleCollider2D), typeof(CapsuleCollider2D))]
 class PlatformerMovement : MonoBehaviour
 {
-    [SerializeField] private BoxCollider2D groundCheckCollider;
+    //[SerializeField] private BoxCollider2D groundCheckCollider;
     [SerializeField] private BoxCollider2D headCheckCollider;
     [SerializeField] private SpriteRenderer spriteRenderer;
     public bool controlEnabled { get; set; } = true;
@@ -30,8 +25,6 @@ class PlatformerMovement : MonoBehaviour
     private Vector2 velocity;
     private bool jumpInput = false;
     private bool wasGrounded;
-    private bool isGrounded;
-    //private Animator animator;
     
     public InputActionAsset actionAsset;
     private PlayerSFX playerSFX; //jumping sounds
@@ -76,10 +69,27 @@ class PlatformerMovement : MonoBehaviour
     private int maxJumps = 1;
     private int currentJumps = 0;
 
+
+    [Header("Raycast Objects")]
+    [SerializeField] private GameObject rightWallChecker;
+    [SerializeField] private GameObject leftWallChecker;
+    [SerializeField] private GameObject raycastCheck1;
+    [SerializeField] private GameObject raycastCheck2;
+
+    [SerializeField] private float groundCheckDistance = 0.01f;
+
+    private float distanceToGround;
+    private bool clickedJump;
+    private bool jumpedHighEnough = false;
+
+
+
+
+
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-        groundCheckCollider.isTrigger = true;
+        //groundCheckCollider.isTrigger = true;
         headCheckCollider.isTrigger = true;
         
         //Set gravity scale to 0 so player wont "fall"
@@ -97,10 +107,17 @@ class PlatformerMovement : MonoBehaviour
             SetMaxJumpAmount(saveManager.GetDoubleJumpsPlayerShouldStartWith() + 1); //We should start with 0 double jumps, but we want to be able to jump once
     }
 
+    private void FixedUpdate()
+    {
+        isHeadbutt = IsHeadbutt();
+        ApplyGravity();
+        rb.linearVelocity = velocity;
+    }
+
     // Update is called once per frame
     void Update()
     {
-        if (isGrounded)
+        if (IsGrounded())
         {
             if (actionAsset.FindAction("Right").IsPressed())
             {
@@ -111,13 +128,10 @@ class PlatformerMovement : MonoBehaviour
             {
                 faceRight = false;
             }
-            
         }
         
         if (jumpInput && HasJumpsLeft()) 
         {
-            //add visual feedback here 
-            
             jumpChargeTime += Time.deltaTime;
 
             //The player slows when we double jump
@@ -129,30 +143,26 @@ class PlatformerMovement : MonoBehaviour
                 Jump(maxJumpForce);
                 if (currentJumps > 1) playerSFX?.PlayDoubleJumpSound(); //play doublejump for auto-release here
             }*/
-            
         }
 
-        velocity = TranslateInputToVelocity(moveInput);
-        
+        velocity = TranslateXInputToVelocity(moveInput);
         
         if (isHeadbutt == true) //added bounce if head is colliding
         {
             velocity.y = -xMaxSpeed;
         }
-
         
-        if (!wasGrounded && isGrounded) //check if character gained contact with ground this frame
+        //If we jumped high enough and we then is grounded, we Land
+        if (JumpedHighEnough() && IsGrounded())
         {
-            moveInput = Vector2.zero;
-            
-            currentJumps = 0; //reset jump counter when landing
-            
-            //has landed, play landing sound and trigger landing animation
-            playerSFX?.PlayLandingSound();
-            
+            Land();
         }
-       
-        wasGrounded = isGrounded;
+
+        //If we didn't jump high enough, but we did click jump and velocity is 0, we still trigger Land
+        if(!JumpedHighEnough() && clickedJump && IsGrounded() && velocity.y <= 0f)
+        {
+            Land();
+        }
         
         if (spriteRenderer) //flip sprite according to direction (if a sprite renderer has been assigned)
         {
@@ -166,100 +176,26 @@ class PlatformerMovement : MonoBehaviour
                     break;
             }
         }
-        
-    }
-
-    private void Jump(float jumpForce)
-    {
-        if (isGrounded && currentJumps == 0) playerSFX?.PlayJumpSound(); //play jump sound here
-        
-        //Set movement to player
-        velocity.y = jumpForce;
-
-        //Remove squash animation
-        if (squashAndStretchManager != null)
-            squashAndStretchManager.SetSquashState(false);
-
-        //Change moveInput direction
-        switch (faceRight)
-        {
-            case true:
-                moveInput = Vector2.right.normalized;
-                break;
-            case false:
-                moveInput = Vector2.left.normalized;
-                break;
-        }
-        
-        jumpInput = false;
-        currentJumps++;
-
-        fallGravityScale = startFallGravityScale;
-        xMaxSpeed = startXMaxSpeed;
-
-    }
-
-
-    private void FixedUpdate()
-    {
-        isGrounded = IsGrounded();
-        isHeadbutt = IsHeadbutt();
-        ApplyGravity();
-        rb.linearVelocity = velocity;
-    }
-
-    public bool HasJumpsLeft()
-    {
-        if (currentJumps < maxJumps)
-            return true;
-        else
-        {
-            return false;
-        }
-    }
-
-    private bool IsGrounded()
-    {
-        if (groundCheckCollider.IsTouchingLayers(groundLayer))
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
-
-    private bool IsHeadbutt() //added to check if head is colliding
-    {
-        if (headCheckCollider.IsTouchingLayers(groundLayer))
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
     }
 
     private void ApplyGravity()
     {
-        if (isGrounded && velocity.y < 0.0f)
+        if (IsGrounded() && velocity.y < 0.0f)
         {
             velocity.y = -1f * landingSlowdown; //soft landing
         }
-        
+
         //updates fall speed with gravity if object isnt grounded
         else
         {
             float gravityScale;
-            
+
             if (velocity.y > 0)  //is jumping
             {
                 gravityScale = jumpGravityScale; //floaty ascent
-               
+
             }
-           
+
             else //is falling
             {
                 gravityScale = fallGravityScale; //slow descent
@@ -268,22 +204,13 @@ class PlatformerMovement : MonoBehaviour
         }
     }
 
-    Vector2 TranslateInputToVelocity(Vector2 input)
+    Vector2 TranslateXInputToVelocity(Vector2 input)
     {
         return new Vector2(input.x * xMaxSpeed, velocity.y);
     }
 
-    /*public void OnMove(InputAction.CallbackContext context)
-    {
-        if (controlEnabled)
-        {
-            moveInput = context.ReadValue<Vector2>().normalized;
-        }
-        else
-        {
-            moveInput = Vector2.zero;
-        }
-    }*/
+
+
 
     //When space is pressed
     public void OnJump(InputAction.CallbackContext context)
@@ -311,13 +238,207 @@ class PlatformerMovement : MonoBehaviour
             
             float jumpForce = Mathf.Lerp(minJumpForce, maxJumpForce, charge);
 
-            Jump(jumpForce);
+            TriggerJump(jumpForce);
             
             if (currentJumps > 1) playerSFX?.PlayDoubleJumpSound(); //play doublejump sound here
             
         }
     }
     
+    //Called when we actually Jump
+    private void TriggerJump(float jumpForce)
+    {
+        if (IsGrounded() && currentJumps == 0) playerSFX?.PlayJumpSound(); //play jump sound here
+
+        Debug.Log("Clicked Jump = true");
+        clickedJump = true;
+
+        //Change moveInput direction
+        switch (faceRight)
+        {
+            case true:
+                moveInput = Vector2.right.normalized;
+                break;
+            case false:
+                moveInput = Vector2.left.normalized;
+                break;
+        }
+
+        if (moveInput == Vector2.right.normalized)
+        {
+            if (IsAgainstAWall(Vector2.right))
+            {
+                jumpForce += 1;
+            }
+        }
+        if (moveInput == Vector2.left.normalized)
+        {
+            if (IsAgainstAWall(Vector2.left))
+            {
+                jumpForce += 1;
+            }
+        }
+
+        //Set movement to player
+        velocity.y = jumpForce;
+
+        //Remove squash animation
+        if (squashAndStretchManager != null)
+            squashAndStretchManager.SetSquashState(false);
+
+        jumpInput = false;
+        currentJumps++;
+
+        fallGravityScale = startFallGravityScale;
+        xMaxSpeed = startXMaxSpeed;
+    }
+
+    //Triggered to reset the jump
+    private void Land()
+    {
+        moveInput = Vector2.zero;
+
+        currentJumps = 0; //reset jump counter when landing
+
+        //has landed, play landing sound and trigger landing animation
+        playerSFX?.PlayLandingSound();
+
+        jumpedHighEnough = false;
+        clickedJump = false;
+    }
+
+
+
+
+
+
+
+    //Bool that checks if one of the raycasts hits the ground within the specified distance
+    private bool IsGrounded()
+    {
+        //Create two raycasts
+        RaycastHit2D[] hit1 = Physics2D.RaycastAll(raycastCheck1.transform.position, Vector2.down, Mathf.Infinity);
+        RaycastHit2D[] hit2 = Physics2D.RaycastAll(raycastCheck2.transform.position, Vector2.down, Mathf.Infinity);
+
+        //Set to an impossibly long distance so at least one of the raycasts always will be shorter
+        float shortestDistanceToGround = 10000f;
+        bool boolToReturn = false;
+
+        //Method to check both raycast arrays
+        void HandleHits(RaycastHit2D[] hits)
+        {
+            for (int i = 0; i < hits.Length; i++)
+            {
+                if (hits[i].collider != null)
+                {
+                    if (hits[i].collider.CompareTag("Ground"))
+                    {
+                        if (hits[i].distance < shortestDistanceToGround)
+                            shortestDistanceToGround = hits[i].distance;
+
+                        if (hits[i].distance < groundCheckDistance)
+                            boolToReturn = true;
+                    }
+                }
+            }
+        }
+
+        //Call on the method for both of the created raycasts
+        HandleHits(hit1);
+        HandleHits(hit2);
+
+        distanceToGround = shortestDistanceToGround;
+
+        return boolToReturn;
+    }
+
+    //added to check if head is colliding
+    private bool IsHeadbutt() 
+    {
+        if (headCheckCollider.IsTouchingLayers(groundLayer))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    //Used to fight against "friction" when jumping against walls
+    private bool IsAgainstAWall(Vector2 directionToCheckIfWallIsIn)
+    {
+        float wallNeedsToBeThisCloseToCount = 0.5f;
+
+        //Method to check both raycast arrays
+        bool HandleHits(RaycastHit2D[] hits)
+        {
+            for (int i = 0; i < hits.Length; i++)
+            {
+                if (hits[i].collider != null)
+                {
+                    if (hits[i].collider.CompareTag("Ground"))
+                    {
+                        if (hits[i].distance <= wallNeedsToBeThisCloseToCount)
+                        {
+                            return true;
+                        }
+                    }
+                }
+            }
+
+            return false;
+        }
+
+        if (directionToCheckIfWallIsIn == Vector2.right)
+        {
+            RaycastHit2D[] rightHits = Physics2D.RaycastAll(rightWallChecker.transform.position, Vector2.right, Mathf.Infinity);
+            return HandleHits(rightHits);
+        }
+        if (directionToCheckIfWallIsIn == Vector2.left)
+        {
+            RaycastHit2D[] leftHits = Physics2D.RaycastAll(leftWallChecker.transform.position, Vector2.left, Mathf.Infinity);
+            return HandleHits(leftHits);
+        }
+
+        return false;
+    }
+
+    //Used to see if the player jumped high enough, only used to prevent bugs
+    public bool JumpedHighEnough()
+    {
+        if (jumpedHighEnough)
+            return true;
+
+        if (!clickedJump)
+            return false;
+        else
+        {
+            if (distanceToGround > groundCheckDistance)
+            {
+                jumpedHighEnough = true;
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public bool HasJumpsLeft()
+    {
+        if (currentJumps < maxJumps)
+            return true;
+        else
+        {
+            return false;
+        }
+    }
+
+
+
+
+
+
     public void AddDoubleJump(int add)
     {
         maxJumps += add;
