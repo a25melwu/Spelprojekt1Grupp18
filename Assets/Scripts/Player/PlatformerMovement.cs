@@ -10,7 +10,7 @@ using UnityEngine.UIElements;
 
 class PlatformerMovement : MonoBehaviour
 {
-    //[SerializeField] private BoxCollider2D groundCheckCollider;
+    [SerializeField] private BoxCollider2D groundCheckCollider;
     [SerializeField] private BoxCollider2D headCheckCollider;
     [SerializeField] private SpriteRenderer spriteRenderer;
     public bool controlEnabled { get; set; } = true;
@@ -457,4 +457,7 @@ class PlatformerMovement : MonoBehaviour
         maxJumps = 1;
         Debug.Log("Double Jump disabled");
     }
+
+    public BoxCollider2D GroundCheckCollider => groundCheckCollider;
+
 }

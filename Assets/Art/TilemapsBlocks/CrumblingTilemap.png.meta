@@ -94,7 +94,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -108,7 +108,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 16
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -129,6 +129,19 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
+    maxTextureSize: 256
+    resizeAlgorithm: 0
+    textureFormat: 4
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -141,7 +154,7 @@ TextureImporter:
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 4
-    buildTarget: Standalone
+    buildTarget: WindowsStoreApps
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -165,12 +178,12 @@ TextureImporter:
         width: 49
         height: 63
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
       spriteID: a5f58884dc6d5b6e0800000000000000
       internalID: -1822314297027960998
@@ -187,12 +200,12 @@ TextureImporter:
         width: 50
         height: 39
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
       spriteID: 7ec3913dbc689fa80800000000000000
       internalID: -8432560617296413465
@@ -209,12 +222,12 @@ TextureImporter:
         width: 50
         height: 63
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
       spriteID: 6e13e2ed6c09bb3a0800000000000000
       internalID: -6648561241076911642
@@ -231,12 +244,12 @@ TextureImporter:
         width: 49
         height: 39
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
       spriteID: 029fa858ad969ddb0800000000000000
       internalID: -4766662343330694880
@@ -248,17 +261,23 @@ TextureImporter:
       name: CrumblingTilemap_4
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 112
-        height: 97
+        x: 48
+        y: 16
+        width: 48
+        height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
-      physicsShape: []
-      tessellationDetail: -1
+      physicsShape:
+      - - {x: 24, y: 1}
+        - {x: 24, y: 8}
+        - {x: -24, y: 8}
+        - {x: -24, y: 1}
+        - {x: -18, y: -8}
+        - {x: 18, y: -8}
+      tessellationDetail: 0
       bones: []
       spriteID: af8390d090b56a710800000000000000
       internalID: 1704149603437852922
@@ -270,17 +289,23 @@ TextureImporter:
       name: CrumblingTilemap_5
       rect:
         serializedVersion: 2
-        x: 47
-        y: 97
-        width: 50
+        x: 48
+        y: 96
+        width: 48
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
-      physicsShape: []
-      tessellationDetail: -1
+      physicsShape:
+      - - {x: 24, y: 1}
+        - {x: 24, y: 8}
+        - {x: -24, y: 8}
+        - {x: -24, y: 1}
+        - {x: -18, y: -8}
+        - {x: 18, y: -8}
+      tessellationDetail: 0
       bones: []
       spriteID: 4a956a71bcaa0f0b0800000000000000
       internalID: -5696865739371816540
@@ -297,12 +322,12 @@ TextureImporter:
         width: 14
         height: 14
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
       spriteID: 1a41ea6f9c9df1540800000000000000
       internalID: 4980939174345315489
@@ -314,17 +339,23 @@ TextureImporter:
       name: CrumblingTilemap_7
       rect:
         serializedVersion: 2
-        x: 105
-        y: 0
-        width: 87
-        height: 97
+        x: 98
+        y: 60
+        width: 48
+        height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
-      physicsShape: []
-      tessellationDetail: -1
+      physicsShape:
+      - - {x: 24, y: 1}
+        - {x: 24, y: 8}
+        - {x: -24, y: 8}
+        - {x: -24, y: 1}
+        - {x: -18, y: -8}
+        - {x: 18, y: -8}
+      tessellationDetail: 0
       bones: []
       spriteID: 8b230ecc58058a6a0800000000000000
       internalID: -6437807131728006472
@@ -336,108 +367,26 @@ TextureImporter:
       name: CrumblingTilemap_8
       rect:
         serializedVersion: 2
-        x: 143
-        y: 97
-        width: 49
+        x: 144
+        y: 96
+        width: 48
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
-      physicsShape: []
-      tessellationDetail: -1
+      physicsShape:
+      - - {x: 24, y: 1}
+        - {x: 24, y: 8}
+        - {x: -24, y: 8}
+        - {x: -24, y: 1}
+        - {x: -18, y: -8}
+        - {x: 18, y: -8}
+      tessellationDetail: 0
       bones: []
       spriteID: eaafa7a668141dee0800000000000000
       internalID: -1238136376982308178
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: CrumblingTilemap_9
-      rect:
-        serializedVersion: 2
-        x: 120
-        y: 69
-        width: 11
-        height: 7
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 8a1f6fa90b30f4620800000000000000
-      internalID: 2760429153650405800
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: CrumblingTilemap_10
-      rect:
-        serializedVersion: 2
-        x: 108
-        y: 49
-        width: 7
-        height: 7
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: b83d4856cdcf98eb0800000000000000
-      internalID: -4716961111167675509
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: CrumblingTilemap_11
-      rect:
-        serializedVersion: 2
-        x: 159
-        y: 39
-        width: 6
-        height: 8
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 285b96255aa9fa6a0800000000000000
-      internalID: -6435755307646208638
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: CrumblingTilemap_12
-      rect:
-        serializedVersion: 2
-        x: 182
-        y: 27
-        width: 9
-        height: 8
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 3eb339ef2cfd1da10800000000000000
-      internalID: 1932571743706364899
       vertices: []
       indices: 
       edges: []
@@ -451,12 +400,12 @@ TextureImporter:
         width: 14
         height: 14
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
       spriteID: acba90521647ccd00800000000000000
       internalID: 994297578324077514
@@ -473,125 +422,15 @@ TextureImporter:
         width: 66
         height: 17
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
       spriteID: 43e414ac6f6d80650800000000000000
       internalID: 6199441242519064116
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: CrumblingTilemap_15
-      rect:
-        serializedVersion: 2
-        x: 149
-        y: 16
-        width: 12
-        height: 8
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 24990409af2e37540800000000000000
-      internalID: 5004593176728607042
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: CrumblingTilemap_16
-      rect:
-        serializedVersion: 2
-        x: 150
-        y: 0
-        width: 13
-        height: 19
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: a6cc70fbea0a9d1f0800000000000000
-      internalID: -1019607168232993686
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: CrumblingTilemap_17
-      rect:
-        serializedVersion: 2
-        x: 161
-        y: 8
-        width: 10
-        height: 13
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 9b4c7b56f0ad94fb0800000000000000
-      internalID: -4662956179499531079
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: CrumblingTilemap_18
-      rect:
-        serializedVersion: 2
-        x: 160
-        y: 0
-        width: 7
-        height: 6
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: bfd2943dacbb9d240800000000000000
-      internalID: 4817087756252032507
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: CrumblingTilemap_19
-      rect:
-        serializedVersion: 2
-        x: 183
-        y: 0
-        width: 7
-        height: 10
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: c151ad6b17cab81d0800000000000000
-      internalID: -3347392293620804324
       vertices: []
       indices: 
       edges: []
@@ -600,7 +439,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 377fe6a6d1adb4849aa4f33f47ff0614
     internalID: 0
     vertices: []
     indices: 
