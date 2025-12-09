@@ -54,13 +54,10 @@ public class ItemPickup : MonoBehaviour
             playerSFX = other.GetComponentInChildren<PlayerSFX>();
             playerSFX?.PlayPickupSound();
 
-            if (playerUIDoublejump != null)
+            if (playerUIDoublejump != null && giveDoubleJump)
             {
                 playerUIDoublejump?.AddUIDoubleJump(1);
-            }
-            
-            if (giveDoubleJump)
-            {
+                
                 //get PlatformerMovement from the object that enters the trigger
                 PlatformerMovement playerMovement = other.GetComponent<PlatformerMovement>();
             
