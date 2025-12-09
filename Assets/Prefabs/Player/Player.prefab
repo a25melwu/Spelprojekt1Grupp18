@@ -135,6 +135,7 @@ MonoBehaviour:
   jumpGravityScale: 4
   fallGravityScale: 2
   airFallGravityScaleSlowMultiplier: 0.2
+  maxChargeTime: 0.8
   rightWallChecker: {fileID: 7608778373811545563}
   leftWallChecker: {fileID: 4191959043322193641}
   raycastCheck1: {fileID: 2340299782646221746}
@@ -334,7 +335,6 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  squashDuration: 1
   squashTimer: 0
   isAnticipating: 0
 --- !u!1 &1076853250680791271

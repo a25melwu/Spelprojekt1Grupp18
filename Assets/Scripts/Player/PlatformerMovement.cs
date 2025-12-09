@@ -59,7 +59,7 @@ class PlatformerMovement : MonoBehaviour
     [SerializeField] private float airFallGravityScaleSlowMultiplier = 1;
 
     private float jumpChargeTime = 0f;
-    private float maxChargeTime = 1.0f;
+    public float maxChargeTime = 1.0f;
     private float minJumpForce = 1f;
     private float minChargeTime = 0.1f;
 

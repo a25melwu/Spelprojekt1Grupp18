@@ -19,7 +19,7 @@ public class SquahAndStretch : MonoBehaviour
     [SerializeField] private float squashMultiplier = 0.05f;
     [SerializeField] private float maxSquash = 0.35f;
     [SerializeField] private AnimationCurve squashCurve;
-    [SerializeField] private float squashDuration = 2f;
+    private float timeUntilFullySquashed = 2f; //Gets set to the time it takes to fully charge the jump - from playermovement
 
     //Values
     private Vector3 originalScale;
@@ -30,6 +30,8 @@ public class SquahAndStretch : MonoBehaviour
     void Start()
     {
         originalScale = spriteToAffect.localScale;
+
+        timeUntilFullySquashed = GetComponentInChildren<PlatformerMovement>().maxChargeTime;
     }
 
     [Obsolete]
@@ -54,7 +56,7 @@ public class SquahAndStretch : MonoBehaviour
         if (isAnticipating)
         {
             squashTimer += Time.deltaTime;
-            float t = squashTimer / squashDuration; //t will always be between 0 and 1
+            float t = squashTimer / timeUntilFullySquashed; //t will always be between 0 and 1
 
             if (t >= 1f)
             {
