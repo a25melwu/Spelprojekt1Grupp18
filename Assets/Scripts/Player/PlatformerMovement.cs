@@ -250,7 +250,6 @@ class PlatformerMovement : MonoBehaviour
     {
         if (IsGrounded() && currentJumps == 0) playerSFX?.PlayJumpSound(); //play jump sound here
 
-        Debug.Log("Clicked Jump = true");
         clickedJump = true;
 
         //Change moveInput direction
