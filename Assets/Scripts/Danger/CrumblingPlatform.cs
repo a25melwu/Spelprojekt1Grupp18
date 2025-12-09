@@ -66,7 +66,7 @@ public class CrumblingPlatform : MonoBehaviour
         {
             OnTimerComplete();
         }
-        
+        CheckForPlayerOnPlatform(); //checks if player is already on platform
     }
     
 
@@ -146,6 +146,8 @@ public class CrumblingPlatform : MonoBehaviour
             {
                 platformCollider.enabled = true;
             }
+            
+            
 
         }
         else
@@ -160,6 +162,7 @@ public class CrumblingPlatform : MonoBehaviour
             animator.SetFloat(progressParameter, 0f);
             animator.Rebind(); //reset animation state
         }
+        
         
     }
 
@@ -180,6 +183,16 @@ public class CrumblingPlatform : MonoBehaviour
         
         return null;
 
+    }
+
+    private void CheckForPlayerOnPlatform() //checks if player is already touching platform, otherwise timer wont start, however still a small delay?
+    {
+        if (playerGroundCheck == null || platformCollider == null) return;
+
+        if (platformCollider.IsTouching(playerGroundCheck))
+        {
+            StartTimer();
+        }
     }
     
 }
