@@ -18,7 +18,7 @@ public class CrumblingPlatform : MonoBehaviour
     [SerializeField] private float timerLength = 1f;
     private float defaultTime;
     [Tooltip("Platform respawn time in seconds")]
-    [SerializeField] private float timerRespawn = 8f;
+    [SerializeField] private float timerRespawn = 4f;
     [SerializeField] private bool autoRespawn = true;
     private Collider2D platformCollider;
 
@@ -30,13 +30,10 @@ public class CrumblingPlatform : MonoBehaviour
     [SerializeField] private Animator animator;
     private string progressParameter = "TimerProgress";
     
-    
-    
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    void Awake()
     {
         defaultTime = timerLength;
-
+        
         if (spriteRenderer == null)
         {
             spriteRenderer = GetComponent<SpriteRenderer>();
@@ -45,11 +42,8 @@ public class CrumblingPlatform : MonoBehaviour
         platformCollider = GetComponent<Collider2D>();
         
         playerGroundCheck = GetPlayerGroundCheckCollider();
-
     }
-    
 
-    // Update is called once per frame
     void Update()
     {
         if (timerRunning)
@@ -60,15 +54,15 @@ public class CrumblingPlatform : MonoBehaviour
             
             float progress = 1f - (timerLength / defaultTime); //send progress to animator
             animator.SetFloat(progressParameter, progress);
+            
         }
-
-        if (timerLength <= 0f)
+        
+        if (timerLength <= 0f && timerRunning)
         {
             OnTimerComplete();
         }
-        CheckForPlayerOnPlatform(); //checks if player is already on platform
+        
     }
-    
 
     public void StartTimer()
     {
@@ -82,9 +76,12 @@ public class CrumblingPlatform : MonoBehaviour
 
     private void OnTimerComplete()
     {
-        SetPlatformVisible(false);
+        if (!timerRunning) return; //FIXED: added to prevent infinite loop
+        timerRunning = false; //FIXED: added to prevent infinite loop
+        
+        SetPlatformVisible(false); //Hides platform when timer is completed
 
-        if (autoRespawn)
+        if (autoRespawn) //if autorespawn is enabled, run respawn after delay
         {
             StartCoroutine(RespawnAfterDelay(timerRespawn));
         }
@@ -129,7 +126,7 @@ public class CrumblingPlatform : MonoBehaviour
         ResetPlatform();
     }
 
-    private void SetPlatformVisible(bool visible)
+    private void SetPlatformVisible(bool visible) //toggles visibility states
     {
         if (visible)
         {
@@ -139,15 +136,11 @@ public class CrumblingPlatform : MonoBehaviour
                 Color color = spriteRenderer.color;
                 color.a = 1f;
                 spriteRenderer.color = color;
-                
             }
-            
             if (platformCollider != null)
             {
                 platformCollider.enabled = true;
             }
-            
-            
 
         }
         else
@@ -160,9 +153,8 @@ public class CrumblingPlatform : MonoBehaviour
         if (visible && animator != null)
         {
             animator.SetFloat(progressParameter, 0f);
-            animator.Rebind(); //reset animation state
+            //animator.Rebind(); //reset animation state
         }
-        
         
     }
 
@@ -172,7 +164,7 @@ public class CrumblingPlatform : MonoBehaviour
         timerRunning = false;
     }
 
-    private BoxCollider2D GetPlayerGroundCheckCollider()
+    private BoxCollider2D GetPlayerGroundCheckCollider() //is needed to check if player feet collider is touching platform (and not head)
     {
        
         PlatformerMovement playerMovement = FindFirstObjectByType<PlatformerMovement>();
@@ -183,16 +175,6 @@ public class CrumblingPlatform : MonoBehaviour
         
         return null;
 
-    }
-
-    private void CheckForPlayerOnPlatform() //checks if player is already touching platform, otherwise timer wont start, however still a small delay?
-    {
-        if (playerGroundCheck == null || platformCollider == null) return;
-
-        if (platformCollider.IsTouching(playerGroundCheck))
-        {
-            StartTimer();
-        }
     }
     
 }
