@@ -11,7 +11,7 @@ using UnityEngine.UIElements;
 class PlatformerMovement : MonoBehaviour
 {
     [SerializeField] private BoxCollider2D groundCheckCollider;
-    [SerializeField] private BoxCollider2D headCheckCollider;
+    [SerializeField] private HeadbuttChecker headChecker;
     [SerializeField] private SpriteRenderer spriteRenderer;
     public bool controlEnabled { get; set; } = true;
 
@@ -90,7 +90,6 @@ class PlatformerMovement : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         //groundCheckCollider.isTrigger = true;
-        headCheckCollider.isTrigger = true;
         
         //Set gravity scale to 0 so player wont "fall"
         rb.gravityScale = 0;
@@ -309,9 +308,6 @@ class PlatformerMovement : MonoBehaviour
 
 
 
-
-
-
     //Bool that checks if one of the raycasts hits the ground within the specified distance
     private bool IsGrounded()
     {
@@ -354,14 +350,7 @@ class PlatformerMovement : MonoBehaviour
     //added to check if head is colliding
     private bool IsHeadbutt() 
     {
-        if (headCheckCollider.IsTouchingLayers(groundLayer))
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+        return headChecker.touchingCeiling;
     }
 
     //Used to fight against "friction" when jumping against walls
