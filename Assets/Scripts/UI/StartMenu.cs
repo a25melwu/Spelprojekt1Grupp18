@@ -13,8 +13,9 @@ public class StartMenu : MonoBehaviour
     [Header("Start Scene")] 
     [SerializeField] private string startScene;
     
-    [Header("Scene Options")]
+    [Header("Scene Panels")]
     [SerializeField] private GameObject optionsPanel;
+    [SerializeField] private GameObject creditsPanel;
     private int toggleCount = 0;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -27,6 +28,15 @@ public class StartMenu : MonoBehaviour
         else
         {
             Debug.Log("Options panel object not assigned!");
+        }
+
+        if (creditsPanel != null)
+        {
+            creditsPanel.SetActive(true);
+        }
+        else
+        {
+            Debug.Log("Credits panel object not assigned!");
         }
     }
     
@@ -51,12 +61,12 @@ public class StartMenu : MonoBehaviour
         }
         
         SceneManager.LoadSceneAsync(scene, LoadSceneMode.Single);
+        toggleCount = 0;
     }
 
     public void OnToggleOptionsButton()
     {
         toggleCount++;
-        Debug.Log($"toggled: {toggleCount}");
         ToggleOptionsMenu();
     }
     
@@ -69,11 +79,14 @@ public class StartMenu : MonoBehaviour
     {
         if (toggleCount % 2 == 1)
         {
+            creditsPanel?.SetActive(false);
             optionsPanel?.SetActive(true);
+            
         }
         else
         {
             optionsPanel?.SetActive(false);
+            creditsPanel?.SetActive(true);
         }
     }
 }
