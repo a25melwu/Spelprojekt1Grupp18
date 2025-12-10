@@ -224,7 +224,7 @@ public class Dialogue : MonoBehaviour
         if (canvasGroup == null) //if not found, create one
         {
             canvasGroup = dialogueCanvas.gameObject.AddComponent<CanvasGroup>(); //create
-            Debug.Log("Added CanvasGroup component to dialogueCanvas");
+            //Debug.Log("Added CanvasGroup component to dialogueCanvas");
         }
         
         canvasGroup.alpha = 0f; //set canvasgroup to invisible when awake

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SaveManager : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class SaveManager : MonoBehaviour
 
     public List<float> collectedFeathersID = new();
 
+    public float idOfCheckpointToSpawnAt = -1; 
 
     void Awake()
     {
@@ -20,6 +22,7 @@ public class SaveManager : MonoBehaviour
         {
             instance = this;
             DontDestroyOnLoad(gameObject);
+            SceneManager.sceneLoaded += OnSceneLoaded;
         }
     }
 
@@ -33,6 +36,31 @@ public class SaveManager : MonoBehaviour
         return playerDoubleJumpsSaved;
     }
 
+    //Calls every time the player dies as well, since we reload the scene
+    [System.Obsolete]
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        SetPlayerToCorrectSpawnPosition();
+    }
 
+    [System.Obsolete]
+    public void SetPlayerToCorrectSpawnPosition()
+    {
+        Checkpoint[] checkPoints = FindObjectsOfType<Checkpoint>();
+        Checkpoint checkPointToSpawnAt = null;
+
+        for (int i = 0; i < checkPoints.Length; i++)
+        {
+            if(checkPoints[i].checkpointId == idOfCheckpointToSpawnAt)
+            {
+                checkPointToSpawnAt = checkPoints[i];
+            }
+        }
+
+        if (checkPointToSpawnAt == null) return;
+
+        GameObject player = FindFirstObjectByType<PlatformerMovement>().gameObject;
+        player.transform.position = checkPointToSpawnAt.spawnPos.position;
+    }
 
 }
