@@ -31,7 +31,7 @@ class PlatformerMovement : MonoBehaviour
     private SquahAndStretch squashAndStretchManager;
     private SaveManager saveManager;
 
-    private bool isHeadbutt; //for checking if head is colliding
+    [SerializeField] private bool isHeadbutt; //for checking if head is colliding
 
     private bool faceRight = true;
     
@@ -67,8 +67,6 @@ class PlatformerMovement : MonoBehaviour
     private float startXMaxSpeed;
 
     private int maxJumps = 1;
-    private int currentJumps = 0;
-
 
     [Header("Raycast Objects")]
     [SerializeField] private GameObject rightWallChecker;
@@ -78,9 +76,11 @@ class PlatformerMovement : MonoBehaviour
 
     [SerializeField] private float groundCheckDistance = 0.01f;
 
-    private float distanceToGround;
-    private bool clickedJump;
-    private bool jumpedHighEnough = false;
+    [Header("Public just for bug checking")]
+    [SerializeField] private float distanceToGround;
+    [SerializeField] private bool clickedJump;
+    [SerializeField] private bool jumpedHighEnough = false;
+    [SerializeField] private int currentJumps = 0;
 
 
 
@@ -330,7 +330,7 @@ class PlatformerMovement : MonoBehaviour
             {
                 if (hits[i].collider != null)
                 {
-                    if (hits[i].collider.CompareTag("Ground"))
+                    if (hits[i].collider.CompareTag("Ground") || hits[i].collider.CompareTag("Platform"))
                     {
                         if (hits[i].distance < shortestDistanceToGround)
                             shortestDistanceToGround = hits[i].distance;
