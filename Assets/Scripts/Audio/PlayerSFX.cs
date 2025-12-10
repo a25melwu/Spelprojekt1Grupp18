@@ -26,6 +26,7 @@ public class PlayerSFX : MonoBehaviour
     [NonReorderable] public AudioType[] landingSounds;
     //[SerializeField] private SoundGroup flyingSounds;
     [NonReorderable] public AudioType[] hurtSounds;
+    [NonReorderable] public AudioType[] outOfBoundsFallSounds;
     
     [Header("Item Sounds (One shot)")]
     [NonReorderable] public AudioType[] pickupSounds;
@@ -35,8 +36,10 @@ public class PlayerSFX : MonoBehaviour
     //public void PlayFallingSound() => PlayRandomSound(fallingSounds);
     public void PlayLandingSound() => PlayRandomSound(landingSounds); //call this function from other classes
     //public void PlayFlyingSound() => PlayRandomSound(flyingSounds);
-    public void PlayHurtSound() => PlayRandomHurtSound(hurtSounds); //call this function from other classes
+    public void PlayHurtSound() => PlayRandomSoundGlobal(hurtSounds); //call this function from other classes
     public void PlayPickupSound() => PlayRandomSound(pickupSounds); //call this function from other classes
+    
+    public void PlayOutOfBoundsFallSound() => PlayRandomSoundGlobal(outOfBoundsFallSounds); //call this function from other classes
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -65,7 +68,7 @@ public class PlayerSFX : MonoBehaviour
         
     }
 
-    private void PlayRandomHurtSound(AudioType[] soundGroup)  //using global sound PlayClipAtPoint when dying otherwise the sound wont have the time to play until player is destroyed
+    private void PlayRandomSoundGlobal(AudioType[] soundGroup)  //using global sound PlayClipAtPoint when dying otherwise the sound wont have the time to play until player is destroyed
     {
         if (audioSource == null || soundGroup == null || soundGroup.Length == 0) return;
         

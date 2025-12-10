@@ -547,6 +547,10 @@ MonoBehaviour:
   - variationName: Hurt
     audioClip:
     - {fileID: 8300000, guid: 07276b7fd14875d459df3b8b53d787f3, type: 3}
+  outOfBoundsFallSounds:
+  - variationName: Instant peep
+    audioClip:
+    - {fileID: 8300000, guid: 3c86b68109a82cd4fbc5f701d12f0639, type: 3}
   pickupSounds:
   - variationName: Pick up
     audioClip:
