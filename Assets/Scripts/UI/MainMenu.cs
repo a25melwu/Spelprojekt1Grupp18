@@ -41,6 +41,14 @@ public class MainMenu : MonoBehaviour
             ToggleMenu();
         }
     }
+    
+    public void ChangeScene(string sceneName)
+    {
+        if (string.IsNullOrEmpty(sceneName)) return;
+        
+        SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Single);
+        
+    }
 
     public void QuitGame()
     {
