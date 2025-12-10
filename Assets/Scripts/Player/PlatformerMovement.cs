@@ -18,10 +18,6 @@ class PlatformerMovement : MonoBehaviour
     private Vector2 moveInput;
     private Rigidbody2D rb;
     
-    //platformer specific variables
-    
-    private LayerMask groundLayer = ~0; //~0 is referring to EVERY layer. Serialize the variable and assign the layer of your choice if you want a specific layer.
-
     private Vector2 velocity;
     private bool jumpInput = false;
     private bool wasGrounded;
