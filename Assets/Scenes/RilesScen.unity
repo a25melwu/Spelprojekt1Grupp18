@@ -335,7 +335,7 @@ GameObject:
   - component: {fileID: 730939830}
   m_Layer: 0
   m_Name: Gound
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9425,9 +9425,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   groundCheckCollider: {fileID: 0}
-  headCheckCollider: {fileID: 0}
+  headChecker: {fileID: 0}
   spriteRenderer: {fileID: 1844885474}
   actionAsset: {fileID: -944628639613478452, guid: a1d095cf99865c6478dd371115951b8a, type: 3}
+  isHeadbutt: 0
   xMaxSpeed: 0
   xSpeedAirJumpSlowMultiplier: 1
   maxJumpForce: 7
@@ -9435,6 +9436,16 @@ MonoBehaviour:
   jumpGravityScale: 0.6
   fallGravityScale: 0.8
   airFallGravityScaleSlowMultiplier: 1
+  maxChargeTime: 1
+  rightWallChecker: {fileID: 0}
+  leftWallChecker: {fileID: 0}
+  raycastCheck1: {fileID: 0}
+  raycastCheck2: {fileID: 0}
+  groundCheckDistance: 0.01
+  distanceToGround: 0
+  clickedJump: 0
+  jumpedHighEnough: 0
+  currentJumps: 0
 --- !u!61 &1844885471
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -9724,6 +9735,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerDoubleJumpsSaved: 0
   collectedFeathersID: []
+  idOfCheckpointToSpawnAt: -1
 --- !u!4 &1937863540
 Transform:
   m_ObjectHideFlags: 0
@@ -9783,7 +9795,6 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  squashDuration: 2
   squashTimer: 0
   isAnticipating: 0
 --- !u!4 &2127540990
