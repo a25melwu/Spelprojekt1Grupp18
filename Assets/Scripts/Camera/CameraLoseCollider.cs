@@ -8,7 +8,7 @@ public class CameraLoseCollider : MonoBehaviour
 
     [Header("References")]
     [SerializeField] private BoxCollider2D loseCollider;
-
+    private PlayerSFX playerSFX;
 
     private void Start()
     {
@@ -17,6 +17,8 @@ public class CameraLoseCollider : MonoBehaviour
         transform.position = new Vector2(cam.transform.position.x, cam.transform.position.y - cam.orthographicSize - yOffset);
         float width = cam.orthographicSize * 2f * cam.aspect;
         loseCollider.size = new Vector2(width, loseCollider.size.y);
+
+        playerSFX = FindFirstObjectByType<PlayerSFX>(); //get playerSFX player
     }
 
 
@@ -34,6 +36,8 @@ public class CameraLoseCollider : MonoBehaviour
             {
                 Debug.LogError("No WinLoseManager found in scene! It is a prefab and you just need to drag it into the scene.");
             }
+            
+            playerSFX?.PlayOutOfBoundsFallSound(); //added here instead of in winlosemanager or both hurt and outofbounds sounds are playing
         }
     }
 

@@ -5,13 +5,7 @@ using UnityEngine.SceneManagement;
 public class WinLoseManager : MonoBehaviour
 {
     public GameObject playerDeathParticle;
-    private PlayerSFX playerSFX;
     
-
-    private void Awake()
-    {
-        playerSFX = FindFirstObjectByType<PlayerSFX>();
-    }
     
     //Called when the player gets to the top
     //Reloads the scene
@@ -25,7 +19,7 @@ public class WinLoseManager : MonoBehaviour
     public void LoseGame()
     {
         StartCoroutine(nameof(LoseGameTimer));
-        playerSFX?.PlayOutOfBoundsFallSound();
+        
     }
 
     IEnumerator LoseGameTimer()
