@@ -19088,6 +19088,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: ParallaxBackground
       objectReference: {fileID: 0}
+    - target: {fileID: 6485919144442470252, guid: 0cd0759e914007940859778020a5a438, type: 3}
+      propertyPath: m_Size.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6485919144442470252, guid: 0cd0759e914007940859778020a5a438, type: 3}
+      propertyPath: m_Size.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6485919144442470252, guid: 0cd0759e914007940859778020a5a438, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8580309146779596413, guid: 0cd0759e914007940859778020a5a438, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
