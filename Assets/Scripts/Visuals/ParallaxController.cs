@@ -4,6 +4,7 @@ public class ParallaxController : MonoBehaviour
 {
     private float spriteHeight;
     private Transform mainCamera;
+    [Header("Parallax Settings")]
     [Tooltip("Set Parallax Offset Effect: 0 = not moving, 1 = same as camera")]
     [SerializeField] private float parallaxEffect = 0.5f;
     
@@ -11,7 +12,7 @@ public class ParallaxController : MonoBehaviour
     private Vector3 initialSpritePosition;
     private float offsetY; //track accumulated offset for wrapping
     private float cameraHeight;
-
+    
     void Awake()
     {
         mainCamera = Camera.main.transform;
