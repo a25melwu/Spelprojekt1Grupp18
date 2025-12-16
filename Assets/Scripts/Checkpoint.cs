@@ -13,11 +13,8 @@ public class Checkpoint : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("Triggered");
         if (collision.CompareTag("Player"))
         {
-            Debug.Log("Was player");
-
             if (!hasBeenTriggered)
             {
                 hasBeenTriggered = true;

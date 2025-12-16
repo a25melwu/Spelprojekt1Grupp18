@@ -63,6 +63,8 @@ public class SquahAndStretch : MonoBehaviour
                 t = 1f;
             }
 
+
+
             //Scale the sprite
             float squashValue = squashCurve.Evaluate(t);
             spriteToAffect.localScale = new Vector3(originalScale.x * squashValue, originalScale.y * (2f - squashValue), originalScale.z);
