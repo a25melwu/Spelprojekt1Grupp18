@@ -11,6 +11,7 @@ using UnityEngine.Serialization;
 public class MainMenu : MonoBehaviour
 {
     [SerializeField] private GameObject mainMenuCanvas;
+    private GameObject timerPanel;
     private PlayerInput playerInput;
     public bool IsMenuOpen { get; private set; }
     
@@ -25,6 +26,7 @@ public class MainMenu : MonoBehaviour
         {
             Debug.Log("Main menu canvas object not assigned!");
         }
+        
         playerInput = FindFirstObjectByType<PlayerInput>();
     }
     

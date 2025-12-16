@@ -1477,7 +1477,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d619128bb05de734da1abaa695f6cb57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startScene: SpeltTest1Level
+  startScene: SpeltTest2Level
   optionsPanel: {fileID: 493972722}
   creditsPanel: {fileID: 321686151}
 --- !u!1 &1600516124

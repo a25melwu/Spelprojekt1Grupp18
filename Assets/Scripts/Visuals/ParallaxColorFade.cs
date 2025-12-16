@@ -41,9 +41,6 @@ public class ParallaxColorFade : MonoBehaviour
     public void FadeToColor4() => StartFade(CurrentColor.Color4);
     public void FadeToColor5() => StartFade(CurrentColor.Color5);
     
-    
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    
    
     void Awake()
     {

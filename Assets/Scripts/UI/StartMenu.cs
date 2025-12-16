@@ -38,6 +38,7 @@ public class StartMenu : MonoBehaviour
         {
             Debug.Log("Credits panel object not assigned!");
         }
+        
     }
     
     void Start()
@@ -62,6 +63,11 @@ public class StartMenu : MonoBehaviour
         
         SceneManager.LoadSceneAsync(scene, LoadSceneMode.Single);
         toggleCount = 0;
+        
+        Time.timeScale = 1f;
+        //TimerManager.StartTimerStatic(); 
+        
+        
     }
 
     public void OnToggleOptionsButton()
