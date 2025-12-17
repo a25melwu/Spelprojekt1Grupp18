@@ -18,7 +18,6 @@ public class ItemPickup : MonoBehaviour
     private bool triggeredThisFrame = false; //flag to limit collisions to 1 per frame
     
     private PlayerSFX playerSFX;
-    private InstantiateUIDoublejump playerUIDoublejump;
 
     [SerializeField] private float pickupID; 
 
@@ -30,8 +29,6 @@ public class ItemPickup : MonoBehaviour
             Debug.Log($"{gameObject} is missing a collider2D");
         }
         
-        playerUIDoublejump = FindFirstObjectByType<InstantiateUIDoublejump>();
-
         pickupID = transform.position.y * transform.position.x + transform.position.y;
     }
 
@@ -54,10 +51,8 @@ public class ItemPickup : MonoBehaviour
             playerSFX = other.GetComponentInChildren<PlayerSFX>();
             playerSFX?.PlayPickupSound();
 
-            if (playerUIDoublejump != null && giveDoubleJump)
+            if (giveDoubleJump)
             {
-                playerUIDoublejump?.AddUIDoubleJump(1);
-                
                 //get PlatformerMovement from the object that enters the trigger
                 PlatformerMovement playerMovement = other.GetComponent<PlatformerMovement>();
             
@@ -65,7 +60,6 @@ public class ItemPickup : MonoBehaviour
                 if (playerMovement != null)
                 {
                     playerMovement.AddDoubleJump(1); //add a doublejump to player
-                    
                 }
             }
 

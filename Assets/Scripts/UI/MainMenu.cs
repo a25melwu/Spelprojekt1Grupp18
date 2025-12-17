@@ -32,11 +32,6 @@ public class MainMenu : MonoBehaviour
         instantiateUIDoublejump = FindFirstObjectByType<InstantiateUIDoublejump>();
         
     }
-    
-    void Start()
-    {
-        
-    }
 
     // Update is called once per frame
     void Update()
@@ -47,15 +42,6 @@ public class MainMenu : MonoBehaviour
         }
     }
 
-    void OnEnable()
-    {
-        if (instantiateUIDoublejump == null)
-        {
-            instantiateUIDoublejump = InstantiateUIDoublejump.Instance;
-        }
-    }
-    
-    
     public void ChangeScene(string sceneName)
     {
         if (string.IsNullOrEmpty(sceneName)) return;

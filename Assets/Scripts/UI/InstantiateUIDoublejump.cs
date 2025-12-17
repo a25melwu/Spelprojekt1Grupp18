@@ -12,8 +12,6 @@ public class InstantiateUIDoublejump : MonoBehaviour
 
     private int instanceCount = 0;
     
-    public static InstantiateUIDoublejump Instance { get; private set; } 
-    
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -22,29 +20,12 @@ public class InstantiateUIDoublejump : MonoBehaviour
         {
             parentImageHolder = transform;
         }
-        if (Instance == null)
-        {
-            Instance = this; //saves reference to this first instance
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-        
     }
 
     // Update is called once per frame
     void Update()
     {
         
-    }
-
-    void OnDestroy() //called when gameobject is destroyed. cleans up static reference
-    {
-        if (Instance == this)
-        {
-            Instance = null;
-        }
     }
     
     public void AddUIDoubleJump(int value)

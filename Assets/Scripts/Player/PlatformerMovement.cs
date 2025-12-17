@@ -431,6 +431,9 @@ class PlatformerMovement : MonoBehaviour
         //Save it, so that even if the layer dies it will have the double jumps
         if (saveManager != null)
             saveManager.SavePlayerDoubleJump(maxJumps - 1);
+
+        InstantiateUIDoublejump playerUIDoublejump = FindFirstObjectByType<InstantiateUIDoublejump>();
+        playerUIDoublejump.AddUIDoubleJump(1);
     }
     private void SetMaxJumpAmount(int amountToSetTo)
     {
