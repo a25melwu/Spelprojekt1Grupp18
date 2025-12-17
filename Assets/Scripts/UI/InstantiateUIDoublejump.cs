@@ -14,9 +14,9 @@ public class InstantiateUIDoublejump : MonoBehaviour
     [SerializeField] private Color usedUp;
 
     private int instanceCount = 0;
-    private List<GameObject> feathers = new();
+    public List<GameObject> feathers = new();
 
-    private int usedUpFeathers = 0;
+    public int usedUpFeathers = 0;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -67,6 +67,8 @@ public class InstantiateUIDoublejump : MonoBehaviour
     //Called when we double jump, from the player
     public void SetFeatherToUsedUpColor()
     {
+        if (feathers.Count <= 0) return;
+
         SetFeatherToColor(feathers[usedUpFeathers], usedUp);
         usedUpFeathers++;
     }

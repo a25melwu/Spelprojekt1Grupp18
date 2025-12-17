@@ -62,7 +62,7 @@ class PlatformerMovement : MonoBehaviour
     private float startFallGravityScale;
     private float startXMaxSpeed;
 
-    private int maxJumps = 1;
+    public int maxJumps = 1;
 
     [Header("Raycast Objects")]
     [SerializeField] private GameObject rightWallChecker;
@@ -100,6 +100,12 @@ class PlatformerMovement : MonoBehaviour
         saveManager = FindFirstObjectByType<SaveManager>();
         if (saveManager != null)
             SetMaxJumpAmount(saveManager.GetDoubleJumpsPlayerShouldStartWith() + 1); //We should start with 0 double jumps, but we want to be able to jump once
+
+    }
+
+    private void Start()
+    {
+        SaveManager.instance.gameObject.GetComponentInChildren<InstantiateUIDoublejump>().SetAllFeatherColorToAvailable();
     }
 
     private void FixedUpdate()
@@ -243,7 +249,11 @@ class PlatformerMovement : MonoBehaviour
     //Called when we actually Jump
     private void TriggerJump(float jumpForce)
     {
-        if (IsGrounded() && currentJumps == 0) playerSFX?.PlayJumpSound(); //play jump sound here
+        if (IsGrounded() && currentJumps == 0) playerSFX?.PlayJumpSound(); //play normal jump sound here
+        else if(!IsGrounded()) //Double jump
+        {
+            SaveManager.instance.gameObject.GetComponentInChildren<InstantiateUIDoublejump>().SetFeatherToUsedUpColor();
+        }
 
         clickedJump = true;
 
@@ -285,6 +295,8 @@ class PlatformerMovement : MonoBehaviour
 
         fallGravityScale = startFallGravityScale;
         xMaxSpeed = startXMaxSpeed;
+
+
     }
 
     //Triggered to reset the jump
@@ -300,7 +312,7 @@ class PlatformerMovement : MonoBehaviour
         jumpedHighEnough = false;
         clickedJump = false;
 
-        //SaveManager.instance.gameObject.GetComponentInChildren<>
+        SaveManager.instance.gameObject.GetComponentInChildren<InstantiateUIDoublejump>().SetAllFeatherColorToAvailable();
     }
 
 

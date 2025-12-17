@@ -15355,6 +15355,7 @@ MonoBehaviour:
   fallGravityScale: 0.8
   airFallGravityScaleSlowMultiplier: 1
   maxChargeTime: 1
+  maxJumps: 1
   rightWallChecker: {fileID: 0}
   leftWallChecker: {fileID: 0}
   raycastCheck1: {fileID: 0}
