@@ -40,6 +40,9 @@ public class SaveManager : MonoBehaviour
     [System.Obsolete]
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        if (scene.buildIndex == 0)
+            ResetData();
+
         SetPlayerToCorrectSpawnPosition();
     }
 
@@ -63,4 +66,11 @@ public class SaveManager : MonoBehaviour
         player.transform.position = checkPointToSpawnAt.spawnPos.position;
     }
 
+
+    public void ResetData()
+    {
+        idOfCheckpointToSpawnAt = -1;
+        collectedFeathersID.Clear();
+        playerDoubleJumpsSaved = 0;
+    }
 }
