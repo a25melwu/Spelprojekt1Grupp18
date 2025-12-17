@@ -22,12 +22,6 @@ public class InstantiateUIDoublejump : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-    
     public void AddUIDoubleJump(int value)
     {
         if (imagePrefab == null || value <= 0) return;
