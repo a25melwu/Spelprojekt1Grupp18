@@ -65,8 +65,6 @@ public class StartMenu : MonoBehaviour
         toggleCount = 0;
         
         Time.timeScale = 1f;
-        //TimerManager.StartTimerStatic(); 
-        
         
     }
 

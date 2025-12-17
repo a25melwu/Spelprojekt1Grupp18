@@ -42,7 +42,15 @@ public class MainMenu : MonoBehaviour
         }
     }
 
-    public void ChangeScene(string sceneName)
+    /*public void ChangeScene(string sceneName)
+    {
+        if (string.IsNullOrEmpty(sceneName)) return;
+        
+        SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Single);
+        
+    }*/
+
+    public void GoToStartScene(string sceneName)
     {
         if (string.IsNullOrEmpty(sceneName)) return;
         

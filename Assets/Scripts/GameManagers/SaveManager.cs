@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -10,8 +11,8 @@ public class SaveManager : MonoBehaviour
 
     public List<float> collectedFeathersID = new();
 
-    public float idOfCheckpointToSpawnAt = -1; 
-
+    public float idOfCheckpointToSpawnAt = -1;
+    private string lastSceneName = "";
     void Awake()
     {
         if (instance != null)
@@ -40,10 +41,24 @@ public class SaveManager : MonoBehaviour
     [System.Obsolete]
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        if (scene.buildIndex == 0)
-            ResetData();
+        string currentSceneName = scene.name;
 
+        if (currentSceneName != lastSceneName) //only change music when changing scene, not reload
+        {
+            if (scene.buildIndex == 0)
+            {
+                ResetData();
+                StartMenuMusic();
+            }
+            else 
+            {
+                StartGameMusic();
+            }
+        }
+        
+        lastSceneName = currentSceneName;
         SetPlayerToCorrectSpawnPosition();
+        
     }
 
     [System.Obsolete]
@@ -73,4 +88,24 @@ public class SaveManager : MonoBehaviour
         collectedFeathersID.Clear();
         playerDoubleJumpsSaved = 0;
     }
+
+    private void StartMenuMusic()
+    {
+        if (AudioFade.Instance != null)
+        {
+            Debug.Log("SaveManager: starting menu music");
+            AudioFade.Instance.StartFadeIn(0);
+        }
+    }
+
+    private void StartGameMusic()
+    {
+        
+        if (AudioFade.Instance != null)
+        {
+            Debug.Log("SaveManager: starting game music");
+            AudioFade.Instance.StartFadeIn(1);
+        }
+    }
+    
 }

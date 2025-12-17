@@ -123,7 +123,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 5731705439374987066}
         m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
-        m_MethodName: ChangeScene
+        m_MethodName: GoToStartScene
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

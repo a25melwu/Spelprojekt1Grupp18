@@ -4,60 +4,101 @@ using UnityEngine;
 
 public class AudioFade : MonoBehaviour
 {
-    //private AudioSource source;
-    public AudioSource[] audioSources;
+    [NonReorderable] public AudioSource[] audioSources;
     public float fadeInTargetVolume;
     public float fadeOutTargetVolume;
     public float fadeSpeed;
-    public int audioTrackPlaying = 1;
+    private int audioTrackPlaying = -1; 
 
+    public static AudioFade Instance { get; private set; }
     void Awake()
     {
-        //source = GetComponent<AudioSource>();
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+            return; //added to prevent destroyed instances from trying to initialize
+        }
+        
         double startTime = AudioSettings.dspTime + 0.1;
-
-        //audioSource1.PlayScheduled(startTime);
-        //audioSource2.PlayScheduled(startTime);
+        
         foreach (AudioSource audioSource in audioSources)
         {
-            audioSource.PlayScheduled(startTime);
+            if (audioSource != null)
+            {
+                audioSource.PlayScheduled(startTime);
+            }
+            
         }
-        StartFadeIn(0);
         
     }
 
+    void OnDestroy() //called when gameobject is destroyed. cleans up static reference
+    {
+        if (Instance == this) 
+        {
+            Instance = null;
+        }
+    }
+    
     public void StartFadeIn(int audioTrackToFadeIn)
     {
-        //StopAllCoroutines();
-        StartCoroutine("DoFadeIn", audioTrackToFadeIn);
-        StartCoroutine("DoFadeOut", audioTrackPlaying);
-    }
-
-    public void StartFadeOut(int audioTrackToFadeOut)
-    {
-        //StopAllCoroutines();
-        StartCoroutine("DoFadeOut", audioTrackToFadeOut);
+        StopAllCoroutines();
+        StartCoroutine(DoFadeIn(audioTrackToFadeIn));
+        if (audioTrackPlaying >= 0) //added to prevent outofindex exception when initializing with -1
+        {
+            StartCoroutine(DoFadeOut(audioTrackPlaying));
+        }
+        
     }
 
     private IEnumerator DoFadeIn(int audioTrackToFadeIn)
     {
+        if (audioSources[audioTrackToFadeIn] == null)
+        {
+            Debug.LogWarning($"AudioFade: AudioSource for track {audioTrackToFadeIn} is NULL!");
+            yield break;
+        }
+        if (audioSources[audioTrackToFadeIn].clip == null)
+        {
+            Debug.LogWarning($"AudioFade: AudioClip for track {audioTrackToFadeIn} is NULL!");
+            yield break;
+        }
+        
         while(audioSources[audioTrackToFadeIn].volume != fadeInTargetVolume)
         {
-            audioSources[audioTrackToFadeIn].volume = Mathf.MoveTowards(audioSources[audioTrackToFadeIn].volume, fadeInTargetVolume, fadeSpeed * Time.deltaTime);
+            //FIXED: used unscaledDeltaTime so that MoveTowards doesnt get interrupted by changing scenes
+            audioSources[audioTrackToFadeIn].volume = Mathf.MoveTowards(audioSources[audioTrackToFadeIn].volume, fadeInTargetVolume, fadeSpeed * Time.unscaledDeltaTime); 
             yield return null;
         }
-        StopAllCoroutines();
+        
         audioTrackPlaying = audioTrackToFadeIn;
+        
     }
 
     private IEnumerator DoFadeOut(int audioTrackToFadeOut)
     {
+        if (audioSources[audioTrackToFadeOut] == null)
+        {
+            Debug.LogWarning($"AudioFade: AudioSource for track {audioTrackToFadeOut} is NULL!");
+            yield break;
+        }
+        if (audioSources[audioTrackToFadeOut].clip == null)
+        {
+            Debug.LogWarning($"AudioFade: AudioClip for track {audioTrackToFadeOut} is NULL!");
+            yield break;
+        }
         while (audioSources[audioTrackToFadeOut].volume != fadeOutTargetVolume)
         {
-            audioSources[audioTrackToFadeOut].volume = Mathf.MoveTowards(audioSources[audioTrackToFadeOut].volume, fadeOutTargetVolume, fadeSpeed * Time.deltaTime);
+            //FIXED: used unscaledDeltaTime so that MoveTowards doesnt get interrupted by changing scenes
+            audioSources[audioTrackToFadeOut].volume = Mathf.MoveTowards(audioSources[audioTrackToFadeOut].volume, fadeOutTargetVolume, fadeSpeed * Time.unscaledDeltaTime);
             yield return null;
         }
-        //StopAllCoroutines();
+        
     }
+    
 
 }

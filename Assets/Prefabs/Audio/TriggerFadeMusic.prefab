@@ -91,4 +91,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fb1d6bcde442db43b95aa5e2315cb0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  trackToPlay: 1
+  trackToPlay: 2
