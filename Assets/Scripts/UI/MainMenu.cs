@@ -13,6 +13,7 @@ public class MainMenu : MonoBehaviour
     [SerializeField] private GameObject mainMenuCanvas;
     private GameObject timerPanel;
     private PlayerInput playerInput;
+    private InstantiateUIDoublejump instantiateUIDoublejump;
     public bool IsMenuOpen { get; private set; }
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -28,6 +29,8 @@ public class MainMenu : MonoBehaviour
         }
         
         playerInput = FindFirstObjectByType<PlayerInput>();
+        instantiateUIDoublejump = FindFirstObjectByType<InstantiateUIDoublejump>();
+        
     }
     
     void Start()
@@ -43,12 +46,23 @@ public class MainMenu : MonoBehaviour
             ToggleMenu();
         }
     }
+
+    void OnEnable()
+    {
+        if (instantiateUIDoublejump == null)
+        {
+            instantiateUIDoublejump = InstantiateUIDoublejump.Instance;
+        }
+    }
+    
     
     public void ChangeScene(string sceneName)
     {
         if (string.IsNullOrEmpty(sceneName)) return;
         
         SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Single);
+        
+        instantiateUIDoublejump.ClearUIDoubleJump(); //clears UI doublejumps when changing scene
         
     }
 
