@@ -2,8 +2,6 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
-using UnityEditor.Rendering;
-using UnityEngine.Rendering.UI;
 using UnityEngine.SceneManagement;
 
 public class TimerManager : MonoBehaviour
