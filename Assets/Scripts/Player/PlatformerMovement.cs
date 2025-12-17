@@ -299,6 +299,8 @@ class PlatformerMovement : MonoBehaviour
 
         jumpedHighEnough = false;
         clickedJump = false;
+
+        //SaveManager.instance.gameObject.GetComponentInChildren<>
     }
 
 

@@ -10,7 +10,13 @@ public class InstantiateUIDoublejump : MonoBehaviour
     [SerializeField] private GameObject imagePrefab;
     [SerializeField] private Transform parentImageHolder;
 
+    [SerializeField] private Color available;
+    [SerializeField] private Color usedUp;
+
     private int instanceCount = 0;
+    private List<GameObject> feathers = new();
+
+    private int usedUpFeathers = 0;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -29,6 +35,7 @@ public class InstantiateUIDoublejump : MonoBehaviour
         for (int i = 0; i < value; i++)
         {
             GameObject instance = Instantiate(imagePrefab, parentImageHolder);
+            feathers.Add(instance);
             instanceCount += value;
         }
         
@@ -47,4 +54,39 @@ public class InstantiateUIDoublejump : MonoBehaviour
     {
         return instanceCount;
     }
+
+
+    private void SetAllFeathersToColor(Color colorToSetTo)
+    {
+        foreach (GameObject feather in feathers)
+        {
+            SetFeatherToColor(feather, colorToSetTo);
+        }
+    }
+
+    //Called when we double jump, from the player
+    public void SetFeatherToUsedUpColor()
+    {
+        SetFeatherToColor(feathers[usedUpFeathers], usedUp);
+        usedUpFeathers++;
+    }
+
+    private void SetFeatherToColor(GameObject feather, Color colorToSetTo)
+    {
+        feather.GetComponent<Image>().color = colorToSetTo;
+    }
+
+    //Called when the player touches the ground
+    public void SetAllFeatherColorToAvailable()
+    {
+        SetAllFeathersToColor(available);
+        usedUpFeathers = 0;
+    }
+
+
+
+
+
+
+
 }
