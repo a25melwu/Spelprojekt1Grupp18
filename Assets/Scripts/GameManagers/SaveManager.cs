@@ -50,7 +50,7 @@ public class SaveManager : MonoBehaviour
                 ResetData();
                 StartMenuMusic();
             }
-            else 
+            else
             {
                 StartGameMusic();
             }
