@@ -3801,6 +3801,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1478877562}
   - component: {fileID: 1478877563}
+  - component: {fileID: 1478877564}
   m_Layer: 0
   m_Name: CherryTree_Animated_0
   m_TagString: Untagged
@@ -3878,6 +3879,28 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &1478877564
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1478877561}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: a7bd780a9d597384391ab6035a383724, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!4 &1487176585 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8534792954229019989, guid: c8d1001283c55414b9a1676aaa2cec31, type: 3}
@@ -3999,7 +4022,7 @@ PrefabInstance:
     - target: {fileID: 4000001416378839921, guid: 8d64d10d90d243c41a0956a8dd5be0de, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 5659486106732244184, guid: 98cf6621b7f545c4bb88cd7c59756578, type: 3}
+      objectReference: {fileID: -949453806, guid: f351925119b9e7e41a85c35f4850c4a2, type: 3}
     - target: {fileID: 5650226976543164954, guid: 8d64d10d90d243c41a0956a8dd5be0de, type: 3}
       propertyPath: defaultColor.a
       value: 1
@@ -4019,7 +4042,7 @@ PrefabInstance:
     - target: {fileID: 8905447454832813032, guid: 8d64d10d90d243c41a0956a8dd5be0de, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 1698874127, guid: 98cf6621b7f545c4bb88cd7c59756578, type: 3}
+      objectReference: {fileID: -703043848, guid: f351925119b9e7e41a85c35f4850c4a2, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
