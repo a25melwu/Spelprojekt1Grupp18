@@ -45,6 +45,7 @@ GameObject:
   - component: {fileID: 8111565893699772355}
   - component: {fileID: 8865522177633795934}
   - component: {fileID: 1321261814434815248}
+  - component: {fileID: 9020540337153595430}
   m_Layer: 0
   m_Name: EggshellPickup
   m_TagString: Untagged
@@ -191,6 +192,20 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: -0.2072553}
   m_Radius: 0.37428766
+--- !u!114 &9020540337153595430
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5471275512661493152}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bcda8677abde0484d8165ec77abe470d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveDistance: 1
+  moveSpeed: 1
 --- !u!1001 &5451192906924677145
 PrefabInstance:
   m_ObjectHideFlags: 0

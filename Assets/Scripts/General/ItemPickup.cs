@@ -28,8 +28,8 @@ public class ItemPickup : MonoBehaviour
         {
             Debug.Log($"{gameObject} is missing a collider2D");
         }
-        
-        pickupID = transform.position.y * transform.position.x + transform.position.y;
+
+        pickupID = transform.position.x;
     }
 
     private void Start()

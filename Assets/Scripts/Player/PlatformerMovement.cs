@@ -229,8 +229,11 @@ class PlatformerMovement : MonoBehaviour
                 //If double jump
                 if(!IsGrounded())
                 {
-                    anim.SetBool("charging", true);
-                    anim.SetBool("cancel", false);
+                    if(SaveManager.instance.playerDoubleJumpsSaved > 0)
+                    {
+                        anim.SetBool("charging", true);
+                        anim.SetBool("cancel", false);
+                    }
 
                 }
 
@@ -266,7 +269,11 @@ class PlatformerMovement : MonoBehaviour
             SaveManager.instance.gameObject.GetComponentInChildren<InstantiateUIDoublejump>().SetFeatherToUsedUpColor();
         }
 
-        anim.SetBool("charging", false);
+        if (SaveManager.instance.playerDoubleJumpsSaved > 0)
+        {
+            anim.SetBool("charging", false);
+        }
+
 
         clickedJump = true;
 
@@ -327,8 +334,12 @@ class PlatformerMovement : MonoBehaviour
 
         SaveManager.instance.gameObject.GetComponentInChildren<InstantiateUIDoublejump>().SetAllFeatherColorToAvailable();
 
-        anim.SetBool("cancel", true);
-        anim.SetBool("charging", false);
+        if (SaveManager.instance.playerDoubleJumpsSaved > 0)
+        {
+            anim.SetBool("cancel", true);
+            anim.SetBool("charging", false);
+        }
+
     }
 
 

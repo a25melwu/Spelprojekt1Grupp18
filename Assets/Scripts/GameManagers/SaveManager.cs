@@ -7,7 +7,7 @@ public class SaveManager : MonoBehaviour
 {
     public static SaveManager instance;
 
-    [SerializeField] private int playerDoubleJumpsSaved = 0;
+    [SerializeField] public int playerDoubleJumpsSaved = 0;
 
     public List<float> collectedFeathersID = new();
 
