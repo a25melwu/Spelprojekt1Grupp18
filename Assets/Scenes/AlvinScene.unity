@@ -15345,6 +15345,7 @@ MonoBehaviour:
   groundCheckCollider: {fileID: 0}
   headChecker: {fileID: 0}
   spriteRenderer: {fileID: 1923639231}
+  anim: {fileID: 0}
   actionAsset: {fileID: -944628639613478452, guid: a1d095cf99865c6478dd371115951b8a, type: 3}
   isHeadbutt: 0
   xMaxSpeed: 0

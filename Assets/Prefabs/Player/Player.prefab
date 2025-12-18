@@ -130,6 +130,7 @@ MonoBehaviour:
   groundCheckCollider: {fileID: 4463544503319140547}
   headChecker: {fileID: 4856424551535652516}
   spriteRenderer: {fileID: 5977985830864635036}
+  anim: {fileID: 3060599707430425843}
   actionAsset: {fileID: -944628639613478452, guid: a1d095cf99865c6478dd371115951b8a, type: 3}
   isHeadbutt: 0
   xMaxSpeed: 4
@@ -140,6 +141,7 @@ MonoBehaviour:
   fallGravityScale: 2
   airFallGravityScaleSlowMultiplier: 0.2
   maxChargeTime: 0.8
+  maxJumps: 1
   rightWallChecker: {fileID: 7608778373811545563}
   leftWallChecker: {fileID: 4191959043322193641}
   raycastCheck1: {fileID: 2340299782646221746}
@@ -174,10 +176,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_ActionEvents:
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: ba80e7d5-d78a-4a47-83e9-0137f25d8e28
-    m_ActionName: 'Player/Move[/Keyboard/leftArrow,/Keyboard/rightArrow]'
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2867026105902189817}
@@ -657,6 +655,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7411548364015038513}
   - component: {fileID: 5977985830864635036}
+  - component: {fileID: 3060599707430425843}
   m_Layer: 0
   m_Name: PlayerSprite
   m_TagString: Player
@@ -734,6 +733,28 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &3060599707430425843
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2187494036739221642}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 60aae4ffc51196a45a7a268d9f804b5e, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &2198101217484677584
 GameObject:
   m_ObjectHideFlags: 0

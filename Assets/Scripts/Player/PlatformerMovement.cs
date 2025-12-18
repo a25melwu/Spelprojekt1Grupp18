@@ -13,6 +13,8 @@ class PlatformerMovement : MonoBehaviour
     [SerializeField] private BoxCollider2D groundCheckCollider;
     [SerializeField] private HeadbuttChecker headChecker;
     [SerializeField] private SpriteRenderer spriteRenderer;
+    [SerializeField] private Animator anim;
+
     public bool controlEnabled { get; set; } = true;
 
     private Vector2 moveInput;
@@ -79,9 +81,6 @@ class PlatformerMovement : MonoBehaviour
     [SerializeField] private int currentJumps = 0;
 
 
-
-
-
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -105,6 +104,7 @@ class PlatformerMovement : MonoBehaviour
 
     private void Start()
     {
+
         SaveManager.instance.gameObject.GetComponentInChildren<InstantiateUIDoublejump>().SetAllFeatherColorToAvailable();
     }
 
@@ -200,6 +200,8 @@ class PlatformerMovement : MonoBehaviour
             else //is falling
             {
                 gravityScale = fallGravityScale; //slow descent
+
+
             }
             velocity.y += Physics2D.gravity.y * gravityScale * Time.deltaTime;
         }
@@ -222,7 +224,16 @@ class PlatformerMovement : MonoBehaviour
             {
                 jumpChargeTime = 0f;
                 jumpInput = true;
-                wasGrounded = false; //FIXED wall bug: set wasgrounded to false here due to state mismatch
+                wasGrounded = false; //This FIXED wall bug: set wasgrounded to false here due to state mismatch
+
+                //If double jump
+                if(!IsGrounded())
+                {
+                    anim.SetBool("charging", true);
+                    anim.SetBool("cancel", false);
+
+                }
+
             }
         }
 
@@ -254,6 +265,8 @@ class PlatformerMovement : MonoBehaviour
         {
             SaveManager.instance.gameObject.GetComponentInChildren<InstantiateUIDoublejump>().SetFeatherToUsedUpColor();
         }
+
+        anim.SetBool("charging", false);
 
         clickedJump = true;
 
@@ -313,6 +326,9 @@ class PlatformerMovement : MonoBehaviour
         clickedJump = false;
 
         SaveManager.instance.gameObject.GetComponentInChildren<InstantiateUIDoublejump>().SetAllFeatherColorToAvailable();
+
+        anim.SetBool("cancel", true);
+        anim.SetBool("charging", false);
     }
 
 
