@@ -70,7 +70,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -84,7 +84,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 16
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -105,9 +105,9 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 2048
+    maxTextureSize: 4096
     resizeAlgorithm: 0
-    textureFormat: -1
+    textureFormat: 4
     textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
@@ -136,10 +136,10 @@ TextureImporter:
       name: StonesAndAtrifactwhite_0
       rect:
         serializedVersion: 2
-        x: 2
-        y: 31
-        width: 30
-        height: 45
+        x: 0
+        y: 64
+        width: 16
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -158,10 +158,10 @@ TextureImporter:
       name: StonesAndAtrifactwhite_1
       rect:
         serializedVersion: 2
-        x: 35
-        y: 67
-        width: 8
-        height: 13
+        x: 16
+        y: 64
+        width: 16
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -180,9 +180,9 @@ TextureImporter:
       name: StonesAndAtrifactwhite_2
       rect:
         serializedVersion: 2
-        x: 47
+        x: 32
         y: 64
-        width: 49
+        width: 16
         height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -202,10 +202,10 @@ TextureImporter:
       name: StonesAndAtrifactwhite_3
       rect:
         serializedVersion: 2
-        x: 1
-        y: 0
-        width: 30
-        height: 31
+        x: 48
+        y: 64
+        width: 16
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -224,10 +224,10 @@ TextureImporter:
       name: StonesAndAtrifactwhite_4
       rect:
         serializedVersion: 2
-        x: 32
-        y: 31
+        x: 64
+        y: 64
         width: 16
-        height: 31
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -246,8 +246,8 @@ TextureImporter:
       name: StonesAndAtrifactwhite_5
       rect:
         serializedVersion: 2
-        x: 32
-        y: 15
+        x: 80
+        y: 64
         width: 16
         height: 16
       alignment: 0
@@ -268,9 +268,9 @@ TextureImporter:
       name: StonesAndAtrifactwhite_6
       rect:
         serializedVersion: 2
-        x: 49
-        y: 15
-        width: 30
+        x: 0
+        y: 48
+        width: 16
         height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -290,10 +290,10 @@ TextureImporter:
       name: StonesAndAtrifactwhite_7
       rect:
         serializedVersion: 2
-        x: 51
-        y: 31
-        width: 29
-        height: 27
+        x: 16
+        y: 48
+        width: 16
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -312,10 +312,10 @@ TextureImporter:
       name: StonesAndAtrifactwhite_8
       rect:
         serializedVersion: 2
-        x: 79
-        y: 31
-        width: 17
-        height: 34
+        x: 32
+        y: 48
+        width: 16
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -334,10 +334,10 @@ TextureImporter:
       name: StonesAndAtrifactwhite_9
       rect:
         serializedVersion: 2
-        x: 79
-        y: 0
-        width: 17
-        height: 32
+        x: 48
+        y: 48
+        width: 16
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -356,10 +356,10 @@ TextureImporter:
       name: StonesAndAtrifactwhite_10
       rect:
         serializedVersion: 2
-        x: 33
-        y: 0
-        width: 15
-        height: 12
+        x: 64
+        y: 48
+        width: 16
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -378,10 +378,10 @@ TextureImporter:
       name: StonesAndAtrifactwhite_11
       rect:
         serializedVersion: 2
-        x: 50
-        y: 0
-        width: 30
-        height: 15
+        x: 80
+        y: 48
+        width: 16
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -396,11 +396,407 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: StonesAndAtrifactwhite_12
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 32
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: da001092145e37943b8d520ea732a6a9
+      internalID: 1764826085
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: StonesAndAtrifactwhite_13
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 32
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 054dbd411d84f064ca8cb0900d30584f
+      internalID: 2112911421
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: StonesAndAtrifactwhite_14
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 32
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 224a36917e8e64e4387def4ed6167418
+      internalID: -1504085473
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: StonesAndAtrifactwhite_15
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 32
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dd93b322fd5c6394d8cafe10d2e54fd1
+      internalID: -1564288278
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: StonesAndAtrifactwhite_16
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 32
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d6812219a2953a24495651a8ba581949
+      internalID: -1624755300
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: StonesAndAtrifactwhite_17
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 32
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f34d515b99f1117459616a5ba8a1c8c9
+      internalID: -1636735423
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: StonesAndAtrifactwhite_18
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 16
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2b17c05a9829118448ac18ab08fffb1a
+      internalID: -999724217
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: StonesAndAtrifactwhite_19
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 16
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eedec9c274da3d042a0e772f7d5bbdd2
+      internalID: 465042532
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: StonesAndAtrifactwhite_20
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 16
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ad8634f245902f64ba93d386f5461625
+      internalID: 670084926
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: StonesAndAtrifactwhite_21
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 16
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 27de5059eff1bef4da70908c89a2d9bf
+      internalID: 592533613
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: StonesAndAtrifactwhite_22
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 16
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 520d461bf04011d4ab8af177ea0eed9d
+      internalID: -1187568750
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: StonesAndAtrifactwhite_23
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 16
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f53bec163918368468684a91f4ce7687
+      internalID: -1070965055
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: StonesAndAtrifactwhite_24
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b8ec7beca1f77ea4db06faacfd4addb3
+      internalID: -203308189
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: StonesAndAtrifactwhite_25
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 21d3633062884644389b672e04ded4f0
+      internalID: 1262156691
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: StonesAndAtrifactwhite_26
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 603aadba3f5b3794398516f648467fa1
+      internalID: 274184326
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: StonesAndAtrifactwhite_27
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4e18bbf581c9f844e80fd6dde06f89d2
+      internalID: 632745828
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: StonesAndAtrifactwhite_28
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9964939ebba9ae1479b8b219f1bc65a5
+      internalID: -170605790
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: StonesAndAtrifactwhite_29
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7f9c48de091f1554fad71ba95dc7df1f
+      internalID: 1437232357
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: d19793f41ddee7c4c9fa64ccf9eabc96
     internalID: 0
     vertices: []
     indices: 
@@ -414,7 +810,25 @@ TextureImporter:
       StonesAndAtrifactwhite_1: 431819424433017455
       StonesAndAtrifactwhite_10: 4926203735588725617
       StonesAndAtrifactwhite_11: 4205139223480697651
+      StonesAndAtrifactwhite_12: 1764826085
+      StonesAndAtrifactwhite_13: 2112911421
+      StonesAndAtrifactwhite_14: -1504085473
+      StonesAndAtrifactwhite_15: -1564288278
+      StonesAndAtrifactwhite_16: -1624755300
+      StonesAndAtrifactwhite_17: -1636735423
+      StonesAndAtrifactwhite_18: -999724217
+      StonesAndAtrifactwhite_19: 465042532
       StonesAndAtrifactwhite_2: 3487736348220326770
+      StonesAndAtrifactwhite_20: 670084926
+      StonesAndAtrifactwhite_21: 592533613
+      StonesAndAtrifactwhite_22: -1187568750
+      StonesAndAtrifactwhite_23: -1070965055
+      StonesAndAtrifactwhite_24: -203308189
+      StonesAndAtrifactwhite_25: 1262156691
+      StonesAndAtrifactwhite_26: 274184326
+      StonesAndAtrifactwhite_27: 632745828
+      StonesAndAtrifactwhite_28: -170605790
+      StonesAndAtrifactwhite_29: 1437232357
       StonesAndAtrifactwhite_3: 4102141752224144152
       StonesAndAtrifactwhite_4: 2762016361008467050
       StonesAndAtrifactwhite_5: 2654687762509075492
