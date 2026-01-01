@@ -223,7 +223,7 @@ MonoBehaviour:
   onTimerCompleted:
     m_PersistentCalls:
       m_Calls: []
-  timerLength: 1.2
+  timerLength: 1.5
   timerRespawn: 4
   autoRespawn: 1
   spriteRenderer: {fileID: 4701295039199381948}
