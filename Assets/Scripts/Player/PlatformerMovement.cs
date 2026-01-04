@@ -22,7 +22,6 @@ class PlatformerMovement : MonoBehaviour
     
     private Vector2 velocity;
     private bool jumpInput = false;
-    private bool wasGrounded;
     
     public InputActionAsset actionAsset;
     private PlayerSFX playerSFX; //jumping sounds
@@ -60,7 +59,7 @@ class PlatformerMovement : MonoBehaviour
     public float maxChargeTime = 1.0f;
     private float minJumpForce = 1f;
     private float minChargeTime = 0.1f;
-
+    
     private float startFallGravityScale;
     private float startXMaxSpeed;
 
@@ -129,9 +128,10 @@ class PlatformerMovement : MonoBehaviour
             {
                 faceRight = false;
             }
+            
         }
         
-        if (jumpInput && HasJumpsLeft()) 
+        if (jumpInput && (IsGrounded() || HasJumpsLeft()))
         {
             jumpChargeTime += Time.deltaTime;
 
@@ -211,20 +211,33 @@ class PlatformerMovement : MonoBehaviour
     {
         return new Vector2(input.x * xMaxSpeed, velocity.y);
     }
-
-
-
+    
 
     //When space is pressed
     public void OnJump(InputAction.CallbackContext context)
     {
         if (context.started && controlEnabled)
         {
-            if (wasGrounded || (!wasGrounded && currentJumps < maxJumps)) //jump either from ground OR (in air AND have jumps left)
+            jumpChargeTime = 0f; //always start charging whenever jump is pressed (ground or air) --new buffer system
+            jumpInput = true;
+            
+            //If double jump
+            if(!IsGrounded())
             {
+                if(SaveManager.instance.playerDoubleJumpsSaved > 0)
+                {
+                    anim.SetBool("charging", true);
+                    anim.SetBool("cancel", false);
+                }
+
+            }
+
+            /*if (IsGrounded() || (!IsGrounded() && currentJumps < maxJumps)) //jump either from ground OR (in air AND have jumps left)
+            {
+                Debug.Log($"ONJump: wasGrounded");
                 jumpChargeTime = 0f;
                 jumpInput = true;
-                wasGrounded = false; //This FIXED wall bug: set wasgrounded to false here due to state mismatch
+                //wasGrounded = false; //This FIXED wall bug: set wasgrounded to false here due to state mismatch
 
                 //If double jump
                 if(!IsGrounded())
@@ -237,26 +250,24 @@ class PlatformerMovement : MonoBehaviour
 
                 }
 
-            }
+            }*/
+            
         }
 
         //When space is released when you have started to jump
-        if (context.canceled && jumpInput && currentJumps < maxJumps)
+        if (context.canceled && jumpInput && (IsGrounded() || HasJumpsLeft()))
         {
-            if (jumpChargeTime < minChargeTime) //FIXED gliding bug : short taps causes state mismatch (isgrounded/wasgrounded)
+            if (jumpChargeTime < minChargeTime) //FIXED gliding bug : short taps causes state mismatch
             {
                 jumpChargeTime = minChargeTime;
             }
             
-            //Debug.Log($"OnJump - moveInput {moveInput}, velocity before: {velocity}");
             float charge = Mathf.Clamp01(jumpChargeTime / maxChargeTime); 
-            
             float jumpForce = Mathf.Lerp(minJumpForce, maxJumpForce, charge);
 
             TriggerJump(jumpForce);
             
-            if (currentJumps > 1) playerSFX?.PlayDoubleJumpSound(); //play doublejump sound here
-            
+            if (currentJumps > 1 && !IsGrounded()) playerSFX?.PlayDoubleJumpSound(); //play doublejump sound here
         }
     }
     
@@ -273,7 +284,6 @@ class PlatformerMovement : MonoBehaviour
         {
             anim.SetBool("charging", false);
         }
-
 
         clickedJump = true;
 
@@ -315,8 +325,7 @@ class PlatformerMovement : MonoBehaviour
 
         fallGravityScale = startFallGravityScale;
         xMaxSpeed = startXMaxSpeed;
-
-
+        
     }
 
     //Triggered to reset the jump
@@ -341,9 +350,6 @@ class PlatformerMovement : MonoBehaviour
         }
 
     }
-
-
-
 
     //Bool that checks if one of the raycasts hits the ground within the specified distance
     private bool IsGrounded()
@@ -458,12 +464,7 @@ class PlatformerMovement : MonoBehaviour
             return false;
         }
     }
-
-
-
-
-
-
+    
     public void AddDoubleJump(int add)
     {
         maxJumps += add;
@@ -488,5 +489,7 @@ class PlatformerMovement : MonoBehaviour
     }
 
     public BoxCollider2D GroundCheckCollider => groundCheckCollider;
+
+    
 
 }
