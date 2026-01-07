@@ -270,7 +270,6 @@ class PlatformerMovement : MonoBehaviour
             {
                 Debug.Log($"OnJump canceled: jump cooldown");
                 jumpInput = false;
-                currentJumps = 0;
                 return;
             }
 
@@ -301,18 +300,10 @@ class PlatformerMovement : MonoBehaviour
             
                 if (currentJumps > 1 && !IsGrounded()) playerSFX?.PlayDoubleJumpSound(); //play doublejump sound here
             }
-
-            if (!shouldJump && !IsGrounded())
-            {
-                currentJumps = 0;
-                Debug.Log("OnJump canceled: Reset currentjumps after failed air jump attempt");
-            }
-            
             
             jumpBufferTime = 0f; //force reset of jump buffer timer
             jumpInput = false;
             startedChargingInAir = false;
-            
             
             Debug.Log($"OnJump canceled: currentjumps {currentJumps}");
             
