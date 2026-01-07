@@ -55,15 +55,24 @@ class PlatformerMovement : MonoBehaviour
     [Tooltip("How the fall gravity changes when charging Jump in air")]
     [SerializeField] private float airFallGravityScaleSlowMultiplier = 1;
 
+    public int maxJumps = 1;
+    
     private float jumpChargeTime = 0f;
     public float maxChargeTime = 1.0f;
     private float minJumpForce = 1f;
     private float minChargeTime = 0.1f;
     
+    [Header("Jump Buffer")]
+    [Tooltip("Allowed time before landing to continue charging a jump. Increase time to increase distance to ground")]
+    [SerializeField] private float maxJumpBuffer = 0.2f;
+    private float jumpBufferTime = 0f;
+    private bool startedChargingInAir = false; //important for distinguishing between ground jumps, air jumps due to crumbling platforms and doublejump-air-to-ground-jumps
+    [Tooltip("Jump cooldown time between taps. Decrease time to increase jumps/sec")]
+    [SerializeField] private float jumpCooldown = 0.2f; //to prevent spam and to limit buffer timer increment in update
+    private float lastJump = 0f;
+    
     private float startFallGravityScale;
     private float startXMaxSpeed;
-
-    public int maxJumps = 1;
 
     [Header("Raycast Objects")]
     [SerializeField] private GameObject rightWallChecker;
@@ -130,20 +139,24 @@ class PlatformerMovement : MonoBehaviour
             }
             
         }
+
+        if (jumpInput) //jumpbuffertimer to check how close to ground player is before landing
+        {
+            if (!IsGrounded()) //only start increment when not grounded
+            {
+                float before = jumpBufferTime;
+                jumpBufferTime += Time.deltaTime;
+                Debug.Log($"Update: jumpinput {jumpInput}, !IsGrounded() {!IsGrounded()}, buffertime +{before} = {jumpBufferTime}");
+            }
+        }
         
-        if (jumpInput && (IsGrounded() || HasJumpsLeft()))
+        if (jumpInput && HasJumpsLeft())
         {
             jumpChargeTime += Time.deltaTime;
 
             //The player slows when we double jump
             fallGravityScale = startFallGravityScale * airFallGravityScaleSlowMultiplier;
             xMaxSpeed = startXMaxSpeed * xSpeedAirJumpSlowMultiplier;
-
-            /*if (jumpChargeTime >= maxChargeTime) //auto-releases at max - DO NOT REMOVE
-            {
-                Jump(maxJumpForce);
-                if (currentJumps > 1) playerSFX?.PlayDoubleJumpSound(); //play doublejump for auto-release here
-            }*/
         }
 
         velocity = TranslateXInputToVelocity(moveInput);
@@ -219,55 +232,90 @@ class PlatformerMovement : MonoBehaviour
         if (context.started && controlEnabled)
         {
             jumpChargeTime = 0f; //always start charging whenever jump is pressed (ground or air) --new buffer system
+            
+            if (!jumpInput) //only reset for each jump, prevents spam?
+            {
+                jumpBufferTime = 0f;
+            }
+            
             jumpInput = true;
             
             //If double jump
             if(!IsGrounded())
             {
+                startedChargingInAir = true; //tracks if charge is started in air, to be able to jump when charging on ground -falls- and then jump without doublejump
+                
                 if(SaveManager.instance.playerDoubleJumpsSaved > 0)
                 {
                     anim.SetBool("charging", true);
                     anim.SetBool("cancel", false);
                 }
-
             }
-
-            /*if (IsGrounded() || (!IsGrounded() && currentJumps < maxJumps)) //jump either from ground OR (in air AND have jumps left)
+            else
             {
-                Debug.Log($"ONJump: wasGrounded");
-                jumpChargeTime = 0f;
-                jumpInput = true;
-                //wasGrounded = false; //This FIXED wall bug: set wasgrounded to false here due to state mismatch
-
-                //If double jump
-                if(!IsGrounded())
-                {
-                    if(SaveManager.instance.playerDoubleJumpsSaved > 0)
-                    {
-                        anim.SetBool("charging", true);
-                        anim.SetBool("cancel", false);
-                    }
-
-                }
-
-            }*/
+                startedChargingInAir = false;
+            }
+            
+            Debug.Log($"OnJump started: currentjumps {currentJumps}");
             
         }
 
         //When space is released when you have started to jump
-        if (context.canceled && jumpInput && (IsGrounded() || HasJumpsLeft()))
+        if (context.canceled && jumpInput)
         {
-            if (jumpChargeTime < minChargeTime) //FIXED gliding bug : short taps causes state mismatch
+            Debug.Log($"OnJump canceled: jumpbuffertime {jumpBufferTime:F3}, maxjumpbuffer {maxJumpBuffer}, comparison {jumpBufferTime < maxJumpBuffer}");
+            bool shouldJump = false;
+            
+            if ((Time.time - lastJump) < jumpCooldown)
             {
-                jumpChargeTime = minChargeTime;
+                Debug.Log($"OnJump canceled: jump cooldown");
+                jumpInput = false;
+                currentJumps = 0;
+                return;
+            }
+
+            if (IsGrounded()) //jump cases; when grounded and space is pressed within max jump buffer time, or when player has doublejump and is charging a jump in air - lands - but should still jump
+            {
+                shouldJump = ((jumpBufferTime < maxJumpBuffer) || maxJumps > 1) && HasJumpsLeft();
+            }
+            else //jump cases; doublejumps in air, jump in air after charging on ground then falls
+            {
+                shouldJump = (HasJumpsLeft() && maxJumps > 1) || (!startedChargingInAir && currentJumps == 0);
             }
             
-            float charge = Mathf.Clamp01(jumpChargeTime / maxChargeTime); 
-            float jumpForce = Mathf.Lerp(minJumpForce, maxJumpForce, charge);
-
-            TriggerJump(jumpForce);
+            Debug.Log($"OnJump cancelled: isgrounded {IsGrounded()}, jumpbuffer {jumpBufferTime<maxJumpBuffer}, hasjumpsleft {HasJumpsLeft()}");
+            if (shouldJump)
+            {
+                lastJump = Time.time;
+                jumpBufferTime = 0f;
+                
+                if (jumpChargeTime < minChargeTime) //FIXED gliding bug : short taps causes state mismatch
+                {
+                    jumpChargeTime = minChargeTime;
+                }
             
-            if (currentJumps > 1 && !IsGrounded()) playerSFX?.PlayDoubleJumpSound(); //play doublejump sound here
+                float charge = Mathf.Clamp01(jumpChargeTime / maxChargeTime); 
+                float jumpForce = Mathf.Lerp(minJumpForce, maxJumpForce, charge);
+
+                TriggerJump(jumpForce);
+            
+                if (currentJumps > 1 && !IsGrounded()) playerSFX?.PlayDoubleJumpSound(); //play doublejump sound here
+            }
+
+            if (!shouldJump && !IsGrounded())
+            {
+                currentJumps = 0;
+                Debug.Log("OnJump canceled: Reset currentjumps after failed air jump attempt");
+            }
+            
+            
+            jumpBufferTime = 0f; //force reset of jump buffer timer
+            jumpInput = false;
+            startedChargingInAir = false;
+            
+            
+            Debug.Log($"OnJump canceled: currentjumps {currentJumps}");
+            
         }
     }
     
@@ -332,7 +380,6 @@ class PlatformerMovement : MonoBehaviour
     private void Land()
     {
         moveInput = Vector2.zero;
-
         currentJumps = 0; //reset jump counter when landing
 
         //has landed, play landing sound and trigger landing animation
@@ -348,7 +395,9 @@ class PlatformerMovement : MonoBehaviour
             anim.SetBool("cancel", true);
             anim.SetBool("charging", false);
         }
-
+        
+        Debug.Log($"Land: isgrounded {IsGrounded()}, jumpbuffer {jumpBufferTime<maxJumpBuffer}, hasjumpsleft {HasJumpsLeft()}");
+        
     }
 
     //Bool that checks if one of the raycasts hits the ground within the specified distance
