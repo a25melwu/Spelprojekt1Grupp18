@@ -70,6 +70,7 @@ class PlatformerMovement : MonoBehaviour
     [Tooltip("Jump cooldown time between taps. Decrease time to increase jumps/sec")]
     [SerializeField] private float jumpCooldown = 0.2f; //to prevent spam and to limit buffer timer increment in update
     private float lastJump = 0f;
+    private bool shouldJump = false;
     
     private float startFallGravityScale;
     private float startXMaxSpeed;
@@ -157,6 +158,11 @@ class PlatformerMovement : MonoBehaviour
             //The player slows when we double jump
             fallGravityScale = startFallGravityScale * airFallGravityScaleSlowMultiplier;
             xMaxSpeed = startXMaxSpeed * xSpeedAirJumpSlowMultiplier;
+
+            
+            if (squashAndStretchManager != null)
+                squashAndStretchManager.SetSquashState(true);
+            
         }
 
         velocity = TranslateXInputToVelocity(moveInput);
@@ -250,6 +256,7 @@ class PlatformerMovement : MonoBehaviour
                     anim.SetBool("charging", true);
                     anim.SetBool("cancel", false);
                 }
+                
             }
             else
             {
@@ -258,13 +265,13 @@ class PlatformerMovement : MonoBehaviour
             
             Debug.Log($"OnJump started: currentjumps {currentJumps}");
             
+            
         }
 
         //When space is released when you have started to jump
         if (context.canceled && jumpInput)
         {
             Debug.Log($"OnJump canceled: jumpbuffertime {jumpBufferTime:F3}, maxjumpbuffer {maxJumpBuffer}, comparison {jumpBufferTime < maxJumpBuffer}");
-            bool shouldJump = false;
             
             if ((Time.time - lastJump) < jumpCooldown)
             {
@@ -386,6 +393,9 @@ class PlatformerMovement : MonoBehaviour
             anim.SetBool("cancel", true);
             anim.SetBool("charging", false);
         }
+        
+        if (squashAndStretchManager != null)
+            squashAndStretchManager.SetSquashState(false);
         
         Debug.Log($"Land: isgrounded {IsGrounded()}, jumpbuffer {jumpBufferTime<maxJumpBuffer}, hasjumpsleft {HasJumpsLeft()}");
         
