@@ -67,11 +67,14 @@ public class InstantiateUIDoublejump : MonoBehaviour
     //Called when we double jump, from the player
     public void SetFeatherToUsedUpColor()
     {
-        return;
-        if (feathers.Count <= 0) return;
+        if (feathers == null) return;
+        if (feathers.Count == 0) return;
+        if (usedUpFeathers < 0) return;
+        if (usedUpFeathers >= feathers.Count) return;
 
-        if (feathers.Count > usedUpFeathers) return;
+
         if (feathers[usedUpFeathers] == null) return;
+
 
         SetFeatherToColor(feathers[usedUpFeathers], usedUp);
         usedUpFeathers++;

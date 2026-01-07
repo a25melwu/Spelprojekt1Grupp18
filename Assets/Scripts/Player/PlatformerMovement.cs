@@ -314,7 +314,7 @@ class PlatformerMovement : MonoBehaviour
     private void TriggerJump(float jumpForce)
     {
         if (IsGrounded() && currentJumps == 0) playerSFX?.PlayJumpSound(); //play normal jump sound here
-        else if(!IsGrounded()) //Double jump
+        else if(!IsGrounded() && startedChargingInAir) //Double jump
         {
             SaveManager.instance.gameObject.GetComponentInChildren<InstantiateUIDoublejump>().SetFeatherToUsedUpColor();
         }
