@@ -159,16 +159,9 @@ class PlatformerMovement : MonoBehaviour
             fallGravityScale = startFallGravityScale * airFallGravityScaleSlowMultiplier;
             xMaxSpeed = startXMaxSpeed * xSpeedAirJumpSlowMultiplier;
 
-            if (shouldJump)
-            {
-                if (squashAndStretchManager != null)
-                    squashAndStretchManager.SetSquashState(true);
-            }
-            else
-            {
-                if (squashAndStretchManager != null)
-                    squashAndStretchManager.SetSquashState(false);
-            }
+            
+            if (squashAndStretchManager != null)
+                squashAndStretchManager.SetSquashState(true);
             
         }
 
