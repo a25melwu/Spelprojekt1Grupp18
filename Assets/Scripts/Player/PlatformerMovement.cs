@@ -278,9 +278,9 @@ class PlatformerMovement : MonoBehaviour
             {
                 shouldJump = ((jumpBufferTime < maxJumpBuffer) || maxJumps > 1) && HasJumpsLeft();
             }
-            else //jump cases; doublejumps in air, jump in air after charging on ground then falls
+            else //jump cases; doublejumps in air or when falling (without doublejump) can still do first jump in air, jump in air after charging on ground then falls
             {
-                shouldJump = (HasJumpsLeft() && maxJumps > 1) || (!startedChargingInAir && currentJumps == 0);
+                shouldJump = HasJumpsLeft() || (!startedChargingInAir && currentJumps == 0);
             }
             
             Debug.Log($"OnJump cancelled: isgrounded {IsGrounded()}, jumpbuffer {jumpBufferTime<maxJumpBuffer}, hasjumpsleft {HasJumpsLeft()}");
