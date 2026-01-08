@@ -102,7 +102,7 @@ public class SquashAndStretch : MonoBehaviour
     //Called on in this script, but also whenever the player jumps for example
     public void SetSquashState(bool shouldSquash)
     {
-        if(shouldSquash && isAnticipating == !shouldSquash)
+        if(shouldSquash && isAnticipating == false)
             squashTimer = 0;
 
         isAnticipating = shouldSquash;

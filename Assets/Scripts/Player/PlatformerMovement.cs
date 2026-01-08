@@ -67,7 +67,6 @@ class PlatformerMovement : MonoBehaviour
     [SerializeField] private float maxJumpBuffer = 0.2f;
     private float jumpBufferTime = 0f;
     private bool startedChargingInAir = false; //important for distinguishing between ground jumps, air jumps due to crumbling platforms and doublejump-air-to-ground-jumps
-    private bool startedChargingOnGround = false;
     [Tooltip("Jump cooldown time between taps. Decrease time to increase jumps/sec")]
     [SerializeField] private float jumpCooldown = 0.2f; //to prevent spam and to limit buffer timer increment in update
     private float lastJump = 0f;
@@ -156,7 +155,7 @@ class PlatformerMovement : MonoBehaviour
         {
             if (IsGrounded()) //jump cases; when grounded and space is pressed within max jump buffer time, or when player has doublejump and is charging a jump in air - lands - but should still jump
             {
-                shouldJump = ((jumpBufferTime <= maxJumpBuffer) || maxJumps > 1);
+                shouldJump = ((jumpBufferTime <= maxJumpBuffer) || (maxJumps > 1 && jumpChargeTime > 0));
             }
             else //jump cases; doublejumps in air or when falling (without doublejump) can still do first jump in air, jump in air after charging on ground then falls
             {
@@ -169,12 +168,6 @@ class PlatformerMovement : MonoBehaviour
             }
             
         }
-        
-        /*if (startedChargingOnGround)
-        {
-            jumpChargeTime = 0f; //always start charging whenever jump is pressed (ground or air) --new buffer system
-            jumpInput = true;
-        }*/
 
         velocity = TranslateXInputToVelocity(moveInput);
         
@@ -275,7 +268,7 @@ class PlatformerMovement : MonoBehaviour
             if(!IsGrounded())
             {
                 startedChargingInAir = true; //tracks if charge is started in air, to be able to jump when charging on ground -falls- and then jump without doublejump
-                startedChargingOnGround = false;
+                
                 if(SaveManager.instance.playerDoubleJumpsSaved > 0)
                 {
                     anim.SetBool("charging", true);
@@ -286,11 +279,9 @@ class PlatformerMovement : MonoBehaviour
             else
             {
                 startedChargingInAir = false;
-                startedChargingOnGround = true;
             }
             
             Debug.Log($"OnJump started: currentjumps {currentJumps}");
-            
             
         }
 
@@ -303,6 +294,8 @@ class PlatformerMovement : MonoBehaviour
                 jumpInput = false;
                 lastJump = Time.time;
                 jumpBufferTime = 0f;
+                if (squashAndStretchManager != null)
+                    squashAndStretchManager.SetSquashState(false);
                 return;
             }
             
@@ -430,9 +423,6 @@ class PlatformerMovement : MonoBehaviour
             anim.SetBool("cancel", true);
             anim.SetBool("charging", false);
         }
-        
-        if (squashAndStretchManager != null)
-            squashAndStretchManager.SetSquashState(false);
         
         Debug.Log($"Land: isgrounded {IsGrounded()}, jumpbuffer {jumpBufferTime<maxJumpBuffer}, hasjumpsleft {HasJumpsLeft()}");
         
