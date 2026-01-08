@@ -67,6 +67,7 @@ class PlatformerMovement : MonoBehaviour
     [SerializeField] private float maxJumpBuffer = 0.2f;
     private float jumpBufferTime = 0f;
     private bool startedChargingInAir = false; //important for distinguishing between ground jumps, air jumps due to crumbling platforms and doublejump-air-to-ground-jumps
+    private bool startedChargingOnGround = false;
     [Tooltip("Jump cooldown time between taps. Decrease time to increase jumps/sec")]
     [SerializeField] private float jumpCooldown = 0.2f; //to prevent spam and to limit buffer timer increment in update
     private float lastJump = 0f;
@@ -153,17 +154,27 @@ class PlatformerMovement : MonoBehaviour
         
         if (jumpInput && HasJumpsLeft())
         {
-            jumpChargeTime += Time.deltaTime;
+            if (IsGrounded()) //jump cases; when grounded and space is pressed within max jump buffer time, or when player has doublejump and is charging a jump in air - lands - but should still jump
+            {
+                shouldJump = ((jumpBufferTime <= maxJumpBuffer) || maxJumps > 1);
+            }
+            else //jump cases; doublejumps in air or when falling (without doublejump) can still do first jump in air, jump in air after charging on ground then falls
+            {
+                shouldJump = HasJumpsLeft() || (!startedChargingInAir && currentJumps == 0);
+            }
 
-            //The player slows when we double jump
-            fallGravityScale = startFallGravityScale * airFallGravityScaleSlowMultiplier;
-            xMaxSpeed = startXMaxSpeed * xSpeedAirJumpSlowMultiplier;
-
-            
-            if (squashAndStretchManager != null)
-                squashAndStretchManager.SetSquashState(true);
+            if (shouldJump)
+            {
+                ChargingJump();
+            }
             
         }
+        
+        /*if (startedChargingOnGround)
+        {
+            jumpChargeTime = 0f; //always start charging whenever jump is pressed (ground or air) --new buffer system
+            jumpInput = true;
+        }*/
 
         velocity = TranslateXInputToVelocity(moveInput);
         
@@ -196,6 +207,20 @@ class PlatformerMovement : MonoBehaviour
                     break;
             }
         }
+    }
+    
+    private void ChargingJump()
+    {
+        jumpChargeTime += Time.deltaTime;
+        Debug.Log($"ChargingJump : jumpchargetime {jumpChargeTime}");
+
+        //The player slows when we double jump
+        fallGravityScale = startFallGravityScale * airFallGravityScaleSlowMultiplier;
+        xMaxSpeed = startXMaxSpeed * xSpeedAirJumpSlowMultiplier;
+
+            
+        if (squashAndStretchManager != null)
+            squashAndStretchManager.SetSquashState(true);
     }
 
     private void ApplyGravity()
@@ -250,7 +275,7 @@ class PlatformerMovement : MonoBehaviour
             if(!IsGrounded())
             {
                 startedChargingInAir = true; //tracks if charge is started in air, to be able to jump when charging on ground -falls- and then jump without doublejump
-                
+                startedChargingOnGround = false;
                 if(SaveManager.instance.playerDoubleJumpsSaved > 0)
                 {
                     anim.SetBool("charging", true);
@@ -261,6 +286,7 @@ class PlatformerMovement : MonoBehaviour
             else
             {
                 startedChargingInAir = false;
+                startedChargingOnGround = true;
             }
             
             Debug.Log($"OnJump started: currentjumps {currentJumps}");
@@ -271,50 +297,60 @@ class PlatformerMovement : MonoBehaviour
         //When space is released when you have started to jump
         if (context.canceled && jumpInput)
         {
-            Debug.Log($"OnJump canceled: jumpbuffertime {jumpBufferTime:F3}, maxjumpbuffer {maxJumpBuffer}, comparison {jumpBufferTime < maxJumpBuffer}");
-            
             if ((Time.time - lastJump) < jumpCooldown)
             {
                 Debug.Log($"OnJump canceled: jump cooldown");
                 jumpInput = false;
+                lastJump = Time.time;
+                jumpBufferTime = 0f;
                 return;
             }
+            
+            lastJump = Time.time;
+            jumpBufferTime = 0f;
 
-            if (IsGrounded()) //jump cases; when grounded and space is pressed within max jump buffer time, or when player has doublejump and is charging a jump in air - lands - but should still jump
+            if (!shouldJump)
             {
-                shouldJump = ((jumpBufferTime < maxJumpBuffer) || maxJumps > 1) && HasJumpsLeft();
+                jumpInput = false;
+                return;
+            }
+            
+            Debug.Log($"OnJump canceled: jumpbuffertime {jumpBufferTime:F3}, maxjumpbuffer {maxJumpBuffer}, comparison {jumpBufferTime < maxJumpBuffer}");
+            
+            /*if (IsGrounded()) //jump cases; when grounded and space is pressed within max jump buffer time, or when player has doublejump and is charging a jump in air - lands - but should still jump
+            {
+                shouldJump = ((jumpBufferTime <= maxJumpBuffer) || maxJumps > 1) && HasJumpsLeft();
             }
             else //jump cases; doublejumps in air or when falling (without doublejump) can still do first jump in air, jump in air after charging on ground then falls
             {
                 shouldJump = HasJumpsLeft() || (!startedChargingInAir && currentJumps == 0);
-            }
-            
-            Debug.Log($"OnJump cancelled: isgrounded {IsGrounded()}, jumpbuffer {jumpBufferTime<maxJumpBuffer}, hasjumpsleft {HasJumpsLeft()}");
-            if (shouldJump)
-            {
-                lastJump = Time.time;
-                jumpBufferTime = 0f;
-                
-                if (jumpChargeTime < minChargeTime) //FIXED gliding bug : short taps causes state mismatch
-                {
-                    jumpChargeTime = minChargeTime;
-                }
-            
-                float charge = Mathf.Clamp01(jumpChargeTime / maxChargeTime); 
-                float jumpForce = Mathf.Lerp(minJumpForce, maxJumpForce, charge);
+            }*/
 
-                TriggerJump(jumpForce);
-            
-                if (currentJumps > 1 && !IsGrounded()) playerSFX?.PlayDoubleJumpSound(); //play doublejump sound here
-            }
-            
-            jumpBufferTime = 0f; //force reset of jump buffer timer
-            jumpInput = false;
-            startedChargingInAir = false;
-            
-            Debug.Log($"OnJump canceled: currentjumps {currentJumps}");
-            
+            StartJump();
+
         }
+    }
+
+    private void StartJump()
+    {
+        
+        if (jumpChargeTime < minChargeTime) //FIXED gliding bug : short taps causes state mismatch
+        {
+            jumpChargeTime = minChargeTime;
+        }
+            
+        float charge = Mathf.Clamp01(jumpChargeTime / maxChargeTime); 
+        float jumpForce = Mathf.Lerp(minJumpForce, maxJumpForce, charge);
+
+        TriggerJump(jumpForce);
+            
+        if (currentJumps > 1 && !IsGrounded()) playerSFX?.PlayDoubleJumpSound(); //play doublejump sound here
+            
+        jumpBufferTime = 0f; //force reset of jump buffer timer
+        jumpInput = false;
+        startedChargingInAir = false;
+            
+        Debug.Log($"StartJump: currentjumps {currentJumps}");
     }
     
     //Called when we actually Jump
@@ -367,6 +403,7 @@ class PlatformerMovement : MonoBehaviour
             squashAndStretchManager.SetSquashState(false);
 
         jumpInput = false;
+        shouldJump = false;
         currentJumps++;
 
         fallGravityScale = startFallGravityScale;
