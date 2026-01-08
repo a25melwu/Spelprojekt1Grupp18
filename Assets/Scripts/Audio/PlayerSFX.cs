@@ -38,8 +38,8 @@ public class PlayerSFX : MonoBehaviour
     //public void PlayFlyingSound() => PlayRandomSound(flyingSounds);
     public void PlayHurtSound() => PlayRandomSoundGlobal(hurtSounds); //call this function from other classes
     public void PlayPickupSound() => PlayRandomSound(pickupSounds); //call this function from other classes
-    
     public void PlayOutOfBoundsFallSound() => PlayRandomSoundGlobal(outOfBoundsFallSounds); //call this function from other classes
+    
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -80,4 +80,5 @@ public class PlayerSFX : MonoBehaviour
             AudioSource.PlayClipAtPoint(clip, transform.position);
         }
     }
+    
 }
