@@ -25,7 +25,7 @@ class PlatformerMovement : MonoBehaviour
     
     public InputActionAsset actionAsset;
     private PlayerSFX playerSFX; //jumping sounds
-    private SquahAndStretch squashAndStretchManager;
+    private SquashAndStretch squashAndStretchManager;
     private SaveManager saveManager;
 
     [SerializeField] private bool isHeadbutt; //for checking if head is colliding
@@ -100,7 +100,7 @@ class PlatformerMovement : MonoBehaviour
         rb.gravityScale = 0;
         
         playerSFX = GetComponentInChildren<PlayerSFX>(); //soundgroup playerSFX
-        squashAndStretchManager = GetComponentInParent<SquahAndStretch>();
+        squashAndStretchManager = GetComponentInParent<SquashAndStretch>();
 
         startFallGravityScale = fallGravityScale;
         startXMaxSpeed = xMaxSpeed;

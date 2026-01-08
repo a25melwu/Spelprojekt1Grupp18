@@ -3,7 +3,7 @@ using UnityEditor;
 using System;
 using System.Collections;
 
-public class SquahAndStretch : MonoBehaviour
+public class SquashAndStretch : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] private Rigidbody2D playerRigidbody2D;
