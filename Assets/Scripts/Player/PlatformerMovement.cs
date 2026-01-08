@@ -141,9 +141,9 @@ class PlatformerMovement : MonoBehaviour
             
         }
 
-        if (jumpInput) //jumpbuffertimer to check how close to ground player is before landing
+        if (jumpInput && startedChargingInAir) //jumpbuffertimer to check how close to ground player is before landing
         {
-            if (!IsGrounded()) //only start increment when not grounded
+            if (!IsGrounded()) //only start increment when not grounded and charge is started in air
             {
                 float before = jumpBufferTime;
                 jumpBufferTime += Time.deltaTime;
@@ -304,6 +304,7 @@ class PlatformerMovement : MonoBehaviour
 
             if (!shouldJump)
             {
+                Debug.Log($"OnJump canceled: shouldjump {shouldJump}, jumpinput {jumpInput}");
                 jumpInput = false;
                 return;
             }
