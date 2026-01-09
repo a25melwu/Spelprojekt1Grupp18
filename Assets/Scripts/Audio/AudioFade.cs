@@ -9,7 +9,8 @@ public class AudioFade : MonoBehaviour
     public float fadeInTargetVolume;
     public float fadeOutTargetVolume;
     public float fadeSpeed;
-    private int audioTrackPlaying = -1; 
+    private int audioTrackPlaying = -1;
+    private bool isPlayingLastTrack = false;
 
     public static AudioFade Instance { get; private set; }
     void Awake()
@@ -31,10 +32,9 @@ public class AudioFade : MonoBehaviour
             if (audioSource != null)
             {
                 audioSource.PlayScheduled(startTime);
+                audioSource.loop = true; //all tracks loop by default for it to work
             }
-            
         }
-        
     }
 
     void OnDestroy() //called when gameobject is destroyed. cleans up static reference
@@ -47,9 +47,17 @@ public class AudioFade : MonoBehaviour
     
     public void StartFadeIn(int audioTrackToFadeIn)
     {
+        isPlayingLastTrack = (audioTrackToFadeIn == audioSources.Length - 1); //checks if last audio track
+        
         StopAllCoroutines();
+
+        if (isPlayingLastTrack && audioSources[audioTrackToFadeIn] != null) //set last track looping to false
+        {
+            audioSources[audioTrackToFadeIn].loop = false;
+        }
+        
         StartCoroutine(DoFadeIn(audioTrackToFadeIn));
-        if (audioTrackPlaying >= 0) //added to prevent outofindex exception when initializing with -1
+        if (audioTrackPlaying >= 0 && audioTrackPlaying != audioTrackToFadeIn) //added to prevent outofindex exception when initializing with -1
         {
             StartCoroutine(DoFadeOut(audioTrackPlaying));
         }
@@ -100,6 +108,5 @@ public class AudioFade : MonoBehaviour
         }
         
     }
-    
 
 }
