@@ -11,6 +11,7 @@ using UnityEngine.Serialization;
 public class MainMenu : MonoBehaviour
 {
     [SerializeField] private GameObject mainMenuCanvas;
+    [SerializeField] private GameObject finishMenuCanvas;
     private GameObject timerPanel;
     private PlayerInput playerInput;
     private InstantiateUIDoublejump instantiateUIDoublejump;
@@ -26,6 +27,14 @@ public class MainMenu : MonoBehaviour
         else
         {
             Debug.Log("Main menu canvas object not assigned!");
+        }
+        if (finishMenuCanvas != null)
+        {
+            finishMenuCanvas.SetActive(false);
+        }
+        else
+        {
+            Debug.Log("Finish menu canvas object not assigned!");
         }
         
         playerInput = FindFirstObjectByType<PlayerInput>();
@@ -74,7 +83,7 @@ public class MainMenu : MonoBehaviour
     private void ToggleMenu()
     {
         //Debug.Log("Togglemenu called");
-        if (mainMenuCanvas == null) return; 
+        if (mainMenuCanvas == null || finishMenuCanvas.activeSelf) return; //cannot open main menu if finish menu is open
         //Debug.Log($"Before toggle: isMenuOpen = {IsMenuOpen}");
         
         IsMenuOpen = !IsMenuOpen;
@@ -90,5 +99,45 @@ public class MainMenu : MonoBehaviour
         Time.timeScale = IsMenuOpen ? 0f : 1f; //pauses game when menu is open, blocks squash and stretch script here
         
     }
-    
+
+    public void OnOpenFinishMenu()
+    {
+        if (finishMenuCanvas == null) return;
+
+        if (IsMenuOpen)
+        {
+            mainMenuCanvas?.SetActive(false);
+        }
+
+        StartCoroutine(FadeInFinishMenu());
+        
+        Time.timeScale = IsMenuOpen ? 0f : 1f; //pauses game when menu is open, blocks squash and stretch script here
+    }
+
+    private IEnumerator FadeInFinishMenu()
+    {
+        CanvasGroup canvasGroup = finishMenuCanvas.GetComponent<CanvasGroup>();
+
+        if (canvasGroup == null)
+        {
+            canvasGroup = finishMenuCanvas.AddComponent<CanvasGroup>();
+        }
+
+        canvasGroup.alpha = 0f;
+
+        finishMenuCanvas.SetActive(true);
+
+        float fadeDuration = 1f;
+        float elapsedTime = 0f;
+
+        while (elapsedTime < fadeDuration)
+        {
+            elapsedTime += Time.unscaledDeltaTime;
+            
+            canvasGroup.alpha = Mathf.Clamp01(elapsedTime / fadeDuration);
+            yield return null;
+        }
+
+        canvasGroup.alpha = 1f;
+    }
 }

@@ -37,11 +37,11 @@ public class EndDialogue : MonoBehaviour
         }
     }
 
-    public void OpenMainMenu()
+    public void OpenFinishMenu()
     {
         if (mainMenu != null)
         {
-            mainMenu.OnToggleMenuButton();
+            mainMenu.OnOpenFinishMenu();
         }
         
     }
