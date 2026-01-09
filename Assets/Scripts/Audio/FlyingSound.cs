@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class FlyingSounds : MonoBehaviour
+public class FlyingSound : MonoBehaviour
 {
     [SerializeField] private AudioSource audioSource;
 
