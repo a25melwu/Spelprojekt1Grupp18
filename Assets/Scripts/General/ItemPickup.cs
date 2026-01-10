@@ -48,8 +48,7 @@ public class ItemPickup : MonoBehaviour
     {
         if (other.CompareTag(tagToActivate) && !triggeredThisFrame)
         {
-            playerSFX = other.GetComponentInChildren<PlayerSFX>();
-            playerSFX?.PlayPickupSound();
+            
 
             if (giveDoubleJump)
             {
@@ -61,6 +60,21 @@ public class ItemPickup : MonoBehaviour
                 {
                     playerMovement.AddDoubleJump(1); //add a doublejump to player
                 }
+                else
+                {
+                    playerMovement = other.GetComponentInParent<PlatformerMovement>();
+                    //Give doublejump to player
+                    if (playerMovement != null)
+                    {
+                        playerMovement.AddDoubleJump(1); //add a doublejump to player
+                    }
+                    else
+                    {
+                        playerMovement = other.GetComponentInChildren<PlatformerMovement>();
+                        playerMovement.AddDoubleJump(1); //add a doublejump to player
+                    }
+                }
+                
             }
 
             if (SaveManager.instance != null)
@@ -69,14 +83,16 @@ public class ItemPickup : MonoBehaviour
             }
 
 
-            gameObject.SetActive(false); //sets object to inactive
             //Destroy(gameObject);
            
             onTriggerEnter.Invoke();
             triggeredThisFrame = true;
             //Debug.Log("Unity Event Trigger (enter) activated on " + gameObject.name);
 
+            gameObject.SetActive(false); //sets object to inactive
 
+            playerSFX = other.GetComponentInChildren<PlayerSFX>();
+            playerSFX?.PlayPickupSound();
         }
     }
     
