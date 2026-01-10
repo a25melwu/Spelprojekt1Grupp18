@@ -205,7 +205,7 @@ class PlatformerMovement : MonoBehaviour
     private void ChargingJump()
     {
         jumpChargeTime += Time.deltaTime;
-        Debug.Log($"ChargingJump : jumpchargetime {jumpChargeTime}");
+        //Debug.Log($"ChargingJump : jumpchargetime {jumpChargeTime}");
 
         //The player slows when we double jump
         fallGravityScale = startFallGravityScale * airFallGravityScaleSlowMultiplier;

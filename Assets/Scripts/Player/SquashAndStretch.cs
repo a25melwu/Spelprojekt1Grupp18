@@ -25,7 +25,7 @@ public class SquashAndStretch : MonoBehaviour
     private Vector3 originalScale;
     public float squashTimer;
     public bool isAnticipating;
-    private float ySpriteModifier = 0.05f; //Used to lower the sprite a little to connect it to the ground
+    private float ySpriteModifier = 0.085f; //Used to lower the sprite a little to connect it to the ground
 
     void Start()
     {

@@ -50,7 +50,6 @@ public class Dialogue : MonoBehaviour
         }
 
         currentCoroutine = StartCoroutine(ShowAllDialogues());
-
     }
 
     /*public void NextDialogue() ---USED WITH BUTTONS---NOT TESTED
