@@ -87,6 +87,7 @@ public class SaveManager : MonoBehaviour
         idOfCheckpointToSpawnAt = -1;
         collectedFeathersID.Clear();
         playerDoubleJumpsSaved = 0;
+        GetComponentInChildren<InstantiateUIDoublejump>().feathers.Clear();
     }
 
     private void StartMenuMusic()

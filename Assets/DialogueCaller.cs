@@ -18,7 +18,10 @@ public class DialogueCaller : MonoBehaviour
             hasBeenShowed = true;
 
             if(textToShow2 != "")
+            {
                 FindFirstObjectByType<DialogueManager>().StartDialogue(textToShow2, dialoguePosition);
+                FindFirstObjectByType<DialogueManager>().whenTrueAndTheTextIsOverEndGame = true;
+            }
         }
     }
 }

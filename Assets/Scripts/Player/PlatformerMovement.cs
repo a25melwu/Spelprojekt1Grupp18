@@ -113,7 +113,6 @@ class PlatformerMovement : MonoBehaviour
 
     private void Start()
     {
-
         SaveManager.instance.gameObject.GetComponentInChildren<InstantiateUIDoublejump>().SetAllFeatherColorToAvailable();
     }
 
