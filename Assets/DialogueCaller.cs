@@ -21,6 +21,7 @@ public class DialogueCaller : MonoBehaviour
             {
                 FindFirstObjectByType<DialogueManager>().StartDialogue(textToShow2, dialoguePosition);
                 FindFirstObjectByType<DialogueManager>().whenTrueAndTheTextIsOverEndGame = true;
+                FindFirstObjectByType<PlatformerMovement>().TurnOffControls();
             }
         }
     }

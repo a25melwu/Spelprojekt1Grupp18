@@ -116,6 +116,11 @@ class PlatformerMovement : MonoBehaviour
         SaveManager.instance.gameObject.GetComponentInChildren<InstantiateUIDoublejump>().SetAllFeatherColorToAvailable();
     }
 
+    public void TurnOffControls()
+    {
+        controlEnabled = false;
+    }
+
     private void FixedUpdate()
     {
         isHeadbutt = IsHeadbutt();
