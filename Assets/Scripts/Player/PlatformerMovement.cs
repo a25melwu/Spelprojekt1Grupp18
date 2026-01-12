@@ -71,7 +71,8 @@ class PlatformerMovement : MonoBehaviour
     [SerializeField] private float jumpCooldown = 0.2f; //to prevent spam and to limit buffer timer increment in update
     private float lastJump = 0f;
     private bool shouldJump = false;
-    
+    private bool hasFullyChargedFirstTime = false;
+
     private float startFallGravityScale;
     private float startXMaxSpeed;
 
@@ -114,6 +115,8 @@ class PlatformerMovement : MonoBehaviour
     private void Start()
     {
         SaveManager.instance.gameObject.GetComponentInChildren<InstantiateUIDoublejump>().SetAllFeatherColorToAvailable();
+        hasFullyChargedFirstTime = true;
+
     }
 
     public void TurnOffControls()
@@ -209,6 +212,14 @@ class PlatformerMovement : MonoBehaviour
     private void ChargingJump()
     {
         jumpChargeTime += Time.deltaTime;
+        if(jumpChargeTime >= maxChargeTime)
+        {
+            if (hasFullyChargedFirstTime)
+            {
+                GetComponentInChildren<FlashWhite>().ChangeToMaxChargeColor();
+                hasFullyChargedFirstTime = false;
+            }
+        }
         //Debug.Log($"ChargingJump : jumpchargetime {jumpChargeTime}");
 
         //The player slows when we double jump
@@ -347,7 +358,8 @@ class PlatformerMovement : MonoBehaviour
         jumpBufferTime = 0f; //force reset of jump buffer timer
         jumpInput = false;
         startedChargingInAir = false;
-            
+        hasFullyChargedFirstTime = true;
+
         Debug.Log($"StartJump: currentjumps {currentJumps}");
     }
     
