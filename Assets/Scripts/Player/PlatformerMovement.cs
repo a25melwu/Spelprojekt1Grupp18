@@ -286,8 +286,11 @@ class PlatformerMovement : MonoBehaviour
                 
                 if(SaveManager.instance.playerDoubleJumpsSaved > 0)
                 {
-                    anim.SetBool("charging", true);
-                    anim.SetBool("cancel", false);
+                    if(anim != null)
+                    {
+                        anim.SetBool("charging", true);
+                        anim.SetBool("cancel", false);
+                    }
                 }
                 
             }
@@ -374,7 +377,8 @@ class PlatformerMovement : MonoBehaviour
 
         if (SaveManager.instance.playerDoubleJumpsSaved > 0)
         {
-            anim.SetBool("charging", false);
+            if(anim != null)
+                anim.SetBool("charging", false);
         }
 
         clickedJump = true;
@@ -437,8 +441,12 @@ class PlatformerMovement : MonoBehaviour
 
         if (SaveManager.instance.playerDoubleJumpsSaved > 0)
         {
-            anim.SetBool("cancel", true);
-            anim.SetBool("charging", false);
+            if(anim != null)
+            {
+                anim.SetBool("cancel", true);
+                anim.SetBool("charging", false);
+
+            }
         }
         
         Debug.Log($"Land: isgrounded {IsGrounded()}, jumpbuffer {jumpBufferTime<maxJumpBuffer}, hasjumpsleft {HasJumpsLeft()}");
